@@ -25,12 +25,12 @@ In the multiplayer mode of the game,game is played with 2 to 3 players by taking
 There is multi-player option as well as the original Katamino has. In the multiplayer version, players take turns to place blocks in a rectangle area, the first player that fails to place a block to the rectangle area (due to the size or shape of the blocks) looses the game. In our version we will use diffent gameboards than the 64 square block one. Our gameboards will be shaped as interesting figures such as elefant,giraffe. By not limiting the board we will create different block figures to be used in the game.
 
 ## Differences Between Real Katamino and Katamino 2.0
-  -Hints
-  -Solutions
-  -Score and Scoreboard
-  -Time Limit
-  -Different shaped gameboards in multi-player mood
-  -Different Design of Gameboard
+  - Hints
+  - Solutions
+  - Score and Scoreboard
+  - Time Limit
+  - Different shaped gameboards in multi-player mood
+  - Different Design of Gameboard
   
 
 ## References
