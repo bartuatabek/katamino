@@ -38,9 +38,8 @@ https://www.thegamerules.com/en/board-games/family/katamino-907-detail
 https://boardgamegeek.com/boardgame/6931/katamino
 
 ## Reports
- - Analysis Report
- - Design Report
+ - [Analysis Report](https://github.com/utgoer/Katamino/blob/master/doc/2F.Analysis.Iteration1.2018.10.21.pdf)
+ - [Design Report](https://github.com/utgoer/Katamino/blob/master/doc/2F.Design.Iteration1.2018.11.08.pdf)
  - Final Report
 
 ## Progress
-
