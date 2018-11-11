@@ -11,7 +11,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
@@ -27,7 +26,5 @@ doc/*
 # but keep the folder
 !doc/.keep
 
-# ignore files in folder src
-src/*
-# but keep the folder
-!src/.keep
+# ignore files in folder out
+/out/
