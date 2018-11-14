@@ -24,7 +24,4 @@ public class FileManager {
         */
         return new Level((Integer[][]) gson.fromJson(jsonReader, Integer[][].class));
     }
-
-
-
 }
