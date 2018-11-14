@@ -28,3 +28,4 @@ doc/*
 
 # ignore files in folder out
 /out/
+/.idea/
