@@ -8,9 +8,12 @@ class Stopwatch {
     private long pauseStart;
 
     Stopwatch() {
-        startTime = System.currentTimeMillis() / 1000;
         pauseStart = 0;
         totalPausedTime = 0;
+    }
+
+    void start() {
+        startTime = System.currentTimeMillis() / 1000;
     }
 
     long getElapsedTime() {

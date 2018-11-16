@@ -15,6 +15,10 @@ public class GameModel {
         gameScore=0;
     }
 
+    public void startStopWatch() {
+        stopwatch.start();
+    }
+
     public void pause() {
         stopwatch.pause();
     }

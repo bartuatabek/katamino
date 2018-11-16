@@ -29,7 +29,7 @@ public class Controller implements Initializable {
     public void levelMenuButtonClicked(MouseEvent event) throws IOException {
         FXMLLoader levelMenuLoader = new FXMLLoader(getClass().getResource("levelMenu.fxml"));
         Parent levelPane = levelMenuLoader.load();
-        Scene levelMenuScene = new Scene(levelPane);
+        Scene levelMenuScene = new Scene(levelPane, 1200, 700);
 
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(levelMenuScene);
@@ -39,7 +39,7 @@ public class Controller implements Initializable {
     public void highScoreMenuButtonClicked(MouseEvent event) throws IOException {
         FXMLLoader highScoreLoader = new FXMLLoader(getClass().getResource("highScore.fxml"));
         Parent highScorePane = highScoreLoader.load();
-        Scene highScoreScene = new Scene(highScorePane);
+        Scene highScoreScene = new Scene(highScorePane, 1200, 700);
 
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(highScoreScene);

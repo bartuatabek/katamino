@@ -15,12 +15,9 @@ public class Main extends Application {
         window = primaryStage;
         window.setTitle("Hello World");
         Parent root = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
-        initialScene = new Scene(root, 700, 500);
-        Parent hghScr = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
-        hghScrScene = new Scene(hghScr, 700, 500);
+        initialScene = new Scene(root, 1200, 700);
         window.setScene(initialScene);
         window.show();
-
     }
 
     public static void main (String[] args) {
