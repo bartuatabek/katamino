@@ -2,13 +2,14 @@ import java.util.ArrayList;
 
 
 public class GameModel {
-    private GameBoardController gameBoardCtrl = new GameBoardController();
+    private GameBoardController gameBoardCtrl;
     private Level level;
     private ArrayList<Player> player;
     private int gameScore;
     private Stopwatch stopwatch;
 
     public GameModel(Level level, ArrayList<Player> player) {
+        this.gameBoardCtrl = new GameBoardController(level);
         this.level = level;
         this.player = player;
         stopwatch = new Stopwatch();

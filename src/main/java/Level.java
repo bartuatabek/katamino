@@ -1,16 +1,16 @@
 public class Level {
-    private Integer[][] grid;
+    private Integer[][] board;
 
-    public Integer[][] getGrid() {
-        return grid;
+    public Integer[][] getBoard() {
+        return board;
     }
 
-    public void setGrid(Integer[][] grid) {
-        this.grid = grid;
+    public void setBoard(Integer[][] grid) {
+        this.board = board;
     }
 
     public Level(Integer[][] grid)
     {
-        this.grid = grid;
+        this.board = grid;
     }
 }

@@ -1,5 +1,14 @@
 import java.util.ArrayList;
 
 public class GameBoardModel {
-    ArrayList<Cell> grid;
+    private ArrayList<Cell> grid;
+
+    // Why Integer insteas of int?
+    public GameBoardModel(Integer[][] board) {
+        // TODO init grid
+    }
+
+    public ArrayList<Cell> getGrid() {
+        return grid;
+    }
 }
