@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import kataminoButton.KataminoButton;
 import java.net.URL;
 import java.util.ResourceBundle;
-public class playerSelectionController implements Initializable {
+public class PlayerSelectionController implements Initializable {
 
     @FXML private Spinner spinner;
     @FXML private KataminoButton continueButton;
@@ -19,7 +19,7 @@ public class playerSelectionController implements Initializable {
     private String[] playerList;
     private ObservableList<String> players = FXCollections.observableArrayList();
     private SpinnerValueFactory<String> valueFactory;
-    public playerSelectionController() {
+    public PlayerSelectionController() {
     
     }
 

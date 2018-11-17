@@ -5,30 +5,40 @@ public class Cell {
     private int cellNumber;
     private boolean onBoard;
     private Color color;
+
     //constructor
-    public Cell(int cellNumber,boolean onBoard,Color color){
-        this.cellNumber=cellNumber;
-        this.color=color;
-        this.onBoard= onBoard;
+    public Cell(int cellNumber,boolean onBoard, Color color) {
+        this.onBoard = onBoard;
+        this.cellNumber = cellNumber;
+        this.color = color;
     }
     //methods
     public int getCellNumber(){
         return cellNumber;
     }
-    public void setCellNumber(int cellNumber){
-        this.cellNumber=cellNumber;
+
+    public void setCellNumber(int cellNumber) {
+
+        this.cellNumber = cellNumber;
     }
-    public Color getColor()
-    {
+
+    public Color getColor() {
+
         return color;
     }
-    public void setColor(Color c2){
-        this.color=c2;
+
+    public void setColor(Color c2) {
+
+        this.color = c2;
     }
-    public boolean getOnBoard(){
+
+    public boolean getOnBoard() {
+
         return onBoard;
     }
-    public void setOnBoard(boolean boardOn){
-        this.onBoard=boardOn;
+
+    public void setOnBoard(boolean boardOn) {
+
+        this.onBoard = boardOn;
     }
 }
