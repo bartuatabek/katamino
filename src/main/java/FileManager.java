@@ -10,7 +10,7 @@ public class FileManager {
         gson = new Gson();
     }
 
-    public Level loadLevels() throws FileNotFoundException{
+    public Level loadLevels() throws FileNotFoundException{//load specific level
         JsonReader jsonReader = new JsonReader(new FileReader("src/level.json"));
         /*
         Level level = new Level((Integer[][]) gson.fromJson(jsonReader, Integer[][].class));
