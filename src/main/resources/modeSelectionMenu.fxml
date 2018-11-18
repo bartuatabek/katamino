@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import kataminoBackButton.KataminoBackButton?>
+<?import kataminoLongButton.KataminoLongButton?>
+
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #262626;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ModeSelectionController">
+  <columnConstraints>
+    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="146.0" minHeight="10.0" prefHeight="146.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="128.0" minHeight="10.0" prefHeight="121.0" valignment="CENTER" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label text="Select Mode" textFill="#868686">
+         <font>
+            <Font name="SF Pixelate" size="45.0" />
+         </font>
+      </Label>
+      <VBox alignment="CENTER" spacing="15.0" GridPane.rowIndex="1">
+         <children>
+            <KataminoLongButton fx:id="kataminoArcadeButton"/>
+            <KataminoLongButton fx:id="kataminoCustomButton"/>
+         </children>
+      </VBox>
+      <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
+         <children>
+            <KataminoBackButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" scaleX="0.5" scaleY="0.5" scaleZ="0.5" />
+         </children>
+      </VBox>
+   </children>
+</GridPane>

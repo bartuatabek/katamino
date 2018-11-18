@@ -11,7 +11,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
@@ -22,12 +21,10 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-# ignore files in folder doc
-doc/*
 # but keep the folder
 !doc/.keep
 
-# ignore files in folder src
-src/*
-# but keep the folder
-!src/.keep
+# ignore files in folder out
+out/*
+.idea/*
+target/*
