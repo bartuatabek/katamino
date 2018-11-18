@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import kataminoBackButton.KataminoBackButton;
 import kataminoButton.KataminoButton;
 
 import java.io.IOException;
@@ -22,12 +23,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LevelMenuController implements Initializable {
-    @FXML private KataminoButton backButton;
+    @FXML private KataminoBackButton backButton;
     // private Level[] LevelList;
     // ObservableList<String> levels = FXCollections.observableArrayList();
 
     public void initialize(URL location, ResourceBundle resources) {
-        backButton.setButtonName("Back");
     }
 
     @FXML
