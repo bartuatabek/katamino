@@ -2,14 +2,15 @@ import java.util.Timer;
 
 public class Game {
     private GameBoard gameBoard;
-    private Timer timer;
+    private Stopwatch stopwatch;
     private Player player;
     private int gameScore;
 
     public Game(Level level, int gameScore, Player player) {
-        timer = new Timer();
+
         gameBoard = new GameBoard(level);
         this.player = player;
+        stopwatch= new Stopwatch();
         this.gameScore = gameScore;
     }
     public Player getPlayer() {
@@ -24,8 +25,8 @@ public class Game {
         return gameScore;
     }
 
-    public void setGameScore(int gameScore) {
-        this.gameScore = gameScore;
+    public void incrementGameScore(int amount) {
+        this.gameScore = gameScore+amount;
     }
 
     public GameBoard getGameBoard() {
@@ -36,11 +37,20 @@ public class Game {
         this.gameBoard = gameBoard;
     }
 
-    public Timer getTimer() {
-        return timer;
+    public void startStopWatch() {
+        stopwatch.start();
     }
 
-    public void setTimer(Timer timer) {
-        this.timer = timer;
+    public void pause() {
+        stopwatch.pause();
     }
+
+    public void resume() {
+        stopwatch.resume();
+    }
+
+    public long getElapsedSeconds() {
+        return stopwatch.getElapsedTime();
+    }
+
 }

@@ -1,17 +1,21 @@
 public class GameController {
-    private GameModel gameModel;
-
-    public GameController(GameModel gameModel) {
-        this.gameModel = gameModel;
+    private GameBoard board;
+    public GameController(Level level){
+        board= new GameBoard(level);
     }
-
-    public void startGame() {
-        gameModel.startStopWatch();
+    private boolean isFull(){
+            return false;
     }
-    public void pauseGame() {
-        gameModel.pause();
+    private void placePentomino(){}
+    private void movePentomino (){}
+    private boolean clashCheck(){
+        int pentominoID = 0;
+        if( board.getGrid()[0][0].getPentominoInstanceID() == pentominoID) //wrong
+            return true;
+        return false;
     }
-    public void resumeGame() {
-        gameModel.resume();
-    }
+    private void drawBorder(){}
+    private void colorClashingCells(){}
+    private void startGame(){}
+    private void pauseGame(){}
 }
