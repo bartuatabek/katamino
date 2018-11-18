@@ -16,7 +16,7 @@ public class GameBoard {
         colorList.add(Color.CORNFLOWERBLUE);
         colorList.add(Color.MEDIUMPURPLE);
         colorList.add(Color.LIME);
-        Integer[][] cellNos = level.getGrid();
+        Integer[][] cellNos = level.getBoard();
         grid = new Cell[cellNos.length][cellNos[0].length];//düzenle
         for (int i= 0; i < cellNos.length; i++) {
             for (int j = 0; i < cellNos[i].length; i++) {
