@@ -34,8 +34,8 @@ public class FileManager {
             JsonArray jsonArray = parser.parse(fileReader).getAsJsonArray();
             for (int i = 0; i < jsonArray.size(); i++) {
                 Player person = gson.fromJson(jsonArray.get(i), Player.class);
-                if (person.getPlayerName().equals(name))
-                    return person;
+                    if (person.getPlayerName().equals(name))
+                        return person;
             }
         } catch (FileNotFoundException e) {
             System.out.println("File is corrupted:"+e);
@@ -44,11 +44,11 @@ public class FileManager {
         return null;
     }
 
-    public ArrayList<Player>  getAllPLayers()
+    public ArrayList<Player>getAllPLayers()
     {
         try {
             ArrayList<Player> list = new ArrayList<>();
-            FileReader fileReader =new FileReader("players.json");
+            FileReader fileReader =new FileReader("src/players.json");
             JsonParser parser = new JsonParser();
             JsonArray jsonArray = parser.parse(fileReader).getAsJsonArray();
             for (int i = 0; i < jsonArray.size(); i++) {
@@ -61,5 +61,19 @@ public class FileManager {
 
         }
         return null;
+    }
+    public ArrayList<String> loadPlayerNames(){
+        try {
+            FileReader fileReader = new FileReader("src/players.json");
+            JsonParser jsonParser = new JsonParser();
+            JsonArray jsonArray = jsonParser.parse(fileReader).getAsJsonArray();
+            ArrayList<String> playerNames = new ArrayList<>(jsonArray.size());
+            for (int i = 0; i < jsonArray.size(); i++){
+                playerNames.add(jsonArray.get(i).getAsJsonObject().get("playerName").getAsString());
+            }
+            return playerNames;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }return null;
     }
 }
