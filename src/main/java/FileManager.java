@@ -22,6 +22,6 @@ public class FileManager {
             System.out.println();
         }
         */
-        return new Level((Integer[][]) gson.fromJson(jsonReader, Integer[][].class));
+        return new Level(gson.fromJson(jsonReader, Integer[][].class));
     }
 }

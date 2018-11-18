@@ -14,7 +14,7 @@ public class Main extends Application {
         window = primaryStage;
         window.setTitle("Hello World");
         Parent root = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
-        initialScene = new Scene(root, 1200, 700);
+        initialScene = new Scene(root, 800, 600);
         window.setScene(initialScene);
         window.show();
     }
