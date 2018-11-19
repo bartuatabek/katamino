@@ -29,7 +29,7 @@ public class FileManager {
     public Player loadPlayer(String name) {
 
         try {
-            FileReader fileReader =new FileReader("players.json");
+            FileReader fileReader =new FileReader("src/players.json");
             JsonParser parser = new JsonParser();
             JsonArray jsonArray = parser.parse(fileReader).getAsJsonArray();
             for (int i = 0; i < jsonArray.size(); i++) {

@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 public class LevelMenuController implements Initializable {
     @FXML private KataminoBackButton backButton;
     @FXML private GridPane gridPane;
-
+    private Player player;      // Added player is already needed inorder to adjust available levels
     // private Level[] LevelList;
     // ObservableList<String> levels = FXCollections.observableArrayList();
 
@@ -42,5 +42,13 @@ public class LevelMenuController implements Initializable {
 
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(mainMenuScene);
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 }
