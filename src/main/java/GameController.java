@@ -3,19 +3,26 @@
  * @version 1.0
  */
 
+import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Observable;
 import java.util.ResourceBundle;
+import java.util.Stack;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 //import javafx.scene.layout.ColumnConstraints;
 //import javafx.scene.layout.RowConstraints;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
+import kataminoDragCell.KataminoDragCell;
 
 public class GameController implements Initializable {
 
@@ -89,6 +96,57 @@ public class GameController implements Initializable {
             pauseGame();
         }
     }
+    public int[][] findSiblings(MouseEvent event){
+        ArrayList<Node> oldNodes = new ArrayList<>();
+        Node source = (Node) event.getSource();
+        KataminoDragCell currentPentomino;
+        int pentominoInstanceID = ((KataminoDragCell) source).getPentominoInstanceID();
+        ObservableList<Node> cells = gameGridPane.getChildren();
+        Stack<Node> currentSearch = new Stack<>();
+        int[][] currentShape= new int[11][22];
+        currentSearch.push(source);
+        Integer colIndex;
+        Integer rowIndex;
+
+        while(!currentSearch.empty()) {
+            colIndex = GridPane.getColumnIndex(currentSearch.peek());
+            rowIndex = GridPane.getRowIndex(currentSearch.peek());
+            if(colIndex == null)
+                colIndex = 0;
+            if(rowIndex == null)
+                rowIndex = 0;
+            currentShape[rowIndex][colIndex] = pentominoInstanceID;
+            oldNodes.add(currentSearch.pop());
+
+            if(colIndex + 1 <= 21)
+            {
+                currentPentomino = (KataminoDragCell)cells.get(rowIndex*22+colIndex + 1);
+                if(!oldNodes.contains(currentPentomino) && currentPentomino.getPentominoInstanceID() == pentominoInstanceID)
+                    currentSearch.push(currentPentomino);
+            }
+
+            if(colIndex - 1 >= 0)
+            {
+                currentPentomino = (KataminoDragCell)cells.get(rowIndex*22+colIndex - 1);
+                if(!oldNodes.contains(currentPentomino) &&currentPentomino.getPentominoInstanceID() == pentominoInstanceID)
+                    currentSearch.push(currentPentomino);
+            }
+            if(rowIndex + 1 <= 10)
+            {
+                currentPentomino = (KataminoDragCell)cells.get((rowIndex + 1)*22+colIndex);
+                if(!oldNodes.contains(currentPentomino) &&currentPentomino.getPentominoInstanceID() == pentominoInstanceID)
+                    currentSearch.push(currentPentomino);
+            }
+            if(rowIndex - 1 >= 0)
+            {
+                currentPentomino = (KataminoDragCell)cells.get((rowIndex - 1)*22+colIndex);
+                if(!oldNodes.contains(currentPentomino) &&currentPentomino.getPentominoInstanceID() == pentominoInstanceID)
+                    currentSearch.push(currentPentomino);
+            }
+        }
+        return currentShape;
+    }
+
 
     public String secondsToString(int pTime) {
         return String.format("%02d:%02d", pTime / 60, pTime % 60);
