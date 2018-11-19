@@ -4,10 +4,10 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import kataminoDragCell.KataminoDragCell?>
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #262626;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameController">
    <children>
@@ -40,7 +40,7 @@
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="2" />
          </children>
       </GridPane>
-      <GridPane fx:id="gameGridPane" gridLinesVisible="true" hgap="1.0" prefHeight="628.0" prefWidth="1200.0" vgap="1.0" VBox.vgrow="NEVER">
+      <GridPane fx:id="gameGridPane" hgap="1.0" prefHeight="628.0" prefWidth="1200.0" vgap="1.0" VBox.vgrow="NEVER">
         <columnConstraints>
           <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -79,66 +79,248 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Pane layoutX="181.0" layoutY="125.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: pink;" GridPane.columnIndex="5" GridPane.rowIndex="5" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: pink;" GridPane.columnIndex="5" GridPane.rowIndex="4" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="56.0" prefWidth="53.0" style="-fx-background-color: pink;" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-            <Pane layoutX="181.0" layoutY="296.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: pink;" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="6" />
-            <Pane layoutX="181.0" layoutY="410.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: green;" GridPane.columnIndex="6" GridPane.rowIndex="3" />
-            <Pane layoutX="238.0" layoutY="182.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: red;" GridPane.columnIndex="7" GridPane.rowIndex="7" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: red;" GridPane.columnIndex="6" GridPane.rowIndex="7" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: beige;" GridPane.columnIndex="7" GridPane.rowIndex="3" />
-            <Pane layoutX="295.0" layoutY="410.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: red;" GridPane.columnIndex="9" GridPane.rowIndex="7" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: red;" GridPane.columnIndex="8" GridPane.rowIndex="7" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: purple;" GridPane.columnIndex="15" GridPane.rowIndex="3" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: purple;" GridPane.columnIndex="13" GridPane.rowIndex="3" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: purple;" GridPane.columnIndex="14" GridPane.rowIndex="3" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: purple;" GridPane.columnIndex="16" GridPane.rowIndex="3" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: salmon;" GridPane.columnIndex="12" GridPane.rowIndex="3" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: grey;" GridPane.columnIndex="11" GridPane.rowIndex="3" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: grey;" GridPane.columnIndex="10" GridPane.rowIndex="3" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: beige;" GridPane.columnIndex="9" GridPane.rowIndex="3" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: beige;" GridPane.columnIndex="8" GridPane.rowIndex="3" />
-            <Pane layoutX="388.0" layoutY="410.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: turquoise;" GridPane.columnIndex="15" GridPane.rowIndex="7" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: turquoise;" GridPane.columnIndex="14" GridPane.rowIndex="7" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: orange;" GridPane.columnIndex="13" GridPane.rowIndex="7" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: teal;" GridPane.columnIndex="12" GridPane.rowIndex="7" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: teal;" GridPane.columnIndex="11" GridPane.rowIndex="7" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: teal;" GridPane.columnIndex="10" GridPane.rowIndex="7" />
-            <Pane layoutX="715.0" layoutY="410.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: beige;" GridPane.columnIndex="8" GridPane.rowIndex="4" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: green;" GridPane.columnIndex="7" GridPane.rowIndex="6" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: green;" GridPane.columnIndex="7" GridPane.rowIndex="5" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: beige;" GridPane.columnIndex="7" GridPane.rowIndex="4" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: pink;" GridPane.columnIndex="6" GridPane.rowIndex="6" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: green;" GridPane.columnIndex="6" GridPane.rowIndex="4" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: green;" GridPane.columnIndex="6" GridPane.rowIndex="5" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: turquoise;" GridPane.columnIndex="16" GridPane.rowIndex="7" />
-            <Pane layoutX="334.0" layoutY="239.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: aqua;" GridPane.columnIndex="10" GridPane.rowIndex="6" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: aqua;" GridPane.columnIndex="10" GridPane.rowIndex="5" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: blue;" GridPane.columnIndex="16" GridPane.rowIndex="4" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: blue;" GridPane.columnIndex="15" GridPane.rowIndex="4" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: purple;" GridPane.columnIndex="14" GridPane.rowIndex="4" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: salmon;" GridPane.columnIndex="13" GridPane.rowIndex="4" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: salmon;" GridPane.columnIndex="12" GridPane.rowIndex="4" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: salmon;" GridPane.columnIndex="11" GridPane.rowIndex="4" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: grey;" GridPane.columnIndex="10" GridPane.rowIndex="4" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: aqua;" GridPane.columnIndex="9" GridPane.rowIndex="6" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: grey;" GridPane.columnIndex="9" GridPane.rowIndex="5" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: grey;" GridPane.columnIndex="9" GridPane.rowIndex="4" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: aqua;" GridPane.columnIndex="8" GridPane.rowIndex="6" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: aqua;" GridPane.columnIndex="8" GridPane.rowIndex="5" />
-            <Pane layoutX="442.0" layoutY="353.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: turquoise;" GridPane.columnIndex="16" GridPane.rowIndex="6" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: turquoise;" GridPane.columnIndex="16" GridPane.rowIndex="5" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: blue;" GridPane.columnIndex="15" GridPane.rowIndex="6" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: blue;" GridPane.columnIndex="15" GridPane.rowIndex="5" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: blue;" GridPane.columnIndex="14" GridPane.rowIndex="6" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: orange;" GridPane.columnIndex="14" GridPane.rowIndex="5" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: orange;" GridPane.columnIndex="13" GridPane.rowIndex="6" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: orange;" GridPane.columnIndex="13" GridPane.rowIndex="5" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: orange;" GridPane.columnIndex="12" GridPane.rowIndex="6" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: salmon;" GridPane.columnIndex="12" GridPane.rowIndex="5" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: teal;" GridPane.columnIndex="11" GridPane.rowIndex="6" />
-            <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: teal;" GridPane.columnIndex="11" GridPane.rowIndex="5" />
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: red;" GridPane.columnIndex="5" GridPane.rowIndex="7" />
+            <KataminoDragCell />
+            <KataminoDragCell GridPane.columnIndex="1" />
+            <KataminoDragCell GridPane.columnIndex="2" />
+            <KataminoDragCell GridPane.columnIndex="3" />
+            <KataminoDragCell GridPane.columnIndex="4" />
+            <KataminoDragCell GridPane.columnIndex="5" />
+            <KataminoDragCell GridPane.columnIndex="6" />
+            <KataminoDragCell GridPane.columnIndex="7" />
+            <KataminoDragCell GridPane.columnIndex="8" />
+            <KataminoDragCell GridPane.columnIndex="9" />
+            <KataminoDragCell GridPane.columnIndex="10" />
+            <KataminoDragCell GridPane.columnIndex="11" />
+            <KataminoDragCell GridPane.columnIndex="12" />
+            <KataminoDragCell GridPane.columnIndex="13" />
+            <KataminoDragCell GridPane.columnIndex="14" />
+            <KataminoDragCell GridPane.columnIndex="15" />
+            <KataminoDragCell GridPane.columnIndex="16" />
+            <KataminoDragCell GridPane.columnIndex="17" />
+            <KataminoDragCell GridPane.columnIndex="18" />
+            <KataminoDragCell GridPane.columnIndex="19" />
+            <KataminoDragCell GridPane.columnIndex="20" />
+            <KataminoDragCell GridPane.columnIndex="21" />
+            <KataminoDragCell GridPane.rowIndex="1" />
+            <KataminoDragCell GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <KataminoDragCell GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <KataminoDragCell GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <KataminoDragCell GridPane.columnIndex="4" GridPane.rowIndex="1" />
+            <KataminoDragCell GridPane.columnIndex="5" GridPane.rowIndex="1" />
+            <KataminoDragCell GridPane.columnIndex="6" GridPane.rowIndex="1" />
+            <KataminoDragCell GridPane.columnIndex="7" GridPane.rowIndex="1" />
+            <KataminoDragCell GridPane.columnIndex="8" GridPane.rowIndex="1" />
+            <KataminoDragCell GridPane.columnIndex="9" GridPane.rowIndex="1" />
+            <KataminoDragCell GridPane.columnIndex="10" GridPane.rowIndex="1" />
+            <KataminoDragCell GridPane.columnIndex="11" GridPane.rowIndex="1" />
+            <KataminoDragCell GridPane.columnIndex="12" GridPane.rowIndex="1" />
+            <KataminoDragCell GridPane.columnIndex="13" GridPane.rowIndex="1" />
+            <KataminoDragCell GridPane.columnIndex="14" GridPane.rowIndex="1" />
+            <KataminoDragCell GridPane.columnIndex="15" GridPane.rowIndex="1" />
+            <KataminoDragCell GridPane.columnIndex="16" GridPane.rowIndex="1" />
+            <KataminoDragCell GridPane.columnIndex="17" GridPane.rowIndex="1" />
+            <KataminoDragCell GridPane.columnIndex="18" GridPane.rowIndex="1" />
+            <KataminoDragCell GridPane.columnIndex="19" GridPane.rowIndex="1" />
+            <KataminoDragCell GridPane.columnIndex="20" GridPane.rowIndex="1" />
+            <KataminoDragCell GridPane.columnIndex="21" GridPane.rowIndex="1" />
+            <KataminoDragCell GridPane.rowIndex="2" />
+            <KataminoDragCell GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <KataminoDragCell GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <KataminoDragCell GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <KataminoDragCell GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <KataminoDragCell GridPane.columnIndex="5" GridPane.rowIndex="2" />
+            <KataminoDragCell GridPane.columnIndex="6" GridPane.rowIndex="2" />
+            <KataminoDragCell GridPane.columnIndex="7" GridPane.rowIndex="2" />
+            <KataminoDragCell GridPane.columnIndex="8" GridPane.rowIndex="2" />
+            <KataminoDragCell GridPane.columnIndex="9" GridPane.rowIndex="2" />
+            <KataminoDragCell GridPane.columnIndex="10" GridPane.rowIndex="2" />
+            <KataminoDragCell GridPane.columnIndex="11" GridPane.rowIndex="2" />
+            <KataminoDragCell GridPane.columnIndex="12" GridPane.rowIndex="2" />
+            <KataminoDragCell GridPane.columnIndex="13" GridPane.rowIndex="2" />
+            <KataminoDragCell GridPane.columnIndex="14" GridPane.rowIndex="2" />
+            <KataminoDragCell GridPane.columnIndex="15" GridPane.rowIndex="2" />
+            <KataminoDragCell GridPane.columnIndex="16" GridPane.rowIndex="2" />
+            <KataminoDragCell GridPane.columnIndex="17" GridPane.rowIndex="2" />
+            <KataminoDragCell GridPane.columnIndex="18" GridPane.rowIndex="2" />
+            <KataminoDragCell GridPane.columnIndex="19" GridPane.rowIndex="2" />
+            <KataminoDragCell GridPane.columnIndex="20" GridPane.rowIndex="2" />
+            <KataminoDragCell GridPane.columnIndex="21" GridPane.rowIndex="2" />
+            <KataminoDragCell GridPane.rowIndex="3" />
+            <KataminoDragCell GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <KataminoDragCell GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <KataminoDragCell GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <KataminoDragCell GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <KataminoDragCell GridPane.columnIndex="5" GridPane.rowIndex="3" />
+            <KataminoDragCell GridPane.columnIndex="6" GridPane.rowIndex="3" />
+            <KataminoDragCell GridPane.columnIndex="7" GridPane.rowIndex="3" />
+            <KataminoDragCell GridPane.columnIndex="8" GridPane.rowIndex="3" />
+            <KataminoDragCell GridPane.columnIndex="9" GridPane.rowIndex="3" />
+            <KataminoDragCell GridPane.columnIndex="10" GridPane.rowIndex="3" />
+            <KataminoDragCell GridPane.columnIndex="11" GridPane.rowIndex="3" />
+            <KataminoDragCell GridPane.columnIndex="12" GridPane.rowIndex="3" />
+            <KataminoDragCell GridPane.columnIndex="13" GridPane.rowIndex="3" />
+            <KataminoDragCell GridPane.columnIndex="14" GridPane.rowIndex="3" />
+            <KataminoDragCell GridPane.columnIndex="15" GridPane.rowIndex="3" />
+            <KataminoDragCell GridPane.columnIndex="16" GridPane.rowIndex="3" />
+            <KataminoDragCell GridPane.columnIndex="17" GridPane.rowIndex="3" />
+            <KataminoDragCell GridPane.columnIndex="18" GridPane.rowIndex="3" />
+            <KataminoDragCell GridPane.columnIndex="19" GridPane.rowIndex="3" />
+            <KataminoDragCell GridPane.columnIndex="20" GridPane.rowIndex="3" />
+            <KataminoDragCell GridPane.columnIndex="21" GridPane.rowIndex="3" />
+            <KataminoDragCell GridPane.rowIndex="4" />
+            <KataminoDragCell GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <KataminoDragCell GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <KataminoDragCell GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <KataminoDragCell GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <KataminoDragCell GridPane.columnIndex="5" GridPane.rowIndex="4" />
+            <KataminoDragCell GridPane.columnIndex="6" GridPane.rowIndex="4" />
+            <KataminoDragCell GridPane.columnIndex="7" GridPane.rowIndex="4" />
+            <KataminoDragCell GridPane.columnIndex="8" GridPane.rowIndex="4" />
+            <KataminoDragCell GridPane.columnIndex="9" GridPane.rowIndex="4" />
+            <KataminoDragCell GridPane.columnIndex="10" GridPane.rowIndex="4" />
+            <KataminoDragCell GridPane.columnIndex="11" GridPane.rowIndex="4" />
+            <KataminoDragCell GridPane.columnIndex="12" GridPane.rowIndex="4" />
+            <KataminoDragCell GridPane.columnIndex="13" GridPane.rowIndex="4" />
+            <KataminoDragCell GridPane.columnIndex="14" GridPane.rowIndex="4" />
+            <KataminoDragCell GridPane.columnIndex="15" GridPane.rowIndex="4" />
+            <KataminoDragCell GridPane.columnIndex="16" GridPane.rowIndex="4" />
+            <KataminoDragCell GridPane.columnIndex="17" GridPane.rowIndex="4" />
+            <KataminoDragCell GridPane.columnIndex="18" GridPane.rowIndex="4" />
+            <KataminoDragCell GridPane.columnIndex="19" GridPane.rowIndex="4" />
+            <KataminoDragCell GridPane.columnIndex="20" GridPane.rowIndex="4" />
+            <KataminoDragCell GridPane.columnIndex="21" GridPane.rowIndex="4" />
+            <KataminoDragCell GridPane.rowIndex="5" />
+            <KataminoDragCell GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <KataminoDragCell GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <KataminoDragCell GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <KataminoDragCell GridPane.columnIndex="4" GridPane.rowIndex="5" />
+            <KataminoDragCell GridPane.columnIndex="5" GridPane.rowIndex="5" />
+            <KataminoDragCell GridPane.columnIndex="6" GridPane.rowIndex="5" />
+            <KataminoDragCell GridPane.columnIndex="7" GridPane.rowIndex="5" />
+            <KataminoDragCell GridPane.columnIndex="8" GridPane.rowIndex="5" />
+            <KataminoDragCell GridPane.columnIndex="9" GridPane.rowIndex="5" />
+            <KataminoDragCell GridPane.columnIndex="10" GridPane.rowIndex="5" />
+            <KataminoDragCell GridPane.columnIndex="11" GridPane.rowIndex="5" />
+            <KataminoDragCell GridPane.columnIndex="12" GridPane.rowIndex="5" />
+            <KataminoDragCell GridPane.columnIndex="13" GridPane.rowIndex="5" />
+            <KataminoDragCell GridPane.columnIndex="14" GridPane.rowIndex="5" />
+            <KataminoDragCell GridPane.columnIndex="15" GridPane.rowIndex="5" />
+            <KataminoDragCell GridPane.columnIndex="16" GridPane.rowIndex="5" />
+            <KataminoDragCell GridPane.columnIndex="17" GridPane.rowIndex="5" />
+            <KataminoDragCell GridPane.columnIndex="18" GridPane.rowIndex="5" />
+            <KataminoDragCell GridPane.columnIndex="19" GridPane.rowIndex="5" />
+            <KataminoDragCell GridPane.columnIndex="20" GridPane.rowIndex="5" />
+            <KataminoDragCell GridPane.columnIndex="21" GridPane.rowIndex="5" />
+            <KataminoDragCell GridPane.rowIndex="6" />
+            <KataminoDragCell GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <KataminoDragCell GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <KataminoDragCell GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <KataminoDragCell GridPane.columnIndex="4" GridPane.rowIndex="6" />
+            <KataminoDragCell GridPane.columnIndex="5" GridPane.rowIndex="6" />
+            <KataminoDragCell GridPane.columnIndex="6" GridPane.rowIndex="6" />
+            <KataminoDragCell GridPane.columnIndex="7" GridPane.rowIndex="6" />
+            <KataminoDragCell GridPane.columnIndex="8" GridPane.rowIndex="6" />
+            <KataminoDragCell GridPane.columnIndex="9" GridPane.rowIndex="6" />
+            <KataminoDragCell GridPane.columnIndex="10" GridPane.rowIndex="6" />
+            <KataminoDragCell GridPane.columnIndex="11" GridPane.rowIndex="6" />
+            <KataminoDragCell GridPane.columnIndex="12" GridPane.rowIndex="6" />
+            <KataminoDragCell GridPane.columnIndex="13" GridPane.rowIndex="6" />
+            <KataminoDragCell GridPane.columnIndex="14" GridPane.rowIndex="6" />
+            <KataminoDragCell GridPane.columnIndex="15" GridPane.rowIndex="6" />
+            <KataminoDragCell GridPane.columnIndex="16" GridPane.rowIndex="6" />
+            <KataminoDragCell GridPane.columnIndex="17" GridPane.rowIndex="6" />
+            <KataminoDragCell GridPane.columnIndex="18" GridPane.rowIndex="6" />
+            <KataminoDragCell GridPane.columnIndex="19" GridPane.rowIndex="6" />
+            <KataminoDragCell GridPane.columnIndex="20" GridPane.rowIndex="6" />
+            <KataminoDragCell GridPane.columnIndex="21" GridPane.rowIndex="6" />
+            <KataminoDragCell GridPane.rowIndex="7" />
+            <KataminoDragCell GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <KataminoDragCell GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <KataminoDragCell GridPane.columnIndex="3" GridPane.rowIndex="7" />
+            <KataminoDragCell GridPane.columnIndex="4" GridPane.rowIndex="7" />
+            <KataminoDragCell GridPane.columnIndex="5" GridPane.rowIndex="7" />
+            <KataminoDragCell GridPane.columnIndex="6" GridPane.rowIndex="7" />
+            <KataminoDragCell GridPane.columnIndex="7" GridPane.rowIndex="7" />
+            <KataminoDragCell GridPane.columnIndex="8" GridPane.rowIndex="7" />
+            <KataminoDragCell GridPane.columnIndex="9" GridPane.rowIndex="7" />
+            <KataminoDragCell GridPane.columnIndex="10" GridPane.rowIndex="7" />
+            <KataminoDragCell GridPane.columnIndex="11" GridPane.rowIndex="7" />
+            <KataminoDragCell GridPane.columnIndex="12" GridPane.rowIndex="7" />
+            <KataminoDragCell GridPane.columnIndex="13" GridPane.rowIndex="7" />
+            <KataminoDragCell GridPane.columnIndex="14" GridPane.rowIndex="7" />
+            <KataminoDragCell GridPane.columnIndex="15" GridPane.rowIndex="7" />
+            <KataminoDragCell GridPane.columnIndex="16" GridPane.rowIndex="7" />
+            <KataminoDragCell GridPane.columnIndex="17" GridPane.rowIndex="7" />
+            <KataminoDragCell GridPane.columnIndex="18" GridPane.rowIndex="7" />
+            <KataminoDragCell GridPane.columnIndex="19" GridPane.rowIndex="7" />
+            <KataminoDragCell GridPane.columnIndex="20" GridPane.rowIndex="7" />
+            <KataminoDragCell GridPane.columnIndex="21" GridPane.rowIndex="7" />
+            <KataminoDragCell GridPane.rowIndex="8" />
+            <KataminoDragCell GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <KataminoDragCell GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <KataminoDragCell GridPane.columnIndex="3" GridPane.rowIndex="8" />
+            <KataminoDragCell GridPane.columnIndex="4" GridPane.rowIndex="8" />
+            <KataminoDragCell GridPane.columnIndex="5" GridPane.rowIndex="8" />
+            <KataminoDragCell GridPane.columnIndex="6" GridPane.rowIndex="8" />
+            <KataminoDragCell GridPane.columnIndex="7" GridPane.rowIndex="8" />
+            <KataminoDragCell GridPane.columnIndex="8" GridPane.rowIndex="8" />
+            <KataminoDragCell GridPane.columnIndex="9" GridPane.rowIndex="8" />
+            <KataminoDragCell GridPane.columnIndex="10" GridPane.rowIndex="8" />
+            <KataminoDragCell GridPane.columnIndex="11" GridPane.rowIndex="8" />
+            <KataminoDragCell GridPane.columnIndex="12" GridPane.rowIndex="8" />
+            <KataminoDragCell GridPane.columnIndex="13" GridPane.rowIndex="8" />
+            <KataminoDragCell GridPane.columnIndex="14" GridPane.rowIndex="8" />
+            <KataminoDragCell GridPane.columnIndex="15" GridPane.rowIndex="8" />
+            <KataminoDragCell GridPane.columnIndex="16" GridPane.rowIndex="8" />
+            <KataminoDragCell GridPane.columnIndex="17" GridPane.rowIndex="8" />
+            <KataminoDragCell GridPane.columnIndex="18" GridPane.rowIndex="8" />
+            <KataminoDragCell GridPane.columnIndex="19" GridPane.rowIndex="8" />
+            <KataminoDragCell GridPane.columnIndex="20" GridPane.rowIndex="8" />
+            <KataminoDragCell GridPane.columnIndex="21" GridPane.rowIndex="8" />
+            <KataminoDragCell GridPane.rowIndex="9" />
+            <KataminoDragCell GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <KataminoDragCell GridPane.columnIndex="2" GridPane.rowIndex="9" />
+            <KataminoDragCell GridPane.columnIndex="3" GridPane.rowIndex="9" />
+            <KataminoDragCell GridPane.columnIndex="4" GridPane.rowIndex="9" />
+            <KataminoDragCell GridPane.columnIndex="5" GridPane.rowIndex="9" />
+            <KataminoDragCell GridPane.columnIndex="6" GridPane.rowIndex="9" />
+            <KataminoDragCell GridPane.columnIndex="7" GridPane.rowIndex="9" />
+            <KataminoDragCell GridPane.columnIndex="8" GridPane.rowIndex="9" />
+            <KataminoDragCell GridPane.columnIndex="9" GridPane.rowIndex="9" />
+            <KataminoDragCell GridPane.columnIndex="10" GridPane.rowIndex="9" />
+            <KataminoDragCell GridPane.columnIndex="11" GridPane.rowIndex="9" />
+            <KataminoDragCell GridPane.columnIndex="12" GridPane.rowIndex="9" />
+            <KataminoDragCell GridPane.columnIndex="13" GridPane.rowIndex="9" />
+            <KataminoDragCell GridPane.columnIndex="14" GridPane.rowIndex="9" />
+            <KataminoDragCell GridPane.columnIndex="15" GridPane.rowIndex="9" />
+            <KataminoDragCell GridPane.columnIndex="16" GridPane.rowIndex="9" />
+            <KataminoDragCell GridPane.columnIndex="17" GridPane.rowIndex="9" />
+            <KataminoDragCell GridPane.columnIndex="18" GridPane.rowIndex="9" />
+            <KataminoDragCell GridPane.columnIndex="19" GridPane.rowIndex="9" />
+            <KataminoDragCell GridPane.columnIndex="20" GridPane.rowIndex="9" />
+            <KataminoDragCell GridPane.columnIndex="21" GridPane.rowIndex="9" />
+            <KataminoDragCell GridPane.rowIndex="10" />
+            <KataminoDragCell GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <KataminoDragCell GridPane.columnIndex="2" GridPane.rowIndex="10" />
+            <KataminoDragCell GridPane.columnIndex="3" GridPane.rowIndex="10" />
+            <KataminoDragCell GridPane.columnIndex="4" GridPane.rowIndex="10" />
+            <KataminoDragCell GridPane.columnIndex="5" GridPane.rowIndex="10" />
+            <KataminoDragCell GridPane.columnIndex="6" GridPane.rowIndex="10" />
+            <KataminoDragCell GridPane.columnIndex="7" GridPane.rowIndex="10" />
+            <KataminoDragCell GridPane.columnIndex="8" GridPane.rowIndex="10" />
+            <KataminoDragCell GridPane.columnIndex="9" GridPane.rowIndex="10" />
+            <KataminoDragCell GridPane.columnIndex="10" GridPane.rowIndex="10" />
+            <KataminoDragCell GridPane.columnIndex="11" GridPane.rowIndex="10" />
+            <KataminoDragCell GridPane.columnIndex="12" GridPane.rowIndex="10" />
+            <KataminoDragCell GridPane.columnIndex="13" GridPane.rowIndex="10" />
+            <KataminoDragCell GridPane.columnIndex="14" GridPane.rowIndex="10" />
+            <KataminoDragCell GridPane.columnIndex="15" GridPane.rowIndex="10" />
+            <KataminoDragCell GridPane.columnIndex="16" GridPane.rowIndex="10" />
+            <KataminoDragCell GridPane.columnIndex="18" GridPane.rowIndex="10" />
+            <KataminoDragCell GridPane.columnIndex="17" GridPane.rowIndex="10" />
+            <KataminoDragCell GridPane.columnIndex="19" GridPane.rowIndex="10" />
+            <KataminoDragCell GridPane.columnIndex="20" GridPane.rowIndex="10" />
+            <KataminoDragCell GridPane.columnIndex="21" GridPane.rowIndex="10" />
          </children>
       </GridPane>
    </children>
