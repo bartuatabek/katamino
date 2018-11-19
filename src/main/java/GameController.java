@@ -3,10 +3,9 @@
  * @version 1.0
  */
 
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Observable;
+import java.io.FileNotFoundException;
 import java.util.ResourceBundle;
 import java.util.Stack;
 
@@ -17,19 +16,31 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-//import javafx.scene.layout.ColumnConstraints;
-//import javafx.scene.layout.RowConstraints;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import kataminoDragCell.KataminoDragCell;
 
 public class GameController implements Initializable {
 
-    private Stopwatch stopwatch;
-    private int count;
+    private ArrayList<Color> colorList = new ArrayList<Color>(){{
+        add(Color.ANTIQUEWHITE);
+        add(Color.GRAY);
+        add(Color.ALICEBLUE);
+        add(Color.AZURE);
+        add(Color.SALMON);
+        add(Color.CHARTREUSE);
+        add(Color.CORNFLOWERBLUE);
+        add(Color.MEDIUMPURPLE);
+        add(Color.LIME);
+        add(Color.TEAL);
+        add(Color.OLIVE);
+        add(Color.ORANGERED);
+    }};
+    private Level currentLevel;
     private Boolean isPaused;
-    private GameBoard board;
+    private int count;
 
     @FXML
     private GridPane gameGridPane;
@@ -40,31 +51,38 @@ public class GameController implements Initializable {
     @FXML
     private Label playerLabel;
 
-//    public GameController(Level level){
-//        board= new GameBoard(level);
-//    }
-
     public boolean isFull(){
             return false;
     }
 
-    public void placePentomino(){}
+    public void placePentomino() {}
 
-    public void movePentomino (){}
+    public void movePentomino () {}
 
-    public boolean clashCheck(){
-        int pentominoID = 0;
-        if( board.getGrid()[0][0].getPentominoInstanceID() == pentominoID) //wrong
-            return true;
+    public boolean clashCheck() {
+//        int pentominoID = 0;
+//        if( board.getGrid()[0][0].getPentominoInstanceID() == pentominoID) //wrong
+//            return true;
         return false;
     }
 
-    public void drawBorder(){
+    public void colorClashingCells(){}
 
-    }
+    public void loadLevel() throws FileNotFoundException {
+       currentLevel = new FileManager().loadLevels();
+       Integer[][] board = currentLevel.getBoard();
 
-    public void colorClashingCells(){
+        for (int i= 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                KataminoDragCell currentCell = (KataminoDragCell) gameGridPane.getChildren().get((i*22)+j);
+                Color cellColor = ((board[i][j] % 12) >= 0 && (board[i][j] != 0)) ? colorList.get(board[i][j] % 12) : Color.web("#262626");
+                currentCell.customizeCell(board[i][j], board[i][j] != 0, cellColor);
 
+                if (currentCell.getPentominoInstanceID() == 0) {
+                    currentCell.setBorderColor(Color.WHITE);
+                }
+            }
+        }
     }
 
     Timeline stopwatchChecker;
@@ -96,6 +114,7 @@ public class GameController implements Initializable {
             pauseGame();
         }
     }
+
     public int[][] findSiblings(MouseEvent event){
         ArrayList<Node> oldNodes = new ArrayList<>();
         Node source = (Node) event.getSource();
@@ -147,29 +166,21 @@ public class GameController implements Initializable {
         return currentShape;
     }
 
-
     public String secondsToString(int pTime) {
         return String.format("%02d:%02d", pTime / 60, pTime % 60);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        final int numCols = 20 ;
-//        final int numRows = 20 ;
-//        for (int i = 0; i < numCols; i++) {
-//            ColumnConstraints colConst = new ColumnConstraints();
-//            colConst.setPercentWidth(100.0 / numCols);
-//            gameGridPane.getColumnConstraints().add(colConst);
-//        }
-//        for (int i = 0; i < numRows; i++) {
-//            RowConstraints rowConst = new RowConstraints();
-//            rowConst.setPercentHeight(100.0 / numRows);
-//            gameGridPane.getRowConstraints().add(rowConst);
-//        }
         count = 0;
         isPaused = false;
-        startGame();
+        try {
+            loadLevel();
+        } catch (Exception e) {
+            System.out.println(e);
 
-        System.out.println(gameGridPane.getChildren());
+        }
+        playerLabel.setText("Adamotu 0");
+        startGame();
     }
 }

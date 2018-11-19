@@ -13,7 +13,7 @@ public class FileManager {
     }
 
     public Level loadLevels() throws FileNotFoundException{//load specific level
-        JsonReader jsonReader = new JsonReader(new FileReader("level.json"));
+        JsonReader jsonReader = new JsonReader(new FileReader("/Users/bartu/Desktop/Katamino/src/level.json"));
         /*
         Level level = new Level((Integer[][]) gson.fromJson(jsonReader, Integer[][].class));
         for(int i = 0; i < level.getGrid().length;i++){
