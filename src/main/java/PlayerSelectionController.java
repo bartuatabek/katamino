@@ -62,7 +62,7 @@ public class PlayerSelectionController implements Initializable {
         }
 
         FXMLLoader levelMenuLoader = new FXMLLoader(getClass().getResource("levelMenu.fxml"));
-        AnchorPane levelPane = levelMenuLoader.load();
+        Parent levelPane = levelMenuLoader.load();
         LevelMenuController lvlctrl = levelMenuLoader.getController();
         lvlctrl.setPlayer(player);
         Scene levelMenuScene = new Scene(levelPane, 800, 600);
