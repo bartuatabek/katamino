@@ -36,7 +36,7 @@ public class LevelMenuController implements Initializable {
 
     @FXML
     public void backButtonClicked(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("mainMenu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("playerSelection.fxml"));
         Parent pane = loader.load();
         Scene mainMenuScene = new Scene(pane, 800, 600);
 
