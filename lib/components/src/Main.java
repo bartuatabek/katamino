@@ -5,6 +5,7 @@ import javafx.scene.layout.AnchorPane;
 import kataminoBackButton.KataminoBackButton;
 import kataminoButton.KataminoButton;
 import kataminoChangeButton.KataminoChangeButton;
+import kataminoDragCell.KataminoDragCell;
 import kataminoLevelButton.KataminoLevelButton;
 import kataminoLongButton.KataminoLongButton;
 import kataminoPlayerAddButton.KataminoPlayerAddButton;
@@ -23,6 +24,7 @@ public class Main extends Application {
             root.getChildren().add(new KataminoPlayerAddButton());
             root.getChildren().add(new KataminoLongButton());
             root.getChildren().add(new KataminoChangeButton());
+            root.getChildren().add(new KataminoDragCell());
             Scene scene = new Scene(root,150,38);
             primaryStage.setScene(scene);
             primaryStage.show();
