@@ -1,10 +1,16 @@
 import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
+import com.google.gson.JsonObject;
+import com.google.gson.stream.*;
 import com.google.gson.JsonArray;
+import com.google.gson.*;
 import com.google.gson.JsonParser;
+import org.omg.CORBA.INTERNAL;
+
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FileManager {
     private Gson gson;
@@ -44,7 +50,7 @@ public class FileManager {
         return null;
     }
 
-    public ArrayList<Player>getAllPLayers()
+    public ArrayList<Player> getAllPLayers()
     {
         try {
             ArrayList<Player> list = new ArrayList<>();
@@ -75,5 +81,93 @@ public class FileManager {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }return null;
+    }
+    public boolean saveANewPlayer(Player player) throws IOException
+    {
+        boolean succeed=false;
+        try {
+            FileReader fileReader =new FileReader("src/players.json");
+            JsonParser parser = new JsonParser();
+            JsonArray jsonArray = parser.parse(fileReader).getAsJsonArray();
+            for(int i=0;i<jsonArray.size();i++)
+                if(jsonArray.get(i).getAsJsonObject().get("playerName").getAsString().equals(player.getPlayerName())) {
+                    System.out.print("Wrong!");
+                    return succeed;
+                }
+            JsonObject object = new JsonObject();
+            JsonElement element = gson.fromJson (player.getPlayerName(), JsonElement.class);
+            object.add("playerName",element );
+            element = gson.fromJson (player.getHighScore()+"", JsonElement.class);
+            object.add("highScore",element );
+            element = gson.fromJson (player.getAccessibleLevel()+"", JsonElement.class);
+            object.add("accesibleLevel",element );
+            jsonArray.add(object);
+            System.out.print(jsonArray);
+            Writer writer =new FileWriter("src/players.json");
+            String result = gson.toJson(jsonArray);
+            writer.write(result);
+            writer.close();
+            succeed=true;
+
+        }
+        catch (FileNotFoundException e) {
+        }
+        return succeed;
+    }
+    public boolean updatePlayerInfoInFile(Player player) throws IOException{
+        boolean succeed=false;
+        try {
+            FileReader fileReader = new FileReader("src/players.json");
+            JsonParser parser = new JsonParser();
+            JsonArray jsonArray = parser.parse(fileReader).getAsJsonArray();
+            String name = "";
+            int i;
+            for (i = 0; i < jsonArray.size(); i++){
+                name = jsonArray.get(i).getAsJsonObject().get("playerName").getAsString();
+                if (name.equals(player.getPlayerName())) {
+                    System.out.print("Found!");
+                    break;
+                }
+            }
+            JsonObject object =  jsonArray.get(i).getAsJsonObject();
+            jsonArray.remove(object);
+            System.out.print(jsonArray);
+            JsonElement element = gson.fromJson (player.getPlayerName(), JsonElement.class);
+            object.add("playerName",element );
+            element = gson.fromJson (player.getHighScore()+"", JsonElement.class);
+            object.add("highScore",element );
+            element = gson.fromJson (player.getAccessibleLevel()+"", JsonElement.class);
+            object.add("accesibleLevel",element );
+            jsonArray.add(object);
+            System.out.print(jsonArray);
+            Writer writer =new FileWriter("src/players.json");
+            String result = gson.toJson(jsonArray);
+            writer.write(result);
+            writer.close();
+            succeed=true;
+
+        }
+        catch (FileNotFoundException e) {
+        }
+        return succeed;
+    }
+    public HashMap< String,Integer>  getHighScores(){
+        HashMap<String, Integer>  map = new HashMap<>();
+        try {
+            FileReader fileReader = new FileReader("src/players.json");
+            JsonParser parser = new JsonParser();
+            JsonArray jsonArray = parser.parse(fileReader).getAsJsonArray();
+            String name = "";
+            Integer score = 0;
+            for (int i = 0; i < jsonArray.size(); i++){
+                name = jsonArray.get(i).getAsJsonObject().get("playerName").getAsString();
+                score = jsonArray.get(i).getAsJsonObject().get("highScore").getAsInt();
+                map.put(name,score);
+            }
+            return map;
+        }
+        catch (FileNotFoundException e) {
+        }
+        return null;
     }
 }
