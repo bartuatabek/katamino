@@ -6,16 +6,16 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import kataminoBackButton.KataminoBackButton?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="722.0" style="-fx-background-color: #262626;"
-          xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="722.0" style="-fx-background-color: #262626;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CreditsController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints maxHeight="213.0" minHeight="10.0" prefHeight="169.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="288.0" minHeight="10.0" prefHeight="181.0" valignment="CENTER" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="267.0" minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="288.0" minHeight="10.0" prefHeight="176.0" valignment="CENTER" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="267.0" minHeight="10.0" prefHeight="92.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <VBox alignment="CENTER" prefHeight="259.0" prefWidth="722.0" spacing="15.0" GridPane.rowIndex="1">
@@ -56,5 +56,6 @@
             </Label>
          </children>
       </VBox>
+      <KataminoBackButton fx:id="kataminoBackButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" scaleX="0.5" scaleY="0.5" scaleZ="0.5" GridPane.rowIndex="2" onMouseClicked="#backButtonClicked"/>
    </children>
 </GridPane>
