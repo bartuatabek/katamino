@@ -29,13 +29,11 @@ public class KataminoDragCell extends Pane {
 	public void customizeCell(int pentominoInstanceID, boolean onBoard, Color cellColor) {
 		this.pentominoInstanceID = pentominoInstanceID;
 		this.onBoard = onBoard;
-		this.cellColor = cellColor;
+        setCellColor(cellColor);
 
-		if (!onBoard) {
+		if (pentominoInstanceID == -1) {
 			cell.setPrefWidth(53);
 			cell.setPrefHeight(56);
-		} else {
-			borderPane.setDisable(true);
 		}
 	}
 

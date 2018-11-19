@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -24,7 +25,9 @@ public class Main extends Application {
             root.getChildren().add(new KataminoPlayerAddButton());
             root.getChildren().add(new KataminoLongButton());
             root.getChildren().add(new KataminoChangeButton());
-            root.getChildren().add(new KataminoDragCell());
+            KataminoDragCell dragCell = new KataminoDragCell();
+            dragCell.customizeCell(1, false, Color.SALMON);
+            root.getChildren().add(dragCell);
             Scene scene = new Scene(root,150,38);
             primaryStage.setScene(scene);
             primaryStage.show();
