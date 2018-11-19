@@ -68,6 +68,7 @@ public class PlayerSelectionController implements Initializable {
         Scene levelMenuScene = new Scene(levelPane, 800, 600);
 
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
         stage.setScene(levelMenuScene);
     }
 
@@ -101,4 +102,5 @@ public class PlayerSelectionController implements Initializable {
         stage.setScene(mainMenuScene);
 
     }
+
 }
