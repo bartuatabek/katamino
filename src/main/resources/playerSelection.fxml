@@ -38,15 +38,15 @@
             <Pane nodeOrientation="RIGHT_TO_LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                <children>
                   <KataminoButton fx:id="continueButton" layoutX="38.0" layoutY="19.0" onMouseClicked="#continueButtonClicked" prefHeight="55.0" prefWidth="200.0" />
-                  <KataminoBackButton layoutX="568.0" layoutY="-29.0" prefHeight="151.0" prefWidth="178.0" scaleX="0.5" scaleY="0.5" scaleZ="0.5" />
+                  <KataminoBackButton layoutX="568.0" layoutY="-29.0" prefHeight="151.0" prefWidth="178.0" scaleX="0.5" scaleY="0.5" scaleZ="0.5" onMouseClicked="#backButtonClicked" />
                </children>
             </Pane>
             <Pane nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                <children>
                   <Spinner fx:id="spinner" layoutX="110.0" layoutY="23.0" prefHeight="40.0" prefWidth="468.0" styleClass="split-arrows-horizontal" />
                   <TextField fx:id="playerNameField" layoutX="157.0" layoutY="107.0" prefHeight="40.0" prefWidth="374.0" promptText="Enter Player Name" />
-                  <Label fx:id="errorLabel" layoutX="152.0" layoutY="178.0" prefHeight="16.0" prefWidth="150.0" textFill="#f80808" />
-                  <KataminoPlayerAddButton layoutX="541.0" layoutY="52.0" prefHeight="151.0" prefWidth="150.0" scaleX="0.5" scaleY="0.5" scaleZ="0.5" onMouseClicked="#createButtonClicked"/>
+                  <Label fx:id="errorLabel" layoutX="152.0" layoutY="178.0" prefHeight="16.0" prefWidth="286.0" textFill="#f80808" />
+                  <KataminoPlayerAddButton layoutX="541.0" layoutY="52.0" onMouseClicked="#createButtonClicked" prefHeight="151.0" prefWidth="150.0" scaleX="0.5" scaleY="0.5" scaleZ="0.5" />
                </children>
             </Pane>
          </children>
