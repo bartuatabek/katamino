@@ -6,6 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import kataminoBackButton.KataminoBackButton;
 import kataminoButton.KataminoButton;
 import kataminoChangeButton.KataminoChangeButton;
+import kataminoDragBlock.KataminoDragBlock;
 import kataminoDragCell.KataminoDragCell;
 import kataminoLevelButton.KataminoLevelButton;
 import kataminoLongButton.KataminoLongButton;
@@ -21,6 +22,24 @@ public class Main extends Application {
             root.getChildren().add(new KataminoButton());
             root.getChildren().add(new KataminoLevelButton());
             root.getChildren().add(new KataminoBackButton());
+
+            KataminoDragBlock dragBlock = new KataminoDragBlock();
+            int[][] pentomino = new int[][]{
+                    { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
+                    { -1, -1, -1, 6, 6, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
+                    { -1, -1, -1, -1, 6, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
+                    { -1, -1, -1, -1, 6, 6, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
+                    { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
+                    { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
+                    { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
+                    { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
+                    { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
+                    { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
+                    { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 }
+            };
+            dragBlock.setPentomino(pentomino);
+            root.getChildren().add(dragBlock);
+
             root.getChildren().add(new KataminoSoundButton());
             root.getChildren().add(new KataminoPlayerAddButton());
             root.getChildren().add(new KataminoLongButton());
@@ -28,6 +47,7 @@ public class Main extends Application {
             KataminoDragCell dragCell = new KataminoDragCell();
             dragCell.customizeCell(1, false, Color.SALMON);
             root.getChildren().add(dragCell);
+
             Scene scene = new Scene(root,150,38);
             primaryStage.setScene(scene);
             primaryStage.show();
