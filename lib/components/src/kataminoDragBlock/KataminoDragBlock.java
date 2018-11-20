@@ -38,6 +38,7 @@
             add(Color.OLIVE);
             add(Color.ORANGERED);
         }};
+
         private int[][] grid;
 
         @FXML
@@ -66,6 +67,10 @@
                     }
                 }
             }
+        }
+
+        public int[][] getGrid() {
+            return grid;
         }
 
         private void init() {
