@@ -9,12 +9,12 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" type="Pane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="52.0" fitWidth="270.0" pickOnBounds="true">
+      <ImageView fx:id="imageView" fitHeight="52.0" fitWidth="270.0" pickOnBounds="true">
          <image>
             <Image url="@../resources/kataminoButton.png" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="9.0" prefHeight="35.0" prefWidth="248.0" text="Clasic(Arcade) Mode">
+      <Label fx:id="label" alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="9.0" prefHeight="35.0" prefWidth="248.0" text="Clasic(Arcade) Mode">
          <font>
             <Font name="SF Pixelate" size="18.0" />
          </font>
