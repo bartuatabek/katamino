@@ -4,22 +4,24 @@
  */
 
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.*;
 import java.io.FileNotFoundException;
-import java.util.ResourceBundle;
-import java.util.Stack;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import kataminoDragBlock.KataminoDragBlock;
 import kataminoDragCell.KataminoDragCell;
 
 public class GameController implements Initializable {
@@ -51,6 +53,9 @@ public class GameController implements Initializable {
     @FXML
     private Label playerLabel;
 
+    @FXML
+    private AnchorPane gridStack;
+
     public boolean isFull(){
             return false;
     }
@@ -67,6 +72,34 @@ public class GameController implements Initializable {
     }
 
     public void colorClashingCells(){}
+
+    KataminoDragBlock preview;
+
+    public void generatePreview(MouseEvent e) {
+        try {
+            preview = new KataminoDragBlock();
+            int[][] children = findSiblings((Node) e.getSource());
+
+            for (int i= 0; i < children.length; i++) {
+                for (int j = 0; j < children[0].length; j++) {
+                    KataminoDragCell currentCell = (KataminoDragCell) preview.getChildren().get((i*22)+j);
+                    KataminoDragCell currentTileCell = (KataminoDragCell) gameGridPane.getChildren().get((i*22)+j);
+                    if (children[i][j] == 0) {
+                        currentCell.setCellColor(Color.TRANSPARENT);
+                        currentCell.setBorderColor(Color.TRANSPARENT);
+                    } else {
+                        currentTileCell.setCellColor(Color.web("#262626"));
+                    }
+                }
+            }
+
+            preview.setPentomino(children);
+            preview.setOpacity(0.5);
+            gridStack.getChildren().add(preview);
+        } catch (Exception exp) {
+            System.out.println(exp);
+        }
+    }
 
     public void loadLevel() throws FileNotFoundException {
        currentLevel = new FileManager().loadLevels();
@@ -115,9 +148,8 @@ public class GameController implements Initializable {
         }
     }
 
-    public int[][] findSiblings(MouseEvent event){
+    public int[][] findSiblings(Node source){
         ArrayList<Node> oldNodes = new ArrayList<>();
-        Node source = (Node) event.getSource();
         KataminoDragCell currentPentomino;
         int pentominoInstanceID = ((KataminoDragCell) source).getPentominoInstanceID();
         ObservableList<Node> cells = gameGridPane.getChildren();
@@ -163,6 +195,7 @@ public class GameController implements Initializable {
                     currentSearch.push(currentPentomino);
             }
         }
+
         return currentShape;
     }
 
@@ -182,5 +215,16 @@ public class GameController implements Initializable {
         }
         playerLabel.setText("Adamotu 0");
         startGame();
+
+        gridStack.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (preview != null) {
+                    System.out.println("XY:" + event.getX() + "," + event.getY());
+                    System.out.println("Scene:" + event.getSceneX() + "," + event.getSceneY());
+                    System.out.println("Screen: " + event.getScreenX() + "," + event.getScreenY());
+                    preview.relocate(event.getSceneX() - preview.getWidth()/2, event.getSceneY() - preview.getHeight()/2);
+                }
+        }});
     }
 }
