@@ -10,7 +10,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import kataminoBackButton.KataminoBackButton?>
 <?import kataminoButton.KataminoButton?>
+<?import kataminoPlayerAddButton.KataminoPlayerAddButton?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="722.0" style="-fx-background-color: #262626;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PlayerSelectionController">
    <children>
@@ -35,15 +37,16 @@
             </VBox>
             <Pane nodeOrientation="RIGHT_TO_LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                <children>
-                  <KataminoButton fx:id="continueButton" layoutX="50.0" onMouseClicked="#continueButtonClicked" prefHeight="55.0" prefWidth="200.0" />
+                  <KataminoButton fx:id="continueButton" layoutX="38.0" layoutY="19.0" onMouseClicked="#continueButtonClicked" prefHeight="55.0" prefWidth="200.0" />
+                  <KataminoBackButton layoutX="568.0" layoutY="-29.0" prefHeight="151.0" prefWidth="178.0" scaleX="0.5" scaleY="0.5" scaleZ="0.5" onMouseClicked="#backButtonClicked" />
                </children>
             </Pane>
             <Pane nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                <children>
-                  <KataminoButton fx:id="createPlayerButton" layoutX="470.0" layoutY="133.0" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#createButtonClicked" prefHeight="53.0" prefWidth="200.0" />
-                  <Spinner fx:id="spinner" layoutX="152.0" layoutY="54.0" prefHeight="26.0" prefWidth="399.0" styleClass="split-arrows-horizontal" />
-                  <TextField fx:id="playerNameField" layoutX="152.0" layoutY="147.0" prefHeight="26.0" prefWidth="301.0" promptText="Enter Player Name" />
-                  <Label layoutX="152.0" layoutY="178.0" prefHeight="16.0" prefWidth="150.0" textFill="#f80808" fx:id="errorLabel" />
+                  <Spinner fx:id="spinner" layoutX="110.0" layoutY="23.0" prefHeight="40.0" prefWidth="468.0" styleClass="split-arrows-horizontal" />
+                  <TextField fx:id="playerNameField" layoutX="157.0" layoutY="107.0" prefHeight="40.0" prefWidth="374.0" promptText="Enter Player Name" />
+                  <Label fx:id="errorLabel" layoutX="152.0" layoutY="178.0" prefHeight="16.0" prefWidth="286.0" textFill="#f80808" />
+                  <KataminoPlayerAddButton layoutX="541.0" layoutY="52.0" onMouseClicked="#createButtonClicked" prefHeight="151.0" prefWidth="150.0" scaleX="0.5" scaleY="0.5" scaleZ="0.5" />
                </children>
             </Pane>
          </children>
