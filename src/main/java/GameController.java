@@ -77,10 +77,7 @@ public class GameController implements Initializable {
 
     public void generatePreview(MouseEvent e) {
         try {
-            gridStack.setDisable(false);
-            preview = new KataminoDragBlock();
             int[][] children = findSiblings((Node) e.getSource());
-
             for (int i= 0; i < children.length; i++) {
                 for (int j = 0; j < children[0].length; j++) {
                     KataminoDragCell currentCell = (KataminoDragCell) preview.getChildren().get((i*22)+j);
@@ -96,7 +93,9 @@ public class GameController implements Initializable {
 
             preview.setPentomino(children);
             preview.setOpacity(0.5);
-            gridStack.getChildren().add(preview);
+            gridStack.setVisible(true);
+            System.out.println(gridStack.isVisible());
+            System.out.println(preview.getLayoutX() + " - " + preview.getLayoutY());
         } catch (Exception exp) {
             System.out.println(exp);
         }
@@ -249,22 +248,14 @@ public class GameController implements Initializable {
         isPaused = false;
         try {
             loadLevel();
+            preview = new KataminoDragBlock();
+            gridStack.getChildren().add(preview);
+            gridStack.setVisible(false);
         } catch (Exception e) {
             System.out.println(e);
 
         }
         playerLabel.setText("Adamotu 0");
         startGame();
-
-        gridStack.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (preview != null) {
-                    System.out.println("XY:" + event.getX() + "," + event.getY());
-                    System.out.println("Scene:" + event.getSceneX() + "," + event.getSceneY());
-                    System.out.println("Screen: " + event.getScreenX() + "," + event.getScreenY());
-                    preview.relocate(event.getSceneX() - preview.getWidth()/2, event.getSceneY() - preview.getHeight()/2);
-                }
-        }});
     }
 }
