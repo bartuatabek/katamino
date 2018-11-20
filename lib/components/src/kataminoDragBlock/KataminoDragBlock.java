@@ -2,6 +2,7 @@ package kataminoDragBlock;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import kataminoDragCell.KataminoDragCell;
@@ -35,6 +36,11 @@ public class KataminoDragBlock extends GridPane {
         loader.setRoot(this);
         loader.setController(this);
         loader.load();
+
+        for (Node node : dragBlockGrid.getChildren()) {
+            KataminoDragCell currentCell = (KataminoDragCell) node;
+            currentCell.setCellColor(Color.TRANSPARENT);
+        }
     }
 
     public void setPentomino(int[][] grid) {

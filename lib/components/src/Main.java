@@ -19,6 +19,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             AnchorPane root = new AnchorPane();
+            root.setStyle("-fx-background-color: Salmon");
             root.getChildren().add(new KataminoButton());
             root.getChildren().add(new KataminoLevelButton());
             root.getChildren().add(new KataminoBackButton());
