@@ -22,7 +22,7 @@
             <RowConstraints maxHeight="654.9831161499023" minHeight="10.0" prefHeight="629.2725219726562" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <GridPane prefHeight="94.0" prefWidth="1200.0">
+            <GridPane fx:id="timerPane" prefHeight="94.0" prefWidth="1200.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -95,248 +95,248 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <KataminoDragCell onDragDetected="#generatePreview" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="10" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="11" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="12" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="13" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="14" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="15" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="16" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="17" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="18" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="19" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="20" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="21" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.rowIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="1" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.rowIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="2" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.rowIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="3" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.rowIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="4" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.rowIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="5" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.rowIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="6" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.rowIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="7" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.rowIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="8" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.rowIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="9" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.rowIndex="10" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="10" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="10" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="10" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="10" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="10" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="10" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="10" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="10" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="10" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="10" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="10" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="10" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="10" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="10" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="10" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="10" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="10" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="10" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="10" />
-                  <KataminoDragCell onDragDetected="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="11" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="12" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="13" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="14" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="15" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="16" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="17" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="18" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="19" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="20" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="21" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.rowIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="1" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.rowIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="2" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.rowIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="3" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.rowIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="4" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.rowIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="5" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.rowIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="6" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.rowIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="7" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.rowIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="8" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.rowIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="9" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.rowIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="10" />
+                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="10" />
                </children>
             </GridPane>
          </children>

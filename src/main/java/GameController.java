@@ -40,9 +40,20 @@ public class GameController implements Initializable {
         add(Color.OLIVE);
         add(Color.ORANGERED);
     }};
+    private static final int CELL_HEIGHT = 53;
+    private static final int CELL_WIDTH = 56;
+
     private Level currentLevel;
     private Boolean isPaused;
     private int count;
+    private KataminoDragCell kataminoDragCell;
+    private int currentPentominoId;
+    private int currentNodeRow;
+    private int currentNodeCol;
+    private ArrayList<ArrayList<Integer>> coordinateArr;
+
+    @FXML
+    private GridPane timerPane;
 
     @FXML
     private GridPane gameGridPane;
@@ -76,28 +87,36 @@ public class GameController implements Initializable {
     KataminoDragBlock preview;
 
     public void generatePreview(MouseEvent e) {
-        try {
-            int[][] children = findSiblings((Node) e.getSource());
-            for (int i= 0; i < children.length; i++) {
-                for (int j = 0; j < children[0].length; j++) {
-                    KataminoDragCell currentCell = (KataminoDragCell) preview.getChildren().get((i*22)+j);
-                    KataminoDragCell currentTileCell = (KataminoDragCell) gameGridPane.getChildren().get((i*22)+j);
-                    if (children[i][j] == 0) {
-                        currentCell.setCellColor(Color.TRANSPARENT);
-                        currentCell.setBorderColor(Color.TRANSPARENT);
-                    } else {
-                        currentTileCell.setCellColor(Color.web("#262626"));
+        if(((KataminoDragCell) e.getSource()).getPentominoInstanceID() > 0 && !gridStack.isVisible())
+        {
+            try {
+                currentNodeRow = GridPane.getRowIndex((KataminoDragCell) e.getSource());
+                currentNodeCol = GridPane.getColumnIndex((KataminoDragCell) e.getSource());
+                preview.relocate(0,0);
+                int[][] children = findSiblings((Node) e.getSource());
+                for (int i= 0; i < children.length; i++) {
+                    for (int j = 0; j < children[0].length; j++) {
+                        KataminoDragCell currentCell = (KataminoDragCell) preview.getChildren().get((i*22)+j);
+                        KataminoDragCell currentTileCell = (KataminoDragCell) gameGridPane.getChildren().get((i*22)+j);
+                        if (children[i][j] == 0) {
+                            currentCell.setCellColor(Color.TRANSPARENT);
+                            currentCell.setBorderColor(Color.TRANSPARENT);
+                        } else {
+                            currentTileCell.setCellColor(Color.web("#262626"));
+                            currentTileCell.setPentominoInstanceID(-1);
+                        }
                     }
                 }
-            }
 
-            preview.setPentomino(children);
-            preview.setOpacity(0.5);
-            gridStack.setVisible(true);
-            System.out.println(gridStack.isVisible());
-            System.out.println(preview.getLayoutX() + " - " + preview.getLayoutY());
-        } catch (Exception exp) {
-            System.out.println(exp);
+                preview.setPentomino(children);
+                preview.setOpacity(0.5);
+                preview.setLayoutY(preview.getLayoutY() + timerPane.getHeight());
+                gridStack.setVisible(true);
+                System.out.println(gridStack.isVisible());
+                System.out.println(preview.getLayoutX() + " - " + preview.getLayoutY());
+            } catch (Exception exp) {
+                System.out.println(exp);
+            }
         }
     }
 
@@ -190,6 +209,8 @@ public class GameController implements Initializable {
     public int[][] findSiblings(Node source){
         ArrayList<Node> oldNodes = new ArrayList<>();
         KataminoDragCell currentPentomino;
+        kataminoDragCell = (KataminoDragCell) source;
+        currentPentominoId = kataminoDragCell.getPentominoInstanceID();
         int pentominoInstanceID = ((KataminoDragCell) source).getPentominoInstanceID();
         ObservableList<Node> cells = gameGridPane.getChildren();
         Stack<Node> currentSearch = new Stack<>();
@@ -197,7 +218,7 @@ public class GameController implements Initializable {
         currentSearch.push(source);
         Integer colIndex;
         Integer rowIndex;
-
+        coordinateArr = new ArrayList<>();
         while(!currentSearch.empty()) {
             colIndex = GridPane.getColumnIndex(currentSearch.peek());
             rowIndex = GridPane.getRowIndex(currentSearch.peek());
@@ -206,8 +227,11 @@ public class GameController implements Initializable {
             if(rowIndex == null)
                 rowIndex = 0;
             currentShape[rowIndex][colIndex] = pentominoInstanceID;
+            ArrayList<Integer> arrayList = new ArrayList<Integer>();
+            arrayList.add(rowIndex);
+            arrayList.add(colIndex);
+            coordinateArr.add(arrayList);
             oldNodes.add(currentSearch.pop());
-
             if(colIndex + 1 <= 21)
             {
                 currentPentomino = (KataminoDragCell)cells.get(rowIndex*22+colIndex + 1);
@@ -247,6 +271,7 @@ public class GameController implements Initializable {
         count = 0;
         isPaused = false;
         try {
+            kataminoDragCell = new KataminoDragCell();
             loadLevel();
             preview = new KataminoDragBlock();
             gridStack.getChildren().add(preview);
@@ -257,5 +282,31 @@ public class GameController implements Initializable {
         }
         playerLabel.setText("Adamotu 0");
         startGame();
+        gridStack.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                int rowNode =  (int) (event.getY() - timerPane.getHeight()) / CELL_HEIGHT;
+                int colNode =  (int) event.getX()/ CELL_WIDTH;
+                //KataminoDragCell currentCell = (KataminoDragCell) gameGridPane.getChildren().get((rowNode * 22) + colNode);
+
+                Color cellColor = ((currentPentominoId % 12) >= 0 && (currentPentominoId != 0)) ? colorList.get(currentPentominoId % 12) : Color.web("#262626");
+                //currentCell.customizeCell(currentPentominoId, kataminoDragCell.isOnBoard(), cellColor);
+                int transferX = rowNode - coordinateArr.get(0).get(0);
+                int transferY = colNode - coordinateArr.get(0).get(1);
+                for (ArrayList<Integer> array: coordinateArr) {
+                    array.set(0, array.get(0) + transferX);
+                    array.set(1, array.get(1) + transferY);
+                }
+                for (int i = 0; i < coordinateArr.size(); i++) {
+                    KataminoDragCell currentCell = (KataminoDragCell) gameGridPane.getChildren().get((coordinateArr.get(i).get(0) * 22) + coordinateArr.get(i).get(1));
+                    currentCell.setPentominoInstanceID(currentPentominoId);
+                    currentCell.setCellColor(cellColor);
+                }
+
+                System.out.println(coordinateArr.get(0).get(0) + "   " + coordinateArr.get(0).get(1));
+                System.out.println(rowNode + "   " + colNode);
+                gridStack.setVisible(false);
+            }
+        });
     }
 }
