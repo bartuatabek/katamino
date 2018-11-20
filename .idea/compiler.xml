@@ -19,8 +19,8 @@
         <module name="Katamino" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Katamino" target="1.5" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="Katamino" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
