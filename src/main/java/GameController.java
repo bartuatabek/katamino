@@ -77,6 +77,7 @@ public class GameController implements Initializable {
 
     public void generatePreview(MouseEvent e) {
         try {
+            gridStack.setDisable(false);
             preview = new KataminoDragBlock();
             int[][] children = findSiblings((Node) e.getSource());
 
