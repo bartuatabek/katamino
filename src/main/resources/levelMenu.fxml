@@ -9,7 +9,7 @@
 <?import kataminoBackButton.KataminoBackButton?>
 <?import kataminoLevelButton.KataminoLevelButton?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="722.0" style="-fx-background-color: #262626;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LevelMenuController">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="722.0" style="-fx-background-color: #262626;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LevelMenuController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     </columnConstraints>
@@ -45,7 +45,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <KataminoLevelButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" scaleX="0.4" scaleY="0.4" scaleZ="0.4" />
+            <KataminoLevelButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#levelButtonClicked" scaleX="0.4" scaleY="0.4" scaleZ="0.4" />
             <KataminoLevelButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" scaleX="0.4" scaleY="0.4" scaleZ="0.4" GridPane.columnIndex="1" />
             <KataminoLevelButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" scaleX="0.4" scaleY="0.4" scaleZ="0.4" GridPane.columnIndex="2" />
             <KataminoLevelButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" scaleX="0.4" scaleY="0.4" scaleZ="0.4" GridPane.rowIndex="1" />
