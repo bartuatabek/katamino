@@ -93,8 +93,20 @@ public class GameController implements Initializable {
         if(((KataminoDragCell) e.getSource()).getPentominoInstanceID() > 0 && !gridStack.isVisible())
         {
             try {
-                currentNodeRow = GridPane.getRowIndex((KataminoDragCell) e.getSource());
-                currentNodeCol = GridPane.getColumnIndex((KataminoDragCell) e.getSource());
+                Integer row = GridPane.getRowIndex((KataminoDragCell) e.getSource());
+                Integer col = GridPane.getColumnIndex((KataminoDragCell) e.getSource());
+                if(row == null){
+                    currentNodeRow = 0;
+                }
+                else {
+                    currentNodeRow = row;
+                }
+                if(col == null){
+                    currentNodeCol = 0;
+                }
+                else {
+                    currentNodeCol = col;
+                }
                 preview.relocate(0,0);
                 int[][] children = findSiblings((Node) e.getSource());
                 for (int i= 0; i < children.length; i++) {
