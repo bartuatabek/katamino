@@ -30,9 +30,9 @@ public class MainMenuController implements Initializable {
 
     @FXML
     public void singlePlayerButtonClicked(MouseEvent event) throws IOException {
-        FXMLLoader playerSelectionLoader = new FXMLLoader(getClass().getResource("playerSelection.fxml"));
+        FXMLLoader playerSelectionLoader = new FXMLLoader(getClass().getResource("modeSelectionMenu.fxml"));
         Parent levelPane = playerSelectionLoader.load();
-        Scene levelMenuScene = new Scene(levelPane, 800, 600);
+        Scene levelMenuScene = new Scene(levelPane, 1200, 700);
 
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(levelMenuScene);
@@ -42,7 +42,7 @@ public class MainMenuController implements Initializable {
     public void highScoreMenuButtonClicked(MouseEvent event) throws IOException {
         FXMLLoader highScoreLoader = new FXMLLoader(getClass().getResource("highScore.fxml"));
         Parent highScorePane = highScoreLoader.load();
-        Scene highScoreScene = new Scene(highScorePane, 800, 600);
+        Scene highScoreScene = new Scene(highScorePane, 1200, 700);
 
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(highScoreScene);
@@ -52,7 +52,7 @@ public class MainMenuController implements Initializable {
     public void creditsButtonClicked(MouseEvent event) throws IOException {
         FXMLLoader highScoreLoader = new FXMLLoader(getClass().getResource("credits.fxml"));
         Parent highScorePane = highScoreLoader.load();
-        Scene highScoreScene = new Scene(highScorePane, 800, 600);
+        Scene highScoreScene = new Scene(highScorePane, 1200, 700);
 
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(highScoreScene);

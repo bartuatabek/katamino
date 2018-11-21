@@ -38,7 +38,17 @@ public class LevelMenuController implements Initializable {
     public void backButtonClicked(MouseEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("playerSelection.fxml"));
         Parent pane = loader.load();
-        Scene mainMenuScene = new Scene(pane, 800, 600);
+        Scene mainMenuScene = new Scene(pane, 1200, 700);
+
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(mainMenuScene);
+    }
+
+    @FXML
+    public void levelButtonClicked(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("singlePlayerGame.fxml"));
+        Parent pane = loader.load();
+        Scene mainMenuScene = new Scene(pane, 1200, 700);
 
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(mainMenuScene);
