@@ -3,6 +3,17 @@ public class Player {
     private int accessibleLevel;
     private String playerName;
 
+    public Player(int highScore, int accessibleLevel, String playerName) {
+        this.highScore = highScore;
+        this.accessibleLevel = accessibleLevel;
+        this.playerName = playerName;
+    }
+    public Player( String playerName) {
+        this.highScore = 0;
+        this.accessibleLevel = 1;
+        this.playerName = playerName;
+    }
+
     public int getHighScore() {
         return highScore;
     }
@@ -27,9 +38,5 @@ public class Player {
         this.playerName = playerName;
     }
 
-    public Player(int highScore, int accessibleLevel, String playerName) {
-        this.highScore = highScore;
-        this.accessibleLevel = accessibleLevel;
-        this.playerName = playerName;
-    }
+
 }
