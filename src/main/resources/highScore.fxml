@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="722.0" style="-fx-background-color: #262626;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<?import kataminoBackButton.KataminoBackButton?>
+<?import java.util.ArrayList?>
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="722.0" style="-fx-background-color: #262626;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="ScoreBoardController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -17,33 +17,53 @@
     <RowConstraints maxHeight="267.0" minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <VBox alignment="CENTER" prefHeight="194.0" prefWidth="438.0" spacing="15.0" GridPane.rowIndex="1">
+
+       <VBox alignment="BOTTOM_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
+           <children>
+               <KataminoBackButton fx:id="backButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#backButtonClicked" scaleX="0.5" scaleY="0.5" scaleZ="0.5" />
+           </children>
+       </VBox>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0" GridPane.rowIndex="1">
          <children>
-            <Label text="1.Name" textFill="#ffdf00">
-               <font>
-                  <Font name="SF Pixelate" size="35.0" />
-               </font>
-            </Label>
-            <Label text="2.Name" textFill="SILVER">
-               <font>
-                  <Font name="SF Pixelate" size="35.0" />
-               </font>
-            </Label>
-            <Label text="3.Name" textFill="#cd7f32">
-               <font>
-                  <Font name="SF Pixelate" size="35.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-         <children>
-            <Label alignment="CENTER" prefHeight="72.0" prefWidth="418.0" text="High Score" textFill="#868686">
+            <Label alignment="CENTER" prefHeight="72.0" prefWidth="418.0" text="ScoreBoard" textFill="#868686">
                <font>
                   <Font name="SF Pixelate" size="65.0" />
                </font>
             </Label>
          </children>
+          <children>
+              <Label  fx:id="label1" textFill="#ffdf00" >
+                  <font>
+                      <Font name="SF Pixelate" size="35.0" />
+                  </font>
+              </Label>
+          <Label textFill="#39ff44" fx:id="label2">
+          <font>
+              <Font name="SF Pixelate" size="35.0" />
+          </font>
+        </Label>
+              <Label  fx:id="label3" textFill="#ff15e4">
+                  <font>
+                      <Font name="SF Pixelate" size="35.0" />
+                  </font>
+              </Label>
+              <Label  fx:id="label4" textFill="#ff3253">
+                  <font>
+                      <Font name="SF Pixelate" size="35.0" />
+                  </font>
+              </Label>
+
+
+              <fx:define>
+                  <ArrayList fx:id="labels" >
+                      <fx:reference source="label1"/>
+                      <fx:reference source="label2"/>
+                      <fx:reference source="label3"/>
+                      <fx:reference source="label4"/>
+                  </ArrayList>
+
+              </fx:define>
+          </children>
       </VBox>
    </children>
 </GridPane>
