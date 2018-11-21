@@ -15,6 +15,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -196,6 +198,28 @@ public class GameController implements Initializable {
         return matrix;
     }
 
+    private EventHandler<KeyEvent> keyPressed = new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(KeyEvent event) {
+            System.out.println("Hi");
+            if (event.getCode() == KeyCode.UP) {
+                int[][] children = preview.getGrid();
+                preview.setPentomino(flipVertically(children));
+            }
+            else if (event.getCode() == KeyCode.DOWN) {
+                int[][] children = preview.getGrid();
+                preview.setPentomino(flipHorizontally(children));
+            } else if (event.getCode() == KeyCode.LEFT) {
+                int[][] children = preview.getGrid();
+                preview.setPentomino(rotateLeft(children));
+            } else if (event.getCode() == KeyCode.RIGHT) {
+                int[][] children = preview.getGrid();
+                preview.setPentomino(rotateRight(children));
+            }
+            event.consume();
+        }
+    };
+
     public void playPause(MouseEvent e) {
         if (isPaused) {
             isPaused = !isPaused;
@@ -274,6 +298,7 @@ public class GameController implements Initializable {
             kataminoDragCell = new KataminoDragCell();
             loadLevel();
             preview = new KataminoDragBlock();
+            gridStack.setOnKeyPressed(keyPressed);
             gridStack.getChildren().add(preview);
             gridStack.setVisible(false);
         } catch (Exception e) {
