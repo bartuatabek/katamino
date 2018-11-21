@@ -65,7 +65,7 @@ public class PlayerSelectionController implements Initializable {
         Parent levelPane = levelMenuLoader.load();
         LevelMenuController lvlctrl = levelMenuLoader.getController();
         lvlctrl.setPlayer(player);
-        Scene levelMenuScene = new Scene(levelPane, 800, 600);
+        Scene levelMenuScene = new Scene(levelPane, 1200, 700);
 
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 
@@ -94,9 +94,9 @@ public class PlayerSelectionController implements Initializable {
     }
     @FXML
     public void backButtonClicked(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("mainMenu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("modeSelectionMenu.fxml"));
         Parent pane = loader.load();
-        Scene mainMenuScene = new Scene(pane, 800, 600);
+        Scene mainMenuScene = new Scene(pane, 1200, 700);
 
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(mainMenuScene);
