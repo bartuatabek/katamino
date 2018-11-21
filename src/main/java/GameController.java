@@ -11,6 +11,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -292,6 +293,7 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         count = 0;
         isPaused = false;
         try {
@@ -307,11 +309,29 @@ public class GameController implements Initializable {
         }
         playerLabel.setText("Adamotu 0");
         startGame();
+        gameGridPane.addEventFilter(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+
+
+            }
+        });
+        //gridStack.addEventHandler(EventType.ROOT, event ->gameGridPane.fireEvent(event));
+        //gameGridPane.addEventHandler(EventType.ROOT, event -> gameGridPane.getChildren());
         gridStack.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                int rowNode =  (int) (event.getY() - timerPane.getHeight()) / CELL_HEIGHT;
-                int colNode =  (int) event.getX()/ CELL_WIDTH;
+                int rowNode = 0;
+                int colNode = 0;
+                for( Node node: gameGridPane.getChildren()) {
+
+                    if( node instanceof KataminoDragCell) {
+                        if( node.getBoundsInParent().contains(event.getSceneX(),  event.getSceneY())) {
+                            rowNode = (GridPane.getRowIndex( node) - 1);
+                            colNode =  GridPane.getColumnIndex( node);
+                        }
+                    }
+                }
                 //KataminoDragCell currentCell = (KataminoDragCell) gameGridPane.getChildren().get((rowNode * 22) + colNode);
 
                 Color cellColor = ((currentPentominoId % 12) >= 0 && (currentPentominoId != 0)) ? colorList.get(currentPentominoId % 12) : Color.web("#262626");
