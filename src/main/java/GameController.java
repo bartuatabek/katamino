@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseDragEvent;
@@ -71,7 +72,15 @@ public class GameController implements Initializable {
     private AnchorPane gridStack;
 
     public boolean isFull(){
-            return false;
+        for(int i = 3; i<=7;i++){
+            for(int j = 5; j<=16;j++){
+                KataminoDragCell currentCell = (KataminoDragCell) gameGridPane.getChildren().get((i * 22) + j);
+                if (currentCell.getPentominoInstanceID() == 0){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public void placePentomino() {}
@@ -79,6 +88,13 @@ public class GameController implements Initializable {
     public void movePentomino () {}
 
     public boolean clashCheck() {
+        for (int i = 0; i < coordinateArr.size(); i++) {
+            KataminoDragCell currentCell = (KataminoDragCell) gameGridPane.getChildren().get((coordinateArr.get(i).get(0) * 22) + coordinateArr.get(i).get(1));
+            if (currentCell.getPentominoInstanceID() != 0){
+                return true;
+            }
+        }
+
 //        int pentominoID = 0;
 //        if( board.getGrid()[0][0].getPentominoInstanceID() == pentominoID) //wrong
 //            return true;
@@ -127,6 +143,7 @@ public class GameController implements Initializable {
                 preview.setOpacity(0.5);
                 preview.setLayoutY(preview.getLayoutY() + timerPane.getHeight());
                 gridStack.setVisible(true);
+                gridStack.getScene().setOnKeyPressed(keyPressed);
                 System.out.println(gridStack.isVisible());
                 System.out.println(preview.getLayoutX() + " - " + preview.getLayoutY());
             } catch (Exception exp) {
@@ -172,6 +189,84 @@ public class GameController implements Initializable {
         stopwatchChecker.stop();
     }
 
+    public int[][] pentominoTransform(KeyEvent e){
+
+        int grid[][] = new int [11][22];
+        int transformedArray[][];
+        int smllsRow = 1000;
+        int smllsCol = 1000;
+        int bgstCol = -1;
+        int bgstRow = -1;
+        for (ArrayList coord:coordinateArr)
+        {
+            if((int)coord.get(0) < smllsRow){
+                smllsRow = (int)coord.get(0);
+            }
+            if((int)coord.get(1) < smllsCol){
+                smllsCol = (int)coord.get(1);
+            }
+            if((int)coord.get(1) > bgstCol){
+                bgstCol = (int)coord.get(1);
+            }
+            if((int)coord.get(0) > bgstRow){
+                bgstRow = (int)coord.get(0);
+            }
+        }
+        int width = bgstCol-smllsCol+1;
+        int height = bgstRow-smllsRow+1;
+        int[][] pentomino = new int[height][width];
+
+        for(ArrayList coord:coordinateArr){
+            pentomino[(int)coord.get(0)-smllsRow][(int)coord.get(1)-smllsCol] = currentPentominoId;
+        }
+        for( int i = 0; i < pentomino.length;i++){
+            for(int j = 0; j < pentomino[0].length;j++){
+                System.out.print(pentomino[i][j]);
+            }
+            System.out.println();
+        }
+        System.out.println("**********");
+
+        transformedArray = pentomino;
+
+        switch (e.getCode()) {
+            case W: transformedArray =flipVertically(pentomino); break;
+            case S: transformedArray =flipVertically(pentomino);  break;
+            case A: transformedArray =rotateLeft(pentomino);  break;
+            case D: transformedArray =rotateRight(pentomino);  break;
+        }
+
+        for( int i = 0; i < transformedArray.length;i++){
+            for(int j = 0; j < transformedArray[0].length;j++){
+                if(transformedArray[i][j] == currentPentominoId){
+                    grid[i + smllsRow][j + smllsCol] = currentPentominoId;
+                }
+            }
+        }
+        for( int i = 0; i < transformedArray.length;i++){
+            for(int j = 0; j < transformedArray[0].length;j++){
+                System.out.print(transformedArray[i][j]);
+            }
+            System.out.println();
+
+        }
+        System.out.println("**********");
+        coordinateArr.clear();
+        for( int i = 0; i < transformedArray.length;i++){
+            for(int j = 0; j < transformedArray[0].length;j++){
+                if(transformedArray[i][j] == currentPentominoId) {
+                    ArrayList<Integer> coord = new ArrayList<>();
+                    Integer newCoordx = i + smllsRow;
+                    Integer newCoordy = j + smllsCol;
+                    coord.add(newCoordx);
+                    coord.add(newCoordy);
+                    coordinateArr.add(coord);
+                }
+            }
+        }
+        return grid;
+    }
+
     public int[][] rotateRight(int[][] pentomino) {
         pentomino = transposeMatrix(pentomino);
         return flipHorizontally(pentomino);
@@ -211,28 +306,6 @@ public class GameController implements Initializable {
         return matrix;
     }
 
-    private EventHandler<KeyEvent> keyPressed = new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(KeyEvent event) {
-            System.out.println("Hi");
-            if (event.getCode() == KeyCode.UP) {
-                int[][] children = preview.getGrid();
-                preview.setPentomino(flipVertically(children));
-            }
-            else if (event.getCode() == KeyCode.DOWN) {
-                int[][] children = preview.getGrid();
-                preview.setPentomino(flipHorizontally(children));
-            } else if (event.getCode() == KeyCode.LEFT) {
-                int[][] children = preview.getGrid();
-                preview.setPentomino(rotateLeft(children));
-            } else if (event.getCode() == KeyCode.RIGHT) {
-                int[][] children = preview.getGrid();
-                preview.setPentomino(rotateRight(children));
-            }
-            event.consume();
-        }
-    };
-
     public void playPause(MouseEvent e) {
         if (isPaused) {
             isPaused = !isPaused;
@@ -242,6 +315,14 @@ public class GameController implements Initializable {
             pauseGame();
         }
     }
+    private EventHandler<KeyEvent> keyPressed = new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(KeyEvent event) {
+            System.out.println("Hi");
+            preview.setPentomino(pentominoTransform(event));
+            event.consume();
+        }
+    };
 
     public int[][] findSiblings(Node source){
         ArrayList<Node> oldNodes = new ArrayList<>();
