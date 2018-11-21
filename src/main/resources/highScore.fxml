@@ -52,36 +52,7 @@
                       <Font name="SF Pixelate" size="35.0" />
                   </font>
               </Label>
-              <Label  fx:id="label5" textFill="#ffdf00">
-                  <font>
-                      <Font name="SF Pixelate" size="35.0" />
-                  </font>
-              </Label>
-              <Label  fx:id="label6" textFill="#42ff46">
-                  <font>
-                      <Font name="SF Pixelate" size="35.0" />
-                  </font>
-              </Label>
-              <Label  fx:id="label7" textFill="#ff272a">
-                  <font>
-                      <Font name="SF Pixelate" size="35.0" />
-                  </font>
-              </Label>
-              <Label  fx:id="label8" textFill="#3be1ff">
-                  <font>
-                      <Font name="SF Pixelate" size="35.0" />
-                  </font>
-              </Label>
-              <Label  fx:id="label9" textFill="#ff55ee">
-                  <font>
-                      <Font name="SF Pixelate" size="35.0" />
-                  </font>
-              </Label>
-              <Label  fx:id="label10" textFill="#e6ff93">
-                  <font>
-                      <Font name="SF Pixelate" size="35.0" />
-                  </font>
-              </Label>
+
 
               <fx:define>
                   <ArrayList fx:id="labels" >
@@ -89,12 +60,6 @@
                       <fx:reference source="label2"/>
                       <fx:reference source="label3"/>
                       <fx:reference source="label4"/>
-                      <fx:reference source="label5"/>
-                      <fx:reference source="label6"/>
-                      <fx:reference source="label7"/>
-                      <fx:reference source="label8"/>
-                      <fx:reference source="label9"/>
-                      <fx:reference source="label10"/>
                   </ArrayList>
 
               </fx:define>

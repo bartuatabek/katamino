@@ -42,8 +42,8 @@ public class GameController implements Initializable {
         add(Color.OLIVE);
         add(Color.ORANGERED);
     }};
-    private static final int CELL_HEIGHT = 53;
-    private static final int CELL_WIDTH = 56;
+    private static final int CELL_HEIGHT = 53;//TODO
+    private static final int CELL_WIDTH = 56;//TODO
 
     private Level currentLevel;
     private Boolean isPaused;
@@ -323,6 +323,7 @@ public class GameController implements Initializable {
                     array.set(1, array.get(1) + transferY);
                 }
                 for (int i = 0; i < coordinateArr.size(); i++) {
+                    //TODO: boundary check and get cell location properly
                     KataminoDragCell currentCell = (KataminoDragCell) gameGridPane.getChildren().get((coordinateArr.get(i).get(0) * 22) + coordinateArr.get(i).get(1));
                     currentCell.setPentominoInstanceID(currentPentominoId);
                     currentCell.setCellColor(cellColor);

@@ -23,7 +23,7 @@ public class CreditsController implements Initializable {
     public void backButtonClicked(MouseEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("mainMenu.fxml"));
         Parent pane = loader.load();
-        Scene mainMenuScene = new Scene(pane, 800, 600);
+        Scene mainMenuScene = new Scene(pane, 1200, 700);
 
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(mainMenuScene);

@@ -60,7 +60,7 @@ public class ScoreBoardController implements Initializable {
         int reverse = col1.size() -count;
         Label label;
         while (reverse>-1) {
-            label= labels.get(count);
+            label= labels.get(count - 1);
             label.setText(col1.get(reverse)+"       "+col2.get(reverse));
             reverse--;
             count++;
@@ -71,7 +71,7 @@ public class ScoreBoardController implements Initializable {
     public void backButtonClicked(MouseEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("mainMenu.fxml"));
         Parent pane = loader.load();
-        Scene mainMenuScene = new Scene(pane, 800, 600);
+        Scene mainMenuScene = new Scene(pane, 1200, 700);
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(mainMenuScene);
     }
