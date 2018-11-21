@@ -69,7 +69,7 @@ class ShakeTransition extends Transition {
         xIni=((Node) node).getLayoutX();
         x.addListener((ob,n,n1)->((Node) node).setLayoutX((xIni+n1.doubleValue())));
 
-        setCycleDuration(Duration.seconds(1));
+        setCycleDuration(Duration.seconds(0.5));
         setDelay(Duration.seconds(0.2));
     }
 

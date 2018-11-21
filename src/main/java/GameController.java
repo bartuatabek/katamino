@@ -44,9 +44,6 @@ public class GameController implements Initializable {
         add(Color.OLIVE);
         add(Color.ORANGERED);
     }};
-    private static final int CELL_HEIGHT = 53;//TODO
-    private static final int CELL_WIDTH = 56;//TODO
-
     private Level currentLevel;
     private Boolean isPaused;
     private int count;
@@ -87,17 +84,38 @@ public class GameController implements Initializable {
 
     public void movePentomino () {}
 
-    public boolean clashCheck() {
+    public boolean clashCheck(int row, int col) {
+        ArrayList<KataminoDragCell> newLocationCells = new ArrayList<>();
+        Color cellColor = ((currentPentominoId % 12) >= 0 && (currentPentominoId != 0)) ? colorList.get(currentPentominoId % 12) : Color.web("#262626");
+        int transferX = row - coordinateArr.get(0).get(0);
+        int transferY = col - coordinateArr.get(0).get(1);
+        for (ArrayList<Integer> array: coordinateArr) {
+            array.set(0, array.get(0) + transferX);
+            array.set(1, array.get(1) + transferY);
+        }
+        int index;
         for (int i = 0; i < coordinateArr.size(); i++) {
-            KataminoDragCell currentCell = (KataminoDragCell) gameGridPane.getChildren().get((coordinateArr.get(i).get(0) * 22) + coordinateArr.get(i).get(1));
-            if (currentCell.getPentominoInstanceID() != 0){
-                return true;
+            //TODO: middle bug
+            index = (coordinateArr.get(i).get(0) * 22) + coordinateArr.get(i).get(1);
+            if(index >= 0)
+            {
+                KataminoDragCell currentPentomino = (KataminoDragCell) gameGridPane.getChildren().get(index);
+                if(currentPentomino.getPentominoInstanceID() == -1 || currentPentomino.getPentominoInstanceID() == 0)
+                {
+                    newLocationCells.add(currentPentomino);
+                }
+                else {
+                    ShakeTransition shakeTransition = new ShakeTransition(gridStack);
+                    shakeTransition.playFromStart();
+                    return true;
+                }
             }
         }
-
-//        int pentominoID = 0;
-//        if( board.getGrid()[0][0].getPentominoInstanceID() == pentominoID) //wrong
-//            return true;
+        for(KataminoDragCell currentCell: newLocationCells)
+        {
+            currentCell.setPentominoInstanceID(currentPentominoId);
+            currentCell.setCellColor(cellColor);
+        }
         return false;
     }
 
@@ -402,50 +420,31 @@ public class GameController implements Initializable {
         }
         playerLabel.setText("Adamotu 0");
         startGame();
-        gameGridPane.addEventFilter(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-
-
-            }
-        });
-        //gridStack.addEventHandler(EventType.ROOT, event ->gameGridPane.fireEvent(event));
-        //gameGridPane.addEventHandler(EventType.ROOT, event -> gameGridPane.getChildren());
         gridStack.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                int rowNode = 0;
-                int colNode = 0;
-                for( Node node: gameGridPane.getChildren()) {
+                try {
+                    int rowNode = 0;
+                    int colNode = 0;
+                    for( Node node: gameGridPane.getChildren()) {
 
-                    if( node instanceof KataminoDragCell) {
-                        if( node.getBoundsInParent().contains(event.getSceneX(),  event.getSceneY())) {
-                            rowNode = (GridPane.getRowIndex( node) - 1);
-                            colNode =  GridPane.getColumnIndex( node);
+                        if( node instanceof KataminoDragCell) {
+                            if( node.getBoundsInParent().contains(event.getSceneX(),  event.getSceneY())) {
+                                if(GridPane.getRowIndex( node) != null)
+                                    rowNode = (GridPane.getRowIndex( node) - 1);
+                                if(GridPane.getColumnIndex( node) != null)
+                                    colNode =  GridPane.getColumnIndex( node);
+                            }
                         }
                     }
+                    System.out.println(coordinateArr.get(0).get(0) + "   " + coordinateArr.get(0).get(1));
+                    System.out.println(rowNode + "   " + colNode);
+                    gridStack.setVisible(clashCheck(rowNode,colNode));
+                }catch (Exception e){
+                    System.out.println(e);
                 }
-                //KataminoDragCell currentCell = (KataminoDragCell) gameGridPane.getChildren().get((rowNode * 22) + colNode);
-
-                Color cellColor = ((currentPentominoId % 12) >= 0 && (currentPentominoId != 0)) ? colorList.get(currentPentominoId % 12) : Color.web("#262626");
-                //currentCell.customizeCell(currentPentominoId, kataminoDragCell.isOnBoard(), cellColor);
-                int transferX = rowNode - coordinateArr.get(0).get(0);
-                int transferY = colNode - coordinateArr.get(0).get(1);
-                for (ArrayList<Integer> array: coordinateArr) {
-                    array.set(0, array.get(0) + transferX);
-                    array.set(1, array.get(1) + transferY);
-                }
-                for (int i = 0; i < coordinateArr.size(); i++) {
-                    //TODO: boundary check and get cell location properly
-                    KataminoDragCell currentCell = (KataminoDragCell) gameGridPane.getChildren().get((coordinateArr.get(i).get(0) * 22) + coordinateArr.get(i).get(1));
-                    currentCell.setPentominoInstanceID(currentPentominoId);
-                    currentCell.setCellColor(cellColor);
-                }
-
-                System.out.println(coordinateArr.get(0).get(0) + "   " + coordinateArr.get(0).get(1));
-                System.out.println(rowNode + "   " + colNode);
-                gridStack.setVisible(false);
             }
         });
+
     }
 }
