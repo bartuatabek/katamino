@@ -1,15 +1,15 @@
 	[
-	{
-		"playerName": "Jack",
-		"highScore":0,
-		"accesibleLevel": 1
-		
-	}
-	,
-	{
-		"playerName": "Ali",
-		"highScore":60,
-		"accesibleLevel": 1
-	}
+		{
+			"playerName": "Jack",
+			"highScore":0,
+			"accesibleLevel": 1
+
+		}
+		,
+		{
+			"playerName": "Ali",
+			"highScore":60,
+			"accesibleLevel": 1
+		}
 	]
 
