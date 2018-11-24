@@ -23,6 +23,7 @@ hs_err_pid*
 
 # ignore files in folder doc
 doc/*
+!doc/Diagrams
 # but keep the folder
 !doc/.keep
 
