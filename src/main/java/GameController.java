@@ -62,6 +62,8 @@ public class GameController implements Initializable {
     @FXML
     private AnchorPane gridStack;
 
+    private KataminoDragBlock preview;
+
     public boolean isFull(){
         ObservableList<Node> cells = gameGridPane.getChildren();
         for(int i = 0; i < cells.size(); i ++)
@@ -82,6 +84,7 @@ public class GameController implements Initializable {
     public void movePentomino () {}
 
     public boolean clashCheck(int row, int col) {
+        //TODO:border bugs
         ArrayList<KataminoDragCell> newLocationCells = new ArrayList<>();
         Color cellColor = ((currentPentominoId % 12) >= 0 && (currentPentominoId != 0)) ? colorList.get(currentPentominoId % 12) : Color.web("#262626");
         int transferX = row - coordinateArr.get(0).get(0);
@@ -92,7 +95,6 @@ public class GameController implements Initializable {
         }
         int index;
         for (int i = 0; i < coordinateArr.size(); i++) {
-            //TODO: middle bug
             index = (coordinateArr.get(i).get(0) * 22) + coordinateArr.get(i).get(1);
             if(index >= 0)
             {
@@ -117,8 +119,6 @@ public class GameController implements Initializable {
     }
 
     public void colorClashingCells(){}
-
-    KataminoDragBlock preview;
 
     public void generatePreview(MouseEvent e) {
         if(((KataminoDragCell) e.getSource()).getPentominoInstanceID() > 0 && !gridStack.isVisible())
@@ -385,7 +385,6 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         count = 0;
         isPaused = false;
         try {
@@ -401,53 +400,47 @@ public class GameController implements Initializable {
         }
         playerLabel.setText("Adamotu 0");
         startGame();
-        /*
-        gridStack.setOnMousePressed(new EventHandler<MouseEvent>() {
+        gameGridPane.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event) {
-                for( Node node: gameGridPane.getChildren()) {
-                    int rowNode = 0;
-                    int colNode = 0;
-                    KataminoDragCell kataminoDragCell;
-                    if( node instanceof KataminoDragCell) {
-                        if( node.getBoundsInParent().contains(event.getSceneX(),  event.getSceneY())) {
-                            kataminoDragCell = (KataminoDragCell) node;
-                        }
-                    }
-                }
-                findSiblings(kataminoDragCell);
+            public void handle(MouseEvent event) { preview.fireEvent(event);
             }
         });
-        */
-        gridStack.setOnMouseReleased(new EventHandler<MouseEvent>() {
+        gameGridPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                try {
-                    int rowNode = 0;
-                    int colNode = 0;
-                    for( Node node: gameGridPane.getChildren()) {
-
-                        if( node instanceof KataminoDragCell) {
-                            if( node.getBoundsInParent().contains(event.getSceneX(),  event.getSceneY())) {
-                                if(GridPane.getRowIndex( node) != null)
-                                    rowNode = (GridPane.getRowIndex( node) - 1);
-                                if(GridPane.getColumnIndex( node) != null)
-                                    colNode =  GridPane.getColumnIndex( node);
+                preview.fireEvent(event);
+            }
+        });
+        EventHandler eventHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (gridStack.isVisible()) {
+                    try {
+                        int rowNode = 0;
+                        int colNode = 0;
+                        for (Node node : gameGridPane.getChildren()) {
+                            if (node instanceof KataminoDragCell) {
+                                if (node.getBoundsInParent().contains(event.getSceneX(), event.getSceneY())) {
+                                    if (GridPane.getRowIndex(node) != null)
+                                        rowNode = (GridPane.getRowIndex(node) - 1);
+                                    if (GridPane.getColumnIndex(node) != null)
+                                        colNode = GridPane.getColumnIndex(node);
+                                }
                             }
                         }
+                        gridStack.setVisible(clashCheck(rowNode, colNode));
+                    } catch (Exception e) {
+                        System.out.println(e);
                     }
-                    gridStack.setVisible(clashCheck(rowNode,colNode));
-                }catch (Exception e){
-                    System.out.println(e);
-                }
-                if(isFull())
-                {
-                    pauseGame();
-                    stopwatchLabel.setText("You Won!!");
-                    playerLabel.setText("Adamotu 199");
+                    if (isFull()) {
+                        pauseGame();
+                        stopwatchLabel.setText("You Won!!");
+                        playerLabel.setText("Adamotu 199");
+                    }
                 }
             }
-        });
-
+        };
+        gameGridPane.setOnMouseReleased(eventHandler);
+        gridStack.setOnMouseReleased(eventHandler);
     }
 }
