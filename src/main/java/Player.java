@@ -1,7 +1,10 @@
+import java.io.IOException;
+
 public class Player {
     private int highScore;
     private int accessibleLevel;
     private String playerName;
+    private Integer[][] latestBoard;
 
     public Player(int highScore, int accessibleLevel, String playerName) {
         this.highScore = highScore;
@@ -38,5 +41,13 @@ public class Player {
         this.playerName = playerName;
     }
 
+public void setLatestBoard(Integer[][] latestBoard) throws IOException {
+        this.latestBoard=latestBoard;
+        FileManager fm = new FileManager();
+        fm.updatePlayerInfoInFile(this);
+}
+    public Integer[][] getLatestBoard() {
+        return latestBoard;
+    }
 
 }

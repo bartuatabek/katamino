@@ -25,7 +25,7 @@ import kataminoDragBlock.KataminoDragBlock;
 import kataminoDragCell.KataminoDragCell;
 
 public class GameController implements Initializable {
-
+    private Game game;
     private ArrayList<Color> colorList = new ArrayList<Color>(){{
         add(Color.ANTIQUEWHITE);
         add(Color.GRAY);
@@ -152,40 +152,50 @@ public class GameController implements Initializable {
     }
 
     public void loadLevel() throws FileNotFoundException {
-       currentLevel = new FileManager().loadLevels();
-       Integer[][] board = currentLevel.getBoard();
-
-        for (int i= 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
-                KataminoDragCell currentCell = (KataminoDragCell) gameGridPane.getChildren().get((i*22)+j);
-                Color cellColor = ((board[i][j] % 12) >= 0 && (board[i][j] != 0)) ? colorList.get(board[i][j] % 12) : Color.web("#262626");
-                currentCell.customizeCell(board[i][j], board[i][j] == 0, cellColor);
-
-                if (currentCell.getPentominoInstanceID() == 0) {
-                    currentCell.setBorderColor(Color.WHITE);
-                }
+        for (int i= 0; i < game.getGameBoard().getGrid().length; i++) {
+            for (int j = 0; j < game.getGameBoard().getGrid()[0].length; j++) {
+                KataminoDragCell temp =game.getGameBoard().getGrid()[i][j];
+               temp.setOnMousePressed( new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        generatePreview(event);
+                    }
+                });
+                gameGridPane.add(temp, j,i);
             }
         }
     }
 
-    Timeline stopwatchChecker;
+   // Timeline stopwatchChecker;
 
     public void updateStopwatch() {
-        stopwatchChecker = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+        /*stopwatchChecker = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             stopwatchLabel.setText(secondsToString(count));
             count++;
         }));
         stopwatchChecker.setCycleCount(Timeline.INDEFINITE);
-        stopwatchChecker.play();
+        stopwatchChecker.play();*/
+        gameGridPane.setOnMouseMoved(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                stopwatchLabel.setText(String.valueOf( game.getElapsedSeconds()));
+            }
+        });
     }
 
     public void startGame(){
+        game.startStopWatch();
         updateStopwatch();
+       // updateStopwatch();
+
+
     }
 
     public void pauseGame() {
         stopwatchLabel.setText("▶️" + stopwatchLabel.getText());
-        stopwatchChecker.stop();
+        game.pause();
+        /*stopwatchLabel.setText("▶️" + stopwatchLabel.getText());
+        stopwatchChecker.stop();*/
     }
 
     public int[][] pentominoTransform(KeyEvent e){
@@ -331,7 +341,7 @@ public class GameController implements Initializable {
         int pentominoInstanceID = ((KataminoDragCell) source).getPentominoInstanceID();
         ObservableList<Node> cells = gameGridPane.getChildren();
         Stack<Node> currentSearch = new Stack<>();
-        int[][] currentShape= new int[11][22];
+        int[][] currentShape= new int[11][22];///////////////////
         currentSearch.push(source);
         Integer colIndex;
         Integer rowIndex;
@@ -387,6 +397,8 @@ public class GameController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         count = 0;
         isPaused = false;
+        game = new Game(1,0,new Player(0,2,"zey") ); ///playerrrrrrrrrrrrrrrrrrrrrrr
+
         try {
             kataminoDragCell = new KataminoDragCell();
             loadLevel();
@@ -411,23 +423,37 @@ public class GameController implements Initializable {
                 preview.fireEvent(event);
             }
         });
+
+
         EventHandler eventHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 if (gridStack.isVisible()) {
+                    KataminoDragCell[][] temp= new KataminoDragCell[gameGridPane.impl_getRowCount()][gameGridPane.impl_getColumnCount()];
                     try {
                         int rowNode = 0;
                         int colNode = 0;
                         for (Node node : gameGridPane.getChildren()) {
                             if (node instanceof KataminoDragCell) {
                                 if (node.getBoundsInParent().contains(event.getSceneX(), event.getSceneY())) {
-                                    if (GridPane.getRowIndex(node) != null)
+                                    if (GridPane.getRowIndex(node) != null){
                                         rowNode = (GridPane.getRowIndex(node) - 1);
+                                }
                                     if (GridPane.getColumnIndex(node) != null)
+                                    {
                                         colNode = GridPane.getColumnIndex(node);
+                                }
                                 }
                             }
                         }
+                        for(int o =0;o<gameGridPane.impl_getRowCount();o++)
+                        {
+                            for(int k =0;k<gameGridPane.impl_getColumnCount();k++){
+                                temp[o][k]=(KataminoDragCell) gameGridPane.getChildren().get(o*22+k);
+                            }
+                        }
+                        game.getGameBoard().setGrid(temp);
+                        game.savePlayerBoard();
                         gridStack.setVisible(clashCheck(rowNode, colNode));
                     } catch (Exception e) {
                         System.out.println(e);

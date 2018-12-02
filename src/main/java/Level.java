@@ -1,10 +1,15 @@
 public class Level {
     private Integer[][] board;
 
-    public Level(Integer[][] board) {
-        this.board = board;
-    }
+    public Level(int levelNo) {
+        try{
+            FileManager fm = new FileManager();
+             board = fm.loadLevels(levelNo);
 
+         }
+        catch(Exception e)
+        {}
+    }
     public Integer[][] getBoard() {
         return board;
     }
