@@ -101,6 +101,10 @@ public class FileManager {
             object.add("highScore",element );
             element = gson.fromJson (player.getAccessibleLevel()+"", JsonElement.class);
             object.add("accesibleLevel",element );
+            element = gson.fromJson(gson.toJson(player.getLatestBoard()),JsonElement.class);
+            object.add("latestBoard",element );
+            element = gson.fromJson(gson.toJson(player.getLatestTime()),JsonElement.class);
+            object.add("latestTime",element );
             jsonArray.add(object);
             System.out.print(jsonArray);
             Writer writer =new FileWriter("src/players.json");
@@ -140,6 +144,8 @@ public class FileManager {
             object.add("accesibleLevel",element );
             element = gson.fromJson(gson.toJson(player.getLatestBoard()),JsonElement.class);
             object.add("latestBoard",element );
+            element = gson.fromJson(gson.toJson(player.getLatestTime()),JsonElement.class);
+            object.add("latestTime",element );
             jsonArray.add(object);
             System.out.print(jsonArray);
             Writer writer =new FileWriter("src/players.json");

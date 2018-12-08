@@ -178,7 +178,9 @@ public class GameController implements Initializable {
         gameGridPane.setOnMouseMoved(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event) {
-                stopwatchLabel.setText(String.valueOf( game.getElapsedSeconds()));
+             if(!game.isStopped())
+                 stopwatchLabel.setText(String.valueOf( game.getElapsedSeconds()));
+
             }
         });
     }
@@ -187,8 +189,6 @@ public class GameController implements Initializable {
         game.startStopWatch();
         updateStopwatch();
        // updateStopwatch();
-
-
     }
 
     public void pauseGame() {
@@ -196,6 +196,11 @@ public class GameController implements Initializable {
         game.pause();
         /*stopwatchLabel.setText("▶️" + stopwatchLabel.getText());
         stopwatchChecker.stop();*/
+    }
+    public void resumeGame(){
+        game.resume();
+        if(!game.isStopped())
+            stopwatchLabel.setText(String.valueOf( game.getElapsedSeconds()));
     }
 
     public int[][] pentominoTransform(KeyEvent e){
@@ -320,6 +325,10 @@ public class GameController implements Initializable {
             isPaused = !isPaused;
             startGame();
         } else {
+            if(game.isStopped())
+            { resumeGame();
+                 return;
+            }
             isPaused = !isPaused;
             pauseGame();
         }
@@ -397,7 +406,7 @@ public class GameController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         count = 0;
         isPaused = false;
-        game = new Game(1,0,new Player(0,2,"zey") ); ///playerrrrrrrrrrrrrrrrrrrrrrr
+        game = new Game(1,0,new Player(0,2,"zey",0) ); ///playerrrrrrrrrrrrrrrrrrrrrrr
 
         try {
             kataminoDragCell = new KataminoDragCell();
