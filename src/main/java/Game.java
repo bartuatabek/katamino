@@ -73,19 +73,23 @@ public class Game {
     }
 
     public void pause() {
-        stopwatch.pause();
-        stopped=true;
+        if (!stopped) {
+            stopwatch.pause();
+            stopped = true;
+        }
     }
 
     public void resume() {
-        if(stopped)
+        if (stopped) {
             stopwatch.resume();
-        stopped=false;
+            stopped = false;
+        }
     }
 
     public long getElapsedSeconds() {
         return stopwatch.getElapsedTime();
     }
+
     public boolean savePlayerBoard() throws IOException {
 
        KataminoDragCell[][] temp =gameBoard.getGrid();

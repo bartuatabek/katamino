@@ -13,7 +13,7 @@
 <?import kataminoButton.KataminoButton?>
 <?import kataminoPlayerAddButton.KataminoPlayerAddButton?>
 
-<GridPane alignment="CENTER" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #262626 #262626;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PlayerSelectionController">
+<GridPane alignment="CENTER" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #262626 #262626;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="PlayerSelectionController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>

@@ -41,8 +41,6 @@ public class GameController implements Initializable {
         add(Color.ORANGERED);
     }};
     private Level currentLevel;
-    private Boolean isPaused;
-    private int count;
     private KataminoDragCell kataminoDragCell;
     private int currentPentominoId;
     private ArrayList<ArrayList<Integer>> coordinateArr;
@@ -166,41 +164,28 @@ public class GameController implements Initializable {
         }
     }
 
-   // Timeline stopwatchChecker;
-
     public void updateStopwatch() {
-        /*stopwatchChecker = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            stopwatchLabel.setText(secondsToString(count));
-            count++;
+        Timeline stopwatchChecker = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            if(!game.isStopped()) {
+                stopwatchLabel.setText(String.valueOf(String.format("%02d:%02d", game.getElapsedSeconds() / 60, game.getElapsedSeconds() % 60)));
+            }
         }));
         stopwatchChecker.setCycleCount(Timeline.INDEFINITE);
-        stopwatchChecker.play();*/
-        gameGridPane.setOnMouseMoved(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent event) {
-             if(!game.isStopped())
-                 stopwatchLabel.setText(String.valueOf( game.getElapsedSeconds()));
-
-            }
-        });
+        stopwatchChecker.play();
     }
 
     public void startGame(){
         game.startStopWatch();
         updateStopwatch();
-       // updateStopwatch();
     }
 
     public void pauseGame() {
         stopwatchLabel.setText("▶️" + stopwatchLabel.getText());
         game.pause();
-        /*stopwatchLabel.setText("▶️" + stopwatchLabel.getText());
-        stopwatchChecker.stop();*/
     }
+
     public void resumeGame(){
         game.resume();
-        if(!game.isStopped())
-            stopwatchLabel.setText(String.valueOf( game.getElapsedSeconds()));
     }
 
     public int[][] pentominoTransform(KeyEvent e){
@@ -309,6 +294,7 @@ public class GameController implements Initializable {
                 temp[j][i] = matrix[i][j];
         return temp;
     }
+
     private int[][] flipHorizontally(int[][] matrix){
         for(int j = 0; j < matrix.length; j++){
             for(int i = 0; i < matrix[j].length / 2; i++) {
@@ -321,22 +307,16 @@ public class GameController implements Initializable {
     }
 
     public void playPause(MouseEvent e) {
-        if (isPaused) {
-            isPaused = !isPaused;
-            startGame();
+        if (game.isStopped()) {
+            resumeGame();
         } else {
-            if(game.isStopped())
-            { resumeGame();
-                 return;
-            }
-            isPaused = !isPaused;
             pauseGame();
         }
     }
+
     private EventHandler<KeyEvent> keyPressed = new EventHandler<KeyEvent>() {
         @Override
         public void handle(KeyEvent event) {
-            System.out.println("Hi");
             preview.setPentomino(pentominoTransform(event));
             event.consume();
         }
@@ -398,14 +378,8 @@ public class GameController implements Initializable {
         return currentShape;
     }
 
-    public String secondsToString(int pTime) {
-        return String.format("%02d:%02d", pTime / 60, pTime % 60);
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        count = 0;
-        isPaused = false;
         game = new Game(1,0,new Player(0,2,"zey",0) ); ///playerrrrrrrrrrrrrrrrrrrrrrr
 
         try {
