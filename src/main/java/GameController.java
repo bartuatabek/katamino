@@ -166,21 +166,15 @@ public class GameController implements Initializable {
         }
     }
 
-   // Timeline stopwatchChecker;
+   Timeline stopwatchChecker;
 
     public void updateStopwatch() {
-        /*stopwatchChecker = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            stopwatchLabel.setText(secondsToString(count));
-            count++;
+        stopwatchChecker = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            stopwatchLabel.setText(String.valueOf( game.getElapsedSeconds()));
+
         }));
         stopwatchChecker.setCycleCount(Timeline.INDEFINITE);
-        stopwatchChecker.play();*/
-        gameGridPane.setOnMouseMoved(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent event) {
-                stopwatchLabel.setText(String.valueOf( game.getElapsedSeconds()));
-            }
-        });
+        stopwatchChecker.play();
     }
 
     public void startGame(){
@@ -201,69 +195,94 @@ public class GameController implements Initializable {
     public int[][] pentominoTransform(KeyEvent e){
 
         int grid[][] = new int [11][22];
-        int transformedArray[][];
         int smllsRow = 1000;
         int smllsCol = 1000;
         int bgstCol = -1;
         int bgstRow = -1;
-        for (ArrayList coord:coordinateArr)
-        {
-            if((int)coord.get(0) < smllsRow){
-                smllsRow = (int)coord.get(0);
+        double origin_row, origin_col = -1;
+
+        for (ArrayList coord:coordinateArr) {
+            if ((int) coord.get(0) < smllsRow) {
+                smllsRow = (int) coord.get(0);
             }
-            if((int)coord.get(1) < smllsCol){
-                smllsCol = (int)coord.get(1);
+            if ((int) coord.get(1) < smllsCol) {
+                smllsCol = (int) coord.get(1);
             }
-            if((int)coord.get(1) > bgstCol){
-                bgstCol = (int)coord.get(1);
+            if ((int) coord.get(1) > bgstCol) {
+                bgstCol = (int) coord.get(1);
             }
-            if((int)coord.get(0) > bgstRow){
-                bgstRow = (int)coord.get(0);
+            if ((int) coord.get(0) > bgstRow) {
+                bgstRow = (int) coord.get(0);
             }
         }
+
         int width = bgstCol-smllsCol+1;
         int height = bgstRow-smllsRow+1;
+
+        switch (e.getCode()) {
+            case W: flipVertically(width,  height, smllsRow, smllsCol ); break;
+            case S: flipVertically(width,  height, smllsRow, smllsCol );  break;
+            case A: rotateLeft( width,  height, smllsRow, smllsCol );  break;
+            case D: rotateRight( width,  height, smllsRow, smllsCol);  break;
+        }
+        for (ArrayList<Integer>coord:coordinateArr)
+        {
+            grid[coord.get(0)][coord.get(1)]  = currentPentominoId;
+        }
+        return grid;
+    }
+
+    public void rotateRight(int width ,int height,int smllsRow, int smllsCol  ) {
+
+
+        int origin_row = coordinateArr.get(0).get(0);
+        int origin_col = coordinateArr.get(0).get(1);
+
+        // move origin to 0,0
+        for (ArrayList<Integer> coord : coordinateArr){
+            int row = coord.get(0)-origin_row;
+            int col = coord.get(1)-origin_col;
+            int ncol =  -row+origin_col; // clockwise
+            int nrow =   col+origin_row;
+            coord.set(0,nrow);
+            coord.set(1,ncol);
+        }
+    }
+
+    public void rotateLeft(int width,  int height, int smllsRow, int smllsCol) {
+
+        int origin_row = coordinateArr.get(0).get(0);
+        int origin_col = coordinateArr.get(0).get(1);
+
+        // move origin to 0,0
+        for (ArrayList<Integer> coord : coordinateArr){
+            int row = coord.get(0)-origin_row;
+            int col = coord.get(1)-origin_col;
+            int ncol = row+origin_col; // clockwise
+            int nrow = -col+origin_row;
+            coord.set(0,nrow);
+            coord.set(1,ncol);
+        }
+
+    }
+
+    public void flipVertically(int width,  int height, int smllsRow, int smllsCol ){
         int[][] pentomino = new int[height][width];
 
         for(ArrayList coord:coordinateArr){
             pentomino[(int)coord.get(0)-smllsRow][(int)coord.get(1)-smllsCol] = currentPentominoId;
         }
+        for(int col = 0;col < pentomino[0].length; col++){
+            for(int row = 0; row < pentomino.length/2; row++) {
+                int temp = pentomino[row][col];
+                pentomino[row][col] = pentomino[pentomino.length - row - 1][col];
+                pentomino[pentomino.length - row - 1][col] = temp;
+            }
+        }
+        coordinateArr.clear();
         for( int i = 0; i < pentomino.length;i++){
             for(int j = 0; j < pentomino[0].length;j++){
-                System.out.print(pentomino[i][j]);
-            }
-            System.out.println();
-        }
-        System.out.println("**********");
-
-        transformedArray = pentomino;
-
-        switch (e.getCode()) {
-            case W: transformedArray =flipVertically(pentomino); break;
-            case S: transformedArray =flipVertically(pentomino);  break;
-            case A: transformedArray =rotateLeft(pentomino);  break;
-            case D: transformedArray =rotateRight(pentomino);  break;
-        }
-
-        for( int i = 0; i < transformedArray.length;i++){
-            for(int j = 0; j < transformedArray[0].length;j++){
-                if(transformedArray[i][j] == currentPentominoId){
-                    grid[i + smllsRow][j + smllsCol] = currentPentominoId;
-                }
-            }
-        }
-        for( int i = 0; i < transformedArray.length;i++){
-            for(int j = 0; j < transformedArray[0].length;j++){
-                System.out.print(transformedArray[i][j]);
-            }
-            System.out.println();
-
-        }
-        System.out.println("**********");
-        coordinateArr.clear();
-        for( int i = 0; i < transformedArray.length;i++){
-            for(int j = 0; j < transformedArray[0].length;j++){
-                if(transformedArray[i][j] == currentPentominoId) {
+                if(pentomino[i][j] == currentPentominoId) {
                     ArrayList<Integer> coord = new ArrayList<>();
                     Integer newCoordx = i + smllsRow;
                     Integer newCoordy = j + smllsCol;
@@ -273,28 +292,6 @@ public class GameController implements Initializable {
                 }
             }
         }
-        return grid;
-    }
-
-    public int[][] rotateRight(int[][] pentomino) {
-        pentomino = transposeMatrix(pentomino);
-        return flipHorizontally(pentomino);
-    }
-
-    public int[][] rotateLeft(int[][] pentomino) {
-        pentomino = flipHorizontally(pentomino); // Why intelliJ gives a warning here?
-        return transposeMatrix(pentomino);
-    }
-
-    public int[][] flipVertically(int[][] matrix){
-        for(int col = 0;col < matrix[0].length; col++){
-            for(int row = 0; row < matrix.length/2; row++) {
-                int temp = matrix[row][col];
-                matrix[row][col] = matrix[matrix.length - row - 1][col];
-                matrix[matrix.length - row - 1][col] = temp;
-            }
-        }
-        return matrix;
     }
 
     private int[][] transposeMatrix(int[][] matrix){
@@ -327,7 +324,6 @@ public class GameController implements Initializable {
     private EventHandler<KeyEvent> keyPressed = new EventHandler<KeyEvent>() {
         @Override
         public void handle(KeyEvent event) {
-            System.out.println("Hi");
             preview.setPentomino(pentominoTransform(event));
             event.consume();
         }

@@ -16,9 +16,9 @@ class Stopwatch {
         startTime = System.currentTimeMillis() / 1000;
     }
 
-    long getElapsedTime() {
+    int getElapsedTime() {
         long now = System.currentTimeMillis() / 1000;
-        return now - startTime - getTotalPausedTime();
+        return (int) (now - startTime - getTotalPausedTime());
     }
 
     void pause() {

@@ -74,7 +74,7 @@ public class Game {
         stopwatch.resume();
     }
 
-    public long getElapsedSeconds() {
+    public int getElapsedSeconds() {
         return stopwatch.getElapsedTime();
     }
     public boolean savePlayerBoard() throws IOException {
