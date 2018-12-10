@@ -11,9 +11,10 @@ public class Game {
     private Stopwatch stopwatch;
     private Player player;
     private int gameScore;
+    private int levelScore;
+    private boolean stopped;
 
     //NEW
-    private Level currentLevel;
     private ArrayList<Color> colorList = new ArrayList<Color>(){{
         add(Color.ANTIQUEWHITE);
         add(Color.GRAY);
@@ -28,16 +29,21 @@ public class Game {
         add(Color.OLIVE);
         add(Color.ORANGERED);
     }};
-    private KataminoDragCell kataminoDragCell;
-    private int currentPentominoId;
 
     public Game(int level, int gameScore, Player player) {
         gameBoard = new GameBoard(level);
         this.player = player;
         stopwatch= new Stopwatch();
         this.gameScore = gameScore;
+        stopped=false;
+    }
+    public boolean isStopped() {
+        return stopped;
     }
 
+    public void setStopped(boolean stopped) {
+        this.stopped = stopped;
+    }
     public Player getPlayer() {
         return player;
     }
@@ -67,16 +73,23 @@ public class Game {
     }
 
     public void pause() {
-        stopwatch.pause();
+        if (!stopped) {
+            stopwatch.pause();
+            stopped = true;
+        }
     }
 
     public void resume() {
-        stopwatch.resume();
+        if (stopped) {
+            stopwatch.resume();
+            stopped = false;
+        }
     }
 
     public int getElapsedSeconds() {
         return stopwatch.getElapsedTime();
     }
+
     public boolean savePlayerBoard() throws IOException {
 
        KataminoDragCell[][] temp =gameBoard.getGrid();
@@ -88,8 +101,13 @@ public class Game {
                getter[i][j]= temp[i][j].getPentominoInstanceID();
            }
        }
-        player.setLatestBoard(getter);
+        player.setLatestBoard(getter,stopwatch.getElapsedTime());
        return true;
+    }
+    public void updateLevel(int newLevelNo)
+    {
+        gameBoard= new GameBoard(newLevelNo);
+        levelScore=0;
     }
 
 }

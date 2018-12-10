@@ -25,11 +25,10 @@ class Stopwatch {
         pauseStart = System.currentTimeMillis() / 1000;
     }
 
-    // Is this the right place or should I move this to controller?
+    // Works for the first time only but why?
     void resume() {
         long now = System.currentTimeMillis() / 1000;
         totalPausedTime = now - pauseStart;
-        pauseStart = 0;
     }
 
     private long getTotalPausedTime() {
