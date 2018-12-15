@@ -6,13 +6,14 @@
     import javafx.scene.Node;
     import javafx.scene.input.MouseEvent;
     import javafx.scene.layout.GridPane;
+    import javafx.scene.layout.TilePane;
     import javafx.scene.paint.Color;
     import kataminoDragCell.KataminoDragCell;
 
     import java.io.IOException;
     import java.util.ArrayList;
 
-    public class KataminoDragBlock extends GridPane {
+    public class KataminoDragBlock extends TilePane {
 
         // node position
         private double x = 0;
@@ -20,9 +21,8 @@
         // mouse position
         private double mousex = 0;
         private double mousey = 0;
-        private Node view;
         private boolean dragging = false;
-        private boolean moveToFront = true;
+        private boolean moveToFront = false;
 
         private ArrayList<Color> colorList = new ArrayList<Color>(){{
             add(Color.ANTIQUEWHITE);
@@ -42,7 +42,7 @@
         private int[][] grid;
 
         @FXML
-        private GridPane dragBlockGrid;
+        private TilePane dragBlockGrid;
 
         public KataminoDragBlock() throws IOException {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("kataminoDragBlock.fxml"));
@@ -139,14 +139,6 @@
          */
         protected boolean isDragging() {
             return dragging;
-        }
-
-
-        /**
-         * @return the view
-         */
-        public Node getView() {
-            return view;
         }
 
         /**

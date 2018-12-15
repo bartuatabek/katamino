@@ -32,7 +32,7 @@ public class KataminoDragCell extends Pane {
         setCellColor(cellColor);
 
 		if (pentominoInstanceID == -1) {
-			cell.setPrefWidth(53);
+			cell.setPrefWidth(56);
 			cell.setPrefHeight(56);
 		}
 	}
@@ -50,7 +50,7 @@ public class KataminoDragCell extends Pane {
 	}
 	
 	public void setCellColor(Color cellColor) {
-		this.cellColor = cellColor;
+		setColor(cellColor);
 		cell.setStyle("-fx-background-color: #" + Integer.toHexString(cellColor.hashCode()));
 	}
 
