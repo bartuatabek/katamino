@@ -46,8 +46,9 @@ public class Main extends Application {
             root.getChildren().add(new KataminoLongButton());
             root.getChildren().add(new KataminoChangeButton());
             KataminoDragCell dragCell = new KataminoDragCell();
-            dragCell.customizeCell(1, false, Color.SALMON);
+            dragCell.customizeCell(-1, false, Color.SALMON);
             root.getChildren().add(dragCell);
+            dragCell.customizeCell(-2, false, Color.SALMON);
 
             Scene scene = new Scene(root,150,38);
             primaryStage.setScene(scene);
