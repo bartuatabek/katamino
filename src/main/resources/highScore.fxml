@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -6,8 +7,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import kataminoBackButton.KataminoBackButton?>
-<?import java.util.ArrayList?>
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="722.0" style="-fx-background-color: #262626;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="ScoreBoardController">
+
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="750.0" style="-fx-background-color: #262626;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ScoreBoardController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -32,22 +33,22 @@
             </Label>
          </children>
           <children>
-              <Label  fx:id="label1" textFill="#ffdf00" >
+              <Label fx:id="label1" textFill="#ffdf00">
                   <font>
                       <Font name="SF Pixelate" size="35.0" />
                   </font>
               </Label>
-          <Label textFill="#39ff44" fx:id="label2">
+          <Label fx:id="label2" textFill="#39ff44">
           <font>
               <Font name="SF Pixelate" size="35.0" />
           </font>
         </Label>
-              <Label  fx:id="label3" textFill="#ff15e4">
+              <Label fx:id="label3" textFill="#ff15e4">
                   <font>
                       <Font name="SF Pixelate" size="35.0" />
                   </font>
               </Label>
-              <Label  fx:id="label4" textFill="#ff3253">
+              <Label fx:id="label4" textFill="#ff3253">
                   <font>
                       <Font name="SF Pixelate" size="35.0" />
                   </font>
@@ -55,11 +56,11 @@
 
 
               <fx:define>
-                  <ArrayList fx:id="labels" >
-                      <fx:reference source="label1"/>
-                      <fx:reference source="label2"/>
-                      <fx:reference source="label3"/>
-                      <fx:reference source="label4"/>
+                  <ArrayList fx:id="labels">
+                      <fx:reference source="label1" />
+                      <fx:reference source="label2" />
+                      <fx:reference source="label3" />
+                      <fx:reference source="label4" />
                   </ArrayList>
 
               </fx:define>

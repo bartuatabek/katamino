@@ -19,6 +19,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import kataminoDragBlock.KataminoDragBlock;
@@ -49,7 +50,7 @@ public abstract class GameController implements Initializable {
     GridPane timerPane;
 
     @FXML
-    GridPane gameGridPane;
+    TilePane gameGridPane;
 
     @FXML
     Label stopwatchLabel;
@@ -74,7 +75,6 @@ public abstract class GameController implements Initializable {
         }
         return true;
     }
-
 
     public boolean clashCheck(int row, int col) {
         //TODO:border bugs
@@ -107,7 +107,6 @@ public abstract class GameController implements Initializable {
         return false;
     }
 
-
     public void generatePreview(MouseEvent e) {
         if (((KataminoDragCell) e.getSource()).getPentominoInstanceID() > 0 && !gridStack.isVisible()) {
             try {
@@ -137,7 +136,6 @@ public abstract class GameController implements Initializable {
             }
         }
     }
-
 
     public void updateStopwatch() {
         Timeline stopwatchChecker = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
@@ -355,6 +353,13 @@ public abstract class GameController implements Initializable {
             }
         }
 
+        print2D(currentShape);
         return currentShape;
+    }
+
+    public static void print2D(int mat[][]) {
+        // Loop through all rows
+        for (int[] row : mat)
+            System.out.println(Arrays.toString(row));
     }
 }

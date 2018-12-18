@@ -6,6 +6,7 @@ public class SinglePlayerGame extends Game {
     private Player player;
     private int gameScore;
     private int levelScore;
+
     public SinglePlayerGame(int level, int gameScore, Player player) {
         gameBoard = new GameBoard(level);
         this.player = player;
@@ -13,6 +14,7 @@ public class SinglePlayerGame extends Game {
         this.gameScore = gameScore;
         stopped=false;
     }
+
     public Player getPlayer() {
         return player;
     }
@@ -28,6 +30,7 @@ public class SinglePlayerGame extends Game {
     public void incrementGameScore(int amount) {
         this.gameScore = gameScore+amount;
     }
+
     public boolean savePlayerBoard() throws IOException {
 
         KataminoDragCell[][] temp =gameBoard.getGrid();
@@ -42,10 +45,10 @@ public class SinglePlayerGame extends Game {
         player.setLatestBoard(getter,stopwatch.getElapsedTime());
         return true;
     }
-    public void updateLevel(int newLevelNo)
-    {
+
+    public void updateLevel(int newLevelNo) {
         gameBoard= new GameBoard(newLevelNo);
-        levelScore=0;
+        levelScore = 0;
     }
 
 }

@@ -2,6 +2,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import kataminoDragBlock.KataminoDragBlock;
 import kataminoDragCell.KataminoDragCell;
 
@@ -15,14 +16,21 @@ public class SinglePlayerGameController extends GameController{
     public void loadLevel() throws FileNotFoundException {
         for (int i= 0; i < game.getGameBoard().getGrid().length; i++) {
             for (int j = 0; j < game.getGameBoard().getGrid()[0].length; j++) {
-                KataminoDragCell temp =game.getGameBoard().getGrid()[i][j];
-                temp.setOnMousePressed( new EventHandler<MouseEvent>() {
+                KataminoDragCell currentCell = (KataminoDragCell) gameGridPane.getChildren().get((i*22)+j);
+                KataminoDragCell temp = game.getGameBoard().getGrid()[i][j];
+
+                int cellId = temp.getPentominoInstanceID();
+                currentCell.setPentominoInstanceID(cellId);
+                if (cellId == 0)
+                    currentCell.setBorderColor(Color.WHITE);
+                currentCell.setCellColor(temp.getColor());
+                currentCell.setOnBoard(temp.isOnBoard());
+                currentCell.setOnMousePressed( new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
                         generatePreview(event);
                     }
                 });
-                gameGridPane.add(temp, j,i);
             }
         }
     }
@@ -62,7 +70,7 @@ public class SinglePlayerGameController extends GameController{
             @Override
             public void handle(MouseEvent event) {
                 if (gridStack.isVisible()) {
-                    KataminoDragCell[][] temp= new KataminoDragCell[gameGridPane.impl_getRowCount()][gameGridPane.impl_getColumnCount()];
+                    KataminoDragCell[][] temp= new KataminoDragCell[11][22];
                     try {
                         int rowNode = 0;
                         int colNode = 0;
@@ -79,9 +87,9 @@ public class SinglePlayerGameController extends GameController{
                                 }
                             }
                         }
-                        for(int o =0;o<gameGridPane.impl_getRowCount();o++)
+                        for(int o =0;o<11;o++)
                         {
-                            for(int k =0;k<gameGridPane.impl_getColumnCount();k++){
+                            for(int k =0;k<22;k++){
                                 temp[o][k]=(KataminoDragCell) gameGridPane.getChildren().get(o*22+k);
                             }
                         }

@@ -7,11 +7,10 @@ import java.util.ArrayList;
 
 public class GameBoard {
     private  KataminoDragCell[][] grid;
-private Level currentLevel;
+    private Level currentLevel;
     Integer[][]board;
     private ArrayList<Color> colorList ;
     public GameBoard(int levelNo) {
-
         currentLevel = new Level(levelNo);
         board = currentLevel.getBoard();
         grid= new KataminoDragCell[board.length][board[0].length];
