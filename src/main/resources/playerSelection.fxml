@@ -13,7 +13,7 @@
 <?import kataminoButton.KataminoButton?>
 <?import kataminoPlayerAddButton.KataminoPlayerAddButton?>
 
-<GridPane alignment="CENTER" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #262626 #262626;" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="PlayerSelectionController">
+<GridPane alignment="CENTER" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #262626 #262626;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PlayerSelectionController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -39,15 +39,16 @@
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" />
          </columnConstraints>
          <rowConstraints>
+            <RowConstraints />
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <KataminoButton fx:id="continueButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#continueButtonClicked" GridPane.columnIndex="2">
+            <KataminoButton fx:id="continueButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#continueButtonClicked" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="50.0" />
                </GridPane.margin>
             </KataminoButton>
-            <KataminoBackButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#backButtonClicked" scaleX="0.5" scaleY="0.5" scaleZ="0.5" />
+            <KataminoBackButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#backButtonClicked" scaleX="0.5" scaleY="0.5" scaleZ="0.5" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <GridPane prefHeight="64.0" prefWidth="700.0" GridPane.rowIndex="1">
