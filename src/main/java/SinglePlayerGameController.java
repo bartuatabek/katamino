@@ -16,7 +16,7 @@ public class SinglePlayerGameController extends GameController{
     public void loadLevel() throws FileNotFoundException {
         for (int i= 0; i < game.getGameBoard().getGrid().length; i++) {
             for (int j = 0; j < game.getGameBoard().getGrid()[0].length; j++) {
-                KataminoDragCell currentCell = (KataminoDragCell) gameGridPane.getChildren().get((i*22)+j);
+                KataminoDragCell currentCell = (KataminoDragCell) gameTilePane.getChildren().get((i*22)+j);
                 KataminoDragCell temp = game.getGameBoard().getGrid()[i][j];
 
                 int cellId = temp.getPentominoInstanceID();
@@ -53,12 +53,12 @@ public class SinglePlayerGameController extends GameController{
         }
         playerLabel.setText("Adamotu 0");
         startGame();
-        gameGridPane.setOnMousePressed(new EventHandler<MouseEvent>() {
+        gameTilePane.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) { preview.fireEvent(event);
             }
         });
-        gameGridPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
+        gameTilePane.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 preview.fireEvent(event);
@@ -74,15 +74,16 @@ public class SinglePlayerGameController extends GameController{
                     try {
                         int rowNode = 0;
                         int colNode = 0;
-                        for (Node node : gameGridPane.getChildren()) {
+                        for (Node node : gameTilePane.getChildren()) {
                             if (node instanceof KataminoDragCell) {
                                 if (node.getBoundsInParent().contains(event.getSceneX(), event.getSceneY())) {
-                                    if (GridPane.getRowIndex(node) != null){
-                                        rowNode = (GridPane.getRowIndex(node) - 1);
+                                    Integer[] location = findLocationTilePane(node, gameTilePane);
+                                    if (location[0] != null){
+                                        rowNode = location[0] - 1;
                                     }
-                                    if (GridPane.getColumnIndex(node) != null)
+                                    if (location[1] != null)
                                     {
-                                        colNode = GridPane.getColumnIndex(node);
+                                        colNode = location[1];
                                     }
                                 }
                             }
@@ -90,7 +91,7 @@ public class SinglePlayerGameController extends GameController{
                         for(int o =0;o<11;o++)
                         {
                             for(int k =0;k<22;k++){
-                                temp[o][k]=(KataminoDragCell) gameGridPane.getChildren().get(o*22+k);
+                                temp[o][k]=(KataminoDragCell) gameTilePane.getChildren().get(o*22+k);
                             }
                         }
                         game.getGameBoard().setGrid(temp);
@@ -107,7 +108,7 @@ public class SinglePlayerGameController extends GameController{
                 }
             }
         };
-        gameGridPane.setOnMouseReleased(eventHandler);
+        gameTilePane.setOnMouseReleased(eventHandler);
         gridStack.setOnMouseReleased(eventHandler);
     }
 }
