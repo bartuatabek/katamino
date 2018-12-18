@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import kataminoBackButton.KataminoBackButton;
@@ -21,8 +22,15 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LevelMenuController implements Initializable {
-    @FXML private KataminoBackButton backButton;
-    @FXML private GridPane gridPane;
+    @FXML
+    private KataminoBackButton backButton;
+
+    @FXML
+    private GridPane gridPane;
+
+    @FXML
+    private AnchorPane root;
+
     private Player player;      // Added player is already needed inorder to adjust available levels
     // private Level[] LevelList;
     // ObservableList<String> levels = FXCollections.observableArrayList();
@@ -36,12 +44,8 @@ public class LevelMenuController implements Initializable {
 
     @FXML
     public void backButtonClicked(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("playerSelection.fxml"));
-        Parent pane = loader.load();
-        Scene mainMenuScene = new Scene(pane, 1200, 700);
-
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(mainMenuScene);
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("playerSelection.fxml"));
+        root.getChildren().setAll(pane);
     }
 
     @FXML

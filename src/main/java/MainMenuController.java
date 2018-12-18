@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -31,6 +32,9 @@ public class MainMenuController implements Initializable {
     @FXML
     private MediaView background;
 
+    @FXML
+    private AnchorPane root;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         singleplayerButton.setButtonName("Singleplayer");
@@ -47,36 +51,19 @@ public class MainMenuController implements Initializable {
 
     @FXML
     public void singlePlayerButtonClicked(MouseEvent event) throws IOException {
-        FXMLLoader playerSelectionLoader = new FXMLLoader(getClass().getResource("modeSelectionMenu.fxml"));
-        Parent levelPane = playerSelectionLoader.load();
-        Scene levelMenuScene = new Scene(levelPane, 750, 450);
-
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(levelMenuScene);
-
-        FXMLLoader.load(getClass().getResource("/view/Profile.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("modeSelectionMenu.fxml"));
+        root.getChildren().setAll(pane);
     }
 
     @FXML
     public void highScoreMenuButtonClicked(MouseEvent event) throws IOException {
-        FXMLLoader highScoreLoader = new FXMLLoader(getClass().getResource("highScore.fxml"));
-        Parent highScorePane = highScoreLoader.load();
-        Scene highScoreScene = new Scene(highScorePane, 750, 450);
-
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(highScoreScene);
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("highScore.fxml"));
+        root.getChildren().setAll(pane);
     }
 
     @FXML
     public void creditsButtonClicked(MouseEvent event) throws IOException {
-        FXMLLoader highScoreLoader = new FXMLLoader(getClass().getResource("credits.fxml"));
-        Parent highScorePane = highScoreLoader.load();
-        Scene highScoreScene = new Scene(highScorePane, 750, 450);
-
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(highScoreScene);
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("credits.fxml"));
+        root.getChildren().setAll(pane);
     }
-
-
-
 }

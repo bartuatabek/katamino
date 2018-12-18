@@ -23,12 +23,27 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 public class PlayerSelectionController implements Initializable {
 
-    @FXML private Spinner spinner;
-    @FXML private KataminoButton continueButton;
-    @FXML private KataminoPlayerAddButton createPlayerButton;
-    @FXML private TextField playerNameField;
-    @FXML private Label errorLabel;
-    @FXML private KataminoBackButton backButton;
+    @FXML
+    private Spinner spinner;
+
+    @FXML
+    private KataminoButton continueButton;
+
+    @FXML
+    private KataminoPlayerAddButton createPlayerButton;
+
+    @FXML
+    private TextField playerNameField;
+
+    @FXML
+    private Label errorLabel;
+
+    @FXML
+    private KataminoBackButton backButton;
+
+    @FXML
+    private AnchorPane root;
+
     private ObservableList<String> players;
     private SpinnerValueFactory<String> valueFactory;
     private FileManager fm;
@@ -61,15 +76,23 @@ public class PlayerSelectionController implements Initializable {
             player = new Player(selectedPlayerName);
         }
 
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("levelMenu.fxml"));
+
         FXMLLoader levelMenuLoader = new FXMLLoader(getClass().getResource("levelMenu.fxml"));
         Parent levelPane = levelMenuLoader.load();
         LevelMenuController lvlctrl = levelMenuLoader.getController();
         lvlctrl.setPlayer(player);
-        Scene levelMenuScene = new Scene(levelPane, 1200, 700);
+        root.getChildren().setAll(levelPane);
 
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+    }
 
-        stage.setScene(levelMenuScene);
+    public static Object getController(Node node) {
+        Object controller = null;
+        do {
+            controller = node.getProperties().get("foo");
+            node = node.getParent();
+        } while (controller == null && node != null);
+        return controller;
     }
 
     @FXML
@@ -94,13 +117,8 @@ public class PlayerSelectionController implements Initializable {
     }
     @FXML
     public void backButtonClicked(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("modeSelectionMenu.fxml"));
-        Parent pane = loader.load();
-        Scene mainMenuScene = new Scene(pane, 1200, 700);
-
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(mainMenuScene);
-
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("modeSelectionMenu.fxml"));
+        root.getChildren().setAll(pane);
     }
 
 }
