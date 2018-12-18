@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -18,6 +19,9 @@ public class KataminoDragCell extends Pane {
 	
 	@FXML
 	private Pane cell;
+
+	@FXML
+	private ImageView blockView;
 
 	public KataminoDragCell() throws IOException {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("kataminodragCell.fxml"));
@@ -34,6 +38,17 @@ public class KataminoDragCell extends Pane {
 		if (pentominoInstanceID == -1) {
 			cell.setPrefWidth(56);
 			cell.setPrefHeight(56);
+		} else if (pentominoInstanceID == -2) {
+			blockView.setVisible(true);
+			setDisable(true);
+		}
+	}
+
+	public void setBlocked(Boolean blocked) {
+		if (blocked) {
+			blockView.setVisible(true);
+		} else {
+			blockView.setVisible(false);
 		}
 	}
 
