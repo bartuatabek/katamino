@@ -126,7 +126,8 @@ public abstract class GameController implements Initializable {
                         }
                     }
                 }
-
+                System.out.println("Before rotation:");
+                System.out.println(coordinateArr);
                 preview.setPentomino(children);
                 preview.setOpacity(0.5);
                 preview.setLayoutY(preview.getLayoutY() + timerPane.getHeight());
@@ -185,7 +186,8 @@ public abstract class GameController implements Initializable {
                 bgstRow = (int) coord.get(0);
             }
         }
-
+        System.out.println("Before rotation:");
+        System.out.println(coordinateArr);
         int width = bgstCol - smllsCol + 1;
         int height = bgstRow - smllsRow + 1;
 
@@ -206,6 +208,8 @@ public abstract class GameController implements Initializable {
         for (ArrayList<Integer> coord : coordinateArr) {
             grid[coord.get(0)][coord.get(1)] = currentPentominoId;
         }
+        System.out.println("After Rotation");
+        System.out.println(coordinateArr);
         return grid;
     }
 
@@ -245,27 +249,36 @@ public abstract class GameController implements Initializable {
 
     public void flipVertically(int width, int height, int smllsRow, int smllsCol) {
         int[][] pentomino = new int[height][width];
+        ArrayList [][] pent2coord = new ArrayList [height][width];
 
         for (ArrayList coord : coordinateArr) {
             pentomino[(int) coord.get(0) - smllsRow][(int) coord.get(1) - smllsCol] = currentPentominoId;
+            pent2coord[(int) coord.get(0) - smllsRow][(int) coord.get(1) - smllsCol] = coord;
         }
-        for (int col = 0; col < pentomino[0].length; col++) {
-            for (int row = 0; row < pentomino.length / 2; row++) {
-                int temp = pentomino[row][col];
-                pentomino[row][col] = pentomino[pentomino.length - row - 1][col];
-                pentomino[pentomino.length - row - 1][col] = temp;
+
+        // Column Reverse
+        for (int col = 0; col < pent2coord[0].length; col++) {
+            for (int row = 0; row < pent2coord.length / 2; row++) {
+                ArrayList temp = pent2coord[row][col];
+                pent2coord[row][col] = pent2coord[pent2coord.length - row - 1][col];
+                pent2coord[pent2coord.length - row - 1][col] = temp;
             }
         }
-        coordinateArr.clear();
-        for (int i = 0; i < pentomino.length; i++) {
-            for (int j = 0; j < pentomino[0].length; j++) {
-                if (pentomino[i][j] == currentPentominoId) {
-                    ArrayList<Integer> coord = new ArrayList<>();
+
+        System.out.println(coordinateArr);
+        // Fill coordinate array
+        for (int i = 0; i < pent2coord.length; i++) {
+            for (int j = 0; j < pent2coord[0].length; j++) {
+                if (pent2coord[i][j] != null) {
+                    ArrayList<Integer> n_coords = new ArrayList<>();
                     Integer newCoordx = i + smllsRow;
                     Integer newCoordy = j + smllsCol;
-                    coord.add(newCoordx);
-                    coord.add(newCoordy);
-                    coordinateArr.add(coord);
+                    n_coords.add(newCoordx);
+                    n_coords.add(newCoordy);
+
+                    int ind = coordinateArr.indexOf(pent2coord[i][j]);
+                    if (ind != -1)
+                        coordinateArr.set(ind, n_coords);
                 }
             }
         }
