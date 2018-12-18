@@ -3,9 +3,7 @@
  * @version 1.0
  */
 
-import java.net.URL;
 import java.util.*;
-import java.io.FileNotFoundException;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -47,24 +45,24 @@ public abstract class GameController implements Initializable {
     private ArrayList<ArrayList<Integer>> coordinateArr;
 
     @FXML
-    GridPane timerPane;
+    protected GridPane timerPane;
 
     @FXML
-    TilePane gameGridPane;
+    protected TilePane gameTilePane;
 
     @FXML
-    Label stopwatchLabel;
+    protected Label stopwatchLabel;
 
     @FXML
-    Label playerLabel;
+    protected Label playerLabel;
 
     @FXML
-    AnchorPane gridStack;
+    protected AnchorPane gridStack;
 
-    KataminoDragBlock preview;
+    protected KataminoDragBlock preview;
 
     public boolean isFull() {
-        ObservableList<Node> cells = gameGridPane.getChildren();
+        ObservableList<Node> cells = gameTilePane.getChildren();
         for (int i = 0; i < cells.size(); i++) {
 
             KataminoDragCell currentPentomino = (KataminoDragCell) cells.get(i);
@@ -75,6 +73,7 @@ public abstract class GameController implements Initializable {
         }
         return true;
     }
+
 
     public boolean clashCheck(int row, int col) {
         //TODO:border bugs
@@ -90,7 +89,7 @@ public abstract class GameController implements Initializable {
         for (int i = 0; i < coordinateArr.size(); i++) {
             index = (coordinateArr.get(i).get(0) * 22) + coordinateArr.get(i).get(1);
             if (index >= 0) {
-                KataminoDragCell currentPentomino = (KataminoDragCell) gameGridPane.getChildren().get(index);
+                KataminoDragCell currentPentomino = (KataminoDragCell) gameTilePane.getChildren().get(index);
                 if (currentPentomino.getPentominoInstanceID() == -1 || currentPentomino.getPentominoInstanceID() == 0) {
                     newLocationCells.add(currentPentomino);
                 } else {
@@ -106,6 +105,19 @@ public abstract class GameController implements Initializable {
         }
         return false;
     }
+    public Integer[] findLocationTilePane(Node node, TilePane tilePane){
+        for (int i = 0; i < tilePane.getPrefRows(); i++) {
+            for(int j = 0;j< tilePane.getPrefColumns(); j++) {
+                if(node == tilePane.getChildren().get((i * 22) + j)) {
+                    Integer[] location = new Integer[2];
+                    location[0] = i;
+                    location[1] = j;
+                    return location;
+                }
+            }
+        }
+        return null;
+    }
 
     public void generatePreview(MouseEvent e) {
         if (((KataminoDragCell) e.getSource()).getPentominoInstanceID() > 0 && !gridStack.isVisible()) {
@@ -115,7 +127,7 @@ public abstract class GameController implements Initializable {
                 for (int i = 0; i < children.length; i++) {
                     for (int j = 0; j < children[0].length; j++) {
                         KataminoDragCell currentCell = (KataminoDragCell) preview.getChildren().get((i * 22) + j);
-                        KataminoDragCell currentTileCell = (KataminoDragCell) gameGridPane.getChildren().get((i * 22) + j);
+                        KataminoDragCell currentTileCell = (KataminoDragCell) gameTilePane.getChildren().get((i * 22) + j);
                         if (children[i][j] == 0) {
                             currentCell.setCellColor(Color.TRANSPARENT);
                             currentCell.setBorderColor(Color.TRANSPARENT);
@@ -310,20 +322,17 @@ public abstract class GameController implements Initializable {
         kataminoDragCell = (KataminoDragCell) source;
         currentPentominoId = kataminoDragCell.getPentominoInstanceID();
         int pentominoInstanceID = ((KataminoDragCell) source).getPentominoInstanceID();
-        ObservableList<Node> cells = gameGridPane.getChildren();
+        ObservableList<Node> cells = gameTilePane.getChildren();
         Stack<Node> currentSearch = new Stack<>();
-        int[][] currentShape = new int[11][22];///////////////////
+        int[][] currentShape = new int[11][22];
         currentSearch.push(source);
         Integer colIndex;
         Integer rowIndex;
         coordinateArr = new ArrayList<>();
         while (!currentSearch.empty()) {
-            colIndex = GridPane.getColumnIndex(currentSearch.peek());
-            rowIndex = GridPane.getRowIndex(currentSearch.peek());
-            if (colIndex == null)
-                colIndex = 0;
-            if (rowIndex == null)
-                rowIndex = 0;
+            Integer[] location = findLocationTilePane(currentSearch.peek(), gameTilePane);
+            rowIndex = location[0];
+            colIndex = location[1];
             currentShape[rowIndex][colIndex] = pentominoInstanceID;
             ArrayList<Integer> arrayList = new ArrayList<Integer>();
             arrayList.add(rowIndex);
