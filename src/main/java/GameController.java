@@ -64,10 +64,8 @@ public abstract class GameController implements Initializable {
     public boolean isFull() {
         ObservableList<Node> cells = gameTilePane.getChildren();
         for (int i = 0; i < cells.size(); i++) {
-
             KataminoDragCell currentPentomino = (KataminoDragCell) cells.get(i);
-
-            if (currentPentomino.isOnBoard() && ((currentPentomino.getPentominoInstanceID() == -1) || (currentPentomino.getPentominoInstanceID() == 0))) {
+            if ((currentPentomino.getPentominoInstanceID() == 0)) {
                 return false;
             }
         }
