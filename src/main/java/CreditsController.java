@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import kataminoBackButton.KataminoBackButton;
 
@@ -14,18 +15,19 @@ import java.util.ResourceBundle;
 
 public class CreditsController implements Initializable {
 
-    @FXML private KataminoBackButton kataminoBackButton;
+    @FXML
+    private KataminoBackButton kataminoBackButton;
+
+    @FXML
+    private AnchorPane root;
 
     public void initialize(URL location, ResourceBundle resources) {
 
     }
+
     @FXML
     public void backButtonClicked(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("mainMenu.fxml"));
-        Parent pane = loader.load();
-        Scene mainMenuScene = new Scene(pane, 1200, 700);
-
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(mainMenuScene);
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+        root.getChildren().setAll(pane);
     }
 }

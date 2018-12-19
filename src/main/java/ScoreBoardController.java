@@ -6,7 +6,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import kataminoBackButton.KataminoBackButton;
 import java.io.IOException;
@@ -15,11 +18,22 @@ import java.util.*;
 
 
 public class ScoreBoardController implements Initializable {
-    @FXML private KataminoBackButton backButton;
-    @FXML private GridPane gridPane;
+
+    @FXML
+    private KataminoBackButton backButton;
+
+    @FXML
+    private GridPane gridPane;
+
+    @FXML
+    private VBox players;
+
+    @FXML
+    private AnchorPane root;
+
     private FileManager fm;
     private HashMap<String,Integer> playerList;
-    @FXML private ArrayList<Label> labels;
+
     private ArrayList<Integer> col2;
     private ArrayList<String> col1;
 
@@ -31,9 +45,7 @@ public class ScoreBoardController implements Initializable {
         col1 =new ArrayList<String>(sortedPlayerList.keySet());
     }
 
-
-    private static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm)
-    {
+    private static HashMap<String, Integer> sortByValue(HashMap<String, Integer> hm) {
         // Create a list from elements of HashMap
         List<HashMap.Entry<String, Integer> > list =new LinkedList<HashMap.Entry<String, Integer> >(hm.entrySet());
 
@@ -54,14 +66,14 @@ public class ScoreBoardController implements Initializable {
         return temp;
     }
 
-
     public void initialize(URL location, ResourceBundle resources) {
-        int count=1;
-        int reverse = col1.size() -count;
-        Label label;
-        while (reverse>-1) {
-            label= labels.get(count - 1);
+        int count = 1;
+        int reverse = col1.size() - count;
+        while (reverse > -1) {
+            Label label = new Label();
             label.setText(col1.get(reverse)+"       "+col2.get(reverse));
+            label.setTextFill(Color.color(Math.random(), Math.random(), Math.random()));
+            players.getChildren().add(label);
             reverse--;
             count++;
         }
@@ -69,10 +81,7 @@ public class ScoreBoardController implements Initializable {
 
     @FXML
     public void backButtonClicked(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("mainMenu.fxml"));
-        Parent pane = loader.load();
-        Scene mainMenuScene = new Scene(pane, 1200, 700);
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(mainMenuScene);
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+        root.getChildren().setAll(pane);
     }
 }

@@ -7,11 +7,10 @@ import java.util.ArrayList;
 
 public class GameBoard {
     private  KataminoDragCell[][] grid;
-private Level currentLevel;
+    private Level currentLevel;
     Integer[][]board;
     private ArrayList<Color> colorList ;
     public GameBoard(int levelNo) {
-
         currentLevel = new Level(levelNo);
         board = currentLevel.getBoard();
         grid= new KataminoDragCell[board.length][board[0].length];
@@ -45,7 +44,7 @@ private Level currentLevel;
             for (int j = 0; j < board[0].length; j++) {
                 KataminoDragCell currentCell = new KataminoDragCell();
                 Color cellColor = ((board[i][j] % 12) >= 0 && (board[i][j] != 0)) ? colorList.get(board[i][j] % 12) : Color.web("#262626");
-                currentCell.customizeCell(board[i][j], board[i][j] != 0, cellColor);
+                currentCell.customizeCell(board[i][j], board[i][j] == 0, cellColor);
                 if (currentCell.getPentominoInstanceID() == 0) {
                     currentCell.setBorderColor(Color.WHITE);
                 }
