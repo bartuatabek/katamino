@@ -35,7 +35,6 @@ public class SinglePlayerGameController extends GameController{
         }
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         game = new SinglePlayerGame(1,0,new Player(0,2,"zey",0) ); ///playerrrrrrrrrrrrrrrrrrrrrrr

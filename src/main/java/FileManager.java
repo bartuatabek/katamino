@@ -30,7 +30,7 @@ public class FileManager {
             System.out.println();
         }
         */
-        return  gson.fromJson(jsonReader, Integer[][].class);
+        return gson.fromJson(jsonReader, Integer[][].class);
     }
     public Player loadPlayer(String name) {
 

@@ -10,36 +10,35 @@ public class GameBoard {
     private Level currentLevel;
     Integer[][]board;
     private ArrayList<Color> colorList ;
+
     public GameBoard(int levelNo) {
         currentLevel = new Level(levelNo);
         board = currentLevel.getBoard();
-        grid= new KataminoDragCell[board.length][board[0].length];
-         colorList = new ArrayList<Color>(){{
-            add(Color.ANTIQUEWHITE);
-            add(Color.GRAY);
-            add(Color.ALICEBLUE);
-            add(Color.AZURE);
-            add(Color.SALMON);
-            add(Color.CHARTREUSE);
-            add(Color.CORNFLOWERBLUE);
-            add(Color.MEDIUMPURPLE);
-            add(Color.LIME);
-            add(Color.TEAL);
-            add(Color.OLIVE);
-            add(Color.ORANGERED);
+        grid = new KataminoDragCell[board.length][board[0].length];
+        colorList = new ArrayList<Color>(){{
+            add(Color.web("FF3B30"));
+            add(Color.web("FF9500"));
+            add(Color.web("FFCC00"));
+            add(Color.web("4CD964"));
+            add(Color.web("5AFAFA"));
+            add(Color.web("007AFF"));
+            add(Color.web("5856D6"));
+            add(Color.web("FF2D55"));
+            add(Color.web("8B572A"));
+            add(Color.web("B8E986"));
+            add(Color.web("BD10E0"));
+            add(Color.web("FF5700"));
         }};
         try {
             loadLevel();
-
         } catch (FileNotFoundException f) {
             System.out.println("IOException");
         } catch (IOException ex) {
             System.out.println("General exception");
         }
     }
-    public void loadLevel() throws FileNotFoundException,IOException {
 
-
+    public void loadLevel() throws IOException {
         for (int i= 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
                 KataminoDragCell currentCell = new KataminoDragCell();
@@ -59,6 +58,5 @@ public class GameBoard {
 
     public void setGrid(KataminoDragCell[][] grid) {
         this.grid = grid;
-
     }
 }

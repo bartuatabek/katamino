@@ -27,18 +27,18 @@ public abstract class GameController implements Initializable {
 
     Game game;
     private ArrayList<Color> colorList = new ArrayList<Color>() {{
-        add(Color.ANTIQUEWHITE);
-        add(Color.GRAY);
-        add(Color.ALICEBLUE);
-        add(Color.AZURE);
-        add(Color.SALMON);
-        add(Color.CHARTREUSE);
-        add(Color.CORNFLOWERBLUE);
-        add(Color.MEDIUMPURPLE);
-        add(Color.LIME);
-        add(Color.TEAL);
-        add(Color.OLIVE);
-        add(Color.ORANGERED);
+        add(Color.web("FF3B30"));
+        add(Color.web("FF9500"));
+        add(Color.web("FFCC00"));
+        add(Color.web("4CD964"));
+        add(Color.web("5AFAFA"));
+        add(Color.web("007AFF"));
+        add(Color.web("5856D6"));
+        add(Color.web("FF2D55"));
+        add(Color.web("8B572A"));
+        add(Color.web("B8E986"));
+        add(Color.web("BD10E0"));
+        add(Color.web("FF5700"));
     }};
     KataminoDragCell kataminoDragCell;
     private int currentPentominoId;
@@ -72,7 +72,6 @@ public abstract class GameController implements Initializable {
         return true;
     }
 
-
     public boolean clashCheck(int row, int col) {
         //TODO:border bugs
         ArrayList<KataminoDragCell> newLocationCells = new ArrayList<>();
@@ -103,6 +102,7 @@ public abstract class GameController implements Initializable {
         }
         return false;
     }
+
     public Integer[] findLocationTilePane(Node node, TilePane tilePane){
         for (int i = 0; i < tilePane.getPrefRows(); i++) {
             for(int j = 0;j< tilePane.getPrefColumns(); j++) {
@@ -174,7 +174,7 @@ public abstract class GameController implements Initializable {
 
     public int[][] pentominoTransform(KeyEvent e) {
 
-        int grid[][] = new int[11][22];
+        int[][] grid = new int[11][22];
         int smllsRow = 1000;
         int smllsCol = 1000;
         int bgstCol = -1;
@@ -372,12 +372,10 @@ public abstract class GameController implements Initializable {
                     currentSearch.push(currentPentomino);
             }
         }
-
-        print2D(currentShape);
         return currentShape;
     }
 
-    public static void print2D(int mat[][]) {
+    public static void print2D(int[][] mat) {
         // Loop through all rows
         for (int[] row : mat)
             System.out.println(Arrays.toString(row));
