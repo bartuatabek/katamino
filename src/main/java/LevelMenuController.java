@@ -4,6 +4,7 @@
  */
 
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -51,8 +52,12 @@ public class LevelMenuController implements Initializable {
 
     @FXML
     public void levelButtonClicked(MouseEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("singlePlayerGame.fxml"));
+        FXMLLoader levelMenuLoader = new FXMLLoader(getClass().getResource("singlePlayerGame.fxml"));
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        AnchorPane pane = levelMenuLoader.load();
+
+        SinglePlayerGameController gameController = levelMenuLoader.getController();
+        gameController.gameSetup(Integer.parseInt(((KataminoLevelButton)event.getSource()).getButtonText()), player.getHighScore(), player);
 
         stage.setWidth(1250);
         stage.setHeight(700);
@@ -76,9 +81,20 @@ public class LevelMenuController implements Initializable {
             int accessibleLevelLimit = player.getAccessibleLevel();
 
             for (int i = 0; i < gridPane.getChildren().size();i++) {
-                if (i > accessibleLevelLimit) {
+                if (i >= accessibleLevelLimit) {
                     ((KataminoLevelButton)gridPane.getChildren().get(i)).setOpacity(0.5);
                     ((KataminoLevelButton)gridPane.getChildren().get(i)).setDisable(true);
+                } else {
+                    gridPane.getChildren().get(i).setOnMouseClicked( new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            try {
+                                levelButtonClicked(event);
+                            } catch (Exception e) {
+                                System.out.println(e);
+                            }
+                        }
+                    });
                 }
             }
         }

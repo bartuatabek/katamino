@@ -1,17 +1,18 @@
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 import kataminoDragBlock.KataminoDragBlock;
 import kataminoDragCell.KataminoDragCell;
-
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SinglePlayerGameController extends GameController{
-
 
     public void loadLevel() throws FileNotFoundException {
         for (int i= 0; i < game.getGameBoard().getGrid().length; i++) {
@@ -35,35 +36,65 @@ public class SinglePlayerGameController extends GameController{
         }
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        game = new SinglePlayerGame(1,0,new Player(0,2,"zey",0) ); ///playerrrrrrrrrrrrrrrrrrrrrrr
+    public void gameSetup(int level, int gameScore, Player player) {
+        game = new SinglePlayerGame(level, player.getHighScore(), player);
+        playerLabel.setText(((SinglePlayerGame) game).getPlayer().getPlayerName() + " " + ((SinglePlayerGame) game).getPlayer().getHighScore());
 
         try {
-            kataminoDragCell = new KataminoDragCell();
             loadLevel();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        startGame();
+    }
+
+    @Override
+    public void gameOverAction() {
+        ((SinglePlayerGame) game).updateLevel();
+        try {
+            loadLevel();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        for (Node n: gameTilePane.getChildren()) {
+            RotateTransition rotator = new RotateTransition(Duration.millis(500), n);
+            rotator.setFromAngle(120);
+            rotator.setToAngle(0);
+            rotator.setInterpolator(Interpolator.EASE_BOTH);
+            rotator.setOnFinished(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    resumeGame();
+                }});
+            rotator.play();
+        }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            kataminoDragCell = new KataminoDragCell();
             preview = new KataminoDragBlock();
             gridStack.setOnKeyPressed(keyPressed);
             gridStack.getChildren().add(preview);
             gridStack.setVisible(false);
         } catch (Exception e) {
             System.out.println(e);
-
         }
-        playerLabel.setText("Adamotu 0");
-        startGame();
+
         gameTilePane.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) { preview.fireEvent(event);
             }
         });
+
         gameTilePane.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 preview.fireEvent(event);
             }
         });
-
 
         EventHandler eventHandler = new EventHandler<MouseEvent>() {
             @Override

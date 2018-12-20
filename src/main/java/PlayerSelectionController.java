@@ -67,7 +67,6 @@ public class PlayerSelectionController implements Initializable {
     @FXML
     public void continueButtonClicked(MouseEvent event) throws IOException {
         String selectedPlayerName = (String) spinner.getValue();
-        System.out.print("Selected Player: "+ selectedPlayerName);
         Player player;
         if (savedPlayers.contains(selectedPlayerName)){
             player = fm.loadPlayer(selectedPlayerName);

@@ -6,9 +6,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameBoard {
+
     private  KataminoDragCell[][] grid;
+
     private Level currentLevel;
+
     Integer[][]board;
+
     private ArrayList<Color> colorList ;
 
     public GameBoard(int levelNo) {

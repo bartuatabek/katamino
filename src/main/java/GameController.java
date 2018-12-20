@@ -3,14 +3,16 @@
  * @version 1.0
  */
 
+import java.io.IOException;
 import java.util.*;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point3D;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
@@ -19,6 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import kataminoDragBlock.KataminoDragBlock;
 import kataminoDragCell.KataminoDragCell;
@@ -26,6 +29,7 @@ import kataminoDragCell.KataminoDragCell;
 public abstract class GameController implements Initializable {
 
     Game game;
+
     private ArrayList<Color> colorList = new ArrayList<Color>() {{
         add(Color.web("FF3B30"));
         add(Color.web("FF9500"));
@@ -40,8 +44,11 @@ public abstract class GameController implements Initializable {
         add(Color.web("BD10E0"));
         add(Color.web("FF5700"));
     }};
+
     KataminoDragCell kataminoDragCell;
+
     private int currentPentominoId;
+
     private ArrayList<ArrayList<Integer>> coordinateArr;
 
     @FXML
@@ -69,7 +76,24 @@ public abstract class GameController implements Initializable {
                 return false;
             }
         }
+        for (Node n: gameTilePane.getChildren()) {
+            RotateTransition rotator = new RotateTransition(Duration.millis(500), n);
+            rotator.setFromAngle(0);
+            rotator.setToAngle(120);
+            rotator.setInterpolator(Interpolator.EASE_BOTH);
+            rotator.setOnFinished(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    gameOverAction();
+                    pauseGame();
+            }});
+            rotator.play();
+        }
         return true;
+    }
+
+    public void gameOverAction() {
+        System.out.println("Game Over!");
     }
 
     public boolean clashCheck(int row, int col) {

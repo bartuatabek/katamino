@@ -6,13 +6,15 @@ public class SinglePlayerGame extends Game {
     private Player player;
     private int gameScore;
     private int levelScore;
+    private int currentLevel;
 
     public SinglePlayerGame(int level, int gameScore, Player player) {
-        gameBoard = new GameBoard(level);
+        currentLevel = level;
+        gameBoard = new GameBoard(currentLevel);
         this.player = player;
         stopwatch= new Stopwatch();
         this.gameScore = gameScore;
-        stopped=false;
+        stopped = false;
     }
 
     public Player getPlayer() {
@@ -46,9 +48,9 @@ public class SinglePlayerGame extends Game {
         return true;
     }
 
-    public void updateLevel(int newLevelNo) {
+    public void updateLevel() {
         player.setAccessibleLevel(player.getAccessibleLevel() + 1);
-        gameBoard = new GameBoard(newLevelNo);
+        gameBoard = new GameBoard(currentLevel + 1);
         levelScore = 0;
     }
 
