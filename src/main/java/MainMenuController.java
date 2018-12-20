@@ -43,10 +43,10 @@ public class MainMenuController implements Initializable {
         settings.setButtonName("Settings");
 
         // initialize the media player
-        MediaPlayer player = new MediaPlayer(new Media(getClass().getResource("background.mp4").toExternalForm()));
-        player.setAutoPlay(true);
-        player.setCycleCount(MediaPlayer.INDEFINITE);
-        background.setMediaPlayer(player);
+        //MediaPlayer player = new MediaPlayer(new Media(getClass().getResource("background.mp4").toExternalForm()));
+        //player.setAutoPlay(true);
+        //player.setCycleCount(MediaPlayer.INDEFINITE);
+        //background.setMediaPlayer(player);
     }
 
     @FXML

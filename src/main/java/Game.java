@@ -2,6 +2,7 @@ import javafx.scene.paint.Color;
 import kataminoDragCell.KataminoDragCell;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Game {
     GameBoard gameBoard;
@@ -34,7 +35,9 @@ public class Game {
             stopped = true;
         }
     }
-
+    public ArrayList<ArrayList<Integer>> getHindCoords(int pentominoID){
+        return gameBoard.findHintCoords(pentominoID);
+    }
     public void resume() {
         if (stopped) {
             stopwatch.resume();

@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -43,7 +44,7 @@ public abstract class GameController implements Initializable {
     KataminoDragCell kataminoDragCell;
     private int currentPentominoId;
     private ArrayList<ArrayList<Integer>> coordinateArr;
-
+    Color hintIndicationColor = Color.RED;
     @FXML
     protected GridPane timerPane;
 
@@ -116,6 +117,43 @@ public abstract class GameController implements Initializable {
         }
         return null;
     }
+    public void generateHint(KeyEvent event){
+
+        if (event.getCode() == KeyCode.H) {
+            displayHint(game.getHindCoords(currentPentominoId));
+        }
+
+    }
+    public void displayHint(ArrayList<ArrayList<Integer>> coords) {
+        Color[] prevColors = new Color[coords.size()];
+        ObservableList<Node> cells = gameTilePane.getChildren();
+        System.out.println(coords);
+        final int[] ind = {0};
+        for (ArrayList<Integer> coord : coords) {
+            KataminoDragCell currentPentomino = (KataminoDragCell) gameTilePane.getChildren().get((coord.get(0) * 22) + coord.get(1));
+            prevColors[ind[0]] = currentPentomino.getColor();
+            ind[0]++;
+            currentPentomino.setCellColor(hintIndicationColor);
+        }
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        ind[0] = 0;
+                        for (ArrayList<Integer> coord : coords){
+                            KataminoDragCell currentPentomino = (KataminoDragCell) gameTilePane.getChildren().get((coord.get(0) * 22) + coord.get(1));
+                            currentPentomino.setCellColor(prevColors[ind[0]]);
+                            ind[0]++;
+                        }
+                    }
+                },
+                2000
+        );
+
+
+
+    }
+
 
     public void generatePreview(MouseEvent e) {
         if (((KataminoDragCell) e.getSource()).getPentominoInstanceID() > 0 && !gridStack.isVisible()) {
@@ -135,8 +173,6 @@ public abstract class GameController implements Initializable {
                         }
                     }
                 }
-                System.out.println("Before rotation:");
-                System.out.println(coordinateArr);
                 preview.setPentomino(children);
                 preview.setOpacity(0.5);
                 preview.setLayoutY(preview.getLayoutY() + timerPane.getHeight());
@@ -194,8 +230,6 @@ public abstract class GameController implements Initializable {
                 bgstRow = (int) coord.get(0);
             }
         }
-        System.out.println("Before rotation:");
-        System.out.println(coordinateArr);
         int width = bgstCol - smllsCol + 1;
         int height = bgstRow - smllsRow + 1;
 
@@ -216,8 +250,6 @@ public abstract class GameController implements Initializable {
         for (ArrayList<Integer> coord : coordinateArr) {
             grid[coord.get(0)][coord.get(1)] = currentPentominoId;
         }
-        System.out.println("After Rotation");
-        System.out.println(coordinateArr);
         return grid;
     }
 
@@ -323,6 +355,7 @@ public abstract class GameController implements Initializable {
         @Override
         public void handle(KeyEvent event) {
             preview.setPentomino(pentominoTransform(event));
+            generateHint(event);
             event.consume();
         }
     };
@@ -382,4 +415,5 @@ public abstract class GameController implements Initializable {
         for (int[] row : mat)
             System.out.println(Arrays.toString(row));
     }
+
 }

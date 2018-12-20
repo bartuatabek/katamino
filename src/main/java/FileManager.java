@@ -20,16 +20,12 @@ public class FileManager {
 
     public Integer[][] loadLevels(int levelNo) throws FileNotFoundException{//load specific level
         JsonReader jsonReader = new JsonReader(new FileReader("src/level.json"));
-        /*
-        Level level = new Level((Integer[][]) gson.fromJson(jsonReader, Integer[][].class));
-        for(int i = 0; i < level.getGrid().length;i++){
-            for(int j = 0; j < level.getGrid()[i].length;j++){
-                System.out.print("["+level.getGrid()[i][j]+"]");
 
-            }
-            System.out.println();
-        }
-        */
+        return  gson.fromJson(jsonReader, Integer[][].class);
+    }
+    public Integer[][] loadSolution(int levelNo) throws FileNotFoundException{//load specific level
+        JsonReader jsonReader = new JsonReader(new FileReader("src/solution.json"));
+
         return  gson.fromJson(jsonReader, Integer[][].class);
     }
     public Player loadPlayer(String name) {
