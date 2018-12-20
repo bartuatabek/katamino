@@ -18,7 +18,7 @@ public class FileManager {
         gson = new Gson();
     }
 
-    public Level loadLevels() throws FileNotFoundException{//load specific level
+    public Integer[][] loadLevels(int levelNo) throws FileNotFoundException{//load specific level
         JsonReader jsonReader = new JsonReader(new FileReader("src/level.json"));
         /*
         Level level = new Level((Integer[][]) gson.fromJson(jsonReader, Integer[][].class));
@@ -30,7 +30,7 @@ public class FileManager {
             System.out.println();
         }
         */
-        return new Level((Integer[][]) gson.fromJson(jsonReader, Integer[][].class));
+        return  gson.fromJson(jsonReader, Integer[][].class);
     }
     public Player loadPlayer(String name) {
 
@@ -101,6 +101,10 @@ public class FileManager {
             object.add("highScore",element );
             element = gson.fromJson (player.getAccessibleLevel()+"", JsonElement.class);
             object.add("accesibleLevel",element );
+            element = gson.fromJson(gson.toJson(player.getLatestBoard()),JsonElement.class);
+            object.add("latestBoard",element );
+            element = gson.fromJson(gson.toJson(player.getLatestTime()),JsonElement.class);
+            object.add("latestTime",element );
             jsonArray.add(object);
             System.out.print(jsonArray);
             Writer writer =new FileWriter("src/players.json");
@@ -125,19 +129,23 @@ public class FileManager {
             for (i = 0; i < jsonArray.size(); i++){
                 name = jsonArray.get(i).getAsJsonObject().get("playerName").getAsString();
                 if (name.equals(player.getPlayerName())) {
-                    System.out.print("Found!");
+                    System.out.print("Found! "+name);
                     break;
                 }
             }
             JsonObject object =  jsonArray.get(i).getAsJsonObject();
             jsonArray.remove(object);
-            System.out.print(jsonArray);
+
             JsonElement element = gson.fromJson (player.getPlayerName(), JsonElement.class);
             object.add("playerName",element );
             element = gson.fromJson (player.getHighScore()+"", JsonElement.class);
             object.add("highScore",element );
             element = gson.fromJson (player.getAccessibleLevel()+"", JsonElement.class);
             object.add("accesibleLevel",element );
+            element = gson.fromJson(gson.toJson(player.getLatestBoard()),JsonElement.class);
+            object.add("latestBoard",element );
+            element = gson.fromJson(gson.toJson(player.getLatestTime()),JsonElement.class);
+            object.add("latestTime",element );
             jsonArray.add(object);
             System.out.print(jsonArray);
             Writer writer =new FileWriter("src/players.json");

@@ -1,32 +1,19 @@
-import java.util.Timer;
+import javafx.scene.paint.Color;
+import kataminoDragCell.KataminoDragCell;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Game {
-    private GameBoard gameBoard;
-    private Stopwatch stopwatch;
-    private Player player;
-    private int gameScore;
+    GameBoard gameBoard;
+    Stopwatch stopwatch;
+    boolean stopped;
 
-    public Game(Level level, int gameScore, Player player) {
-
-        gameBoard = new GameBoard(level);
-        this.player = player;
-        stopwatch= new Stopwatch();
-        this.gameScore = gameScore;
-    }
-    public Player getPlayer() {
-        return player;
+    public boolean isStopped() {
+        return stopped;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    public int getGameScore() {
-        return gameScore;
-    }
-
-    public void incrementGameScore(int amount) {
-        this.gameScore = gameScore+amount;
+    public void setStopped(boolean stopped) {
+        this.stopped = stopped;
     }
 
     public GameBoard getGameBoard() {
@@ -42,15 +29,23 @@ public class Game {
     }
 
     public void pause() {
-        stopwatch.pause();
+        if (!stopped) {
+            stopwatch.pause();
+            stopped = true;
+        }
     }
 
     public void resume() {
-        stopwatch.resume();
+        if (stopped) {
+            stopwatch.resume();
+            stopped = false;
+        }
     }
 
-    public long getElapsedSeconds() {
+    public int getElapsedSeconds() {
         return stopwatch.getElapsedTime();
     }
+
+
 
 }

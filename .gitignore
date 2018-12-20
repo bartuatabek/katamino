@@ -31,4 +31,5 @@ doc/*
 out/*
 .idea/*
 target/*
-.lib/*
+
+*.json

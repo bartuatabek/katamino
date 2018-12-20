@@ -3,9 +3,7 @@
  * @version 1.0
  */
 
-import java.net.URL;
 import java.util.*;
-import java.io.FileNotFoundException;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -19,14 +17,16 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import kataminoDragBlock.KataminoDragBlock;
 import kataminoDragCell.KataminoDragCell;
 
-public class GameController implements Initializable {
+public abstract class GameController implements Initializable {
 
-    private ArrayList<Color> colorList = new ArrayList<Color>(){{
+    Game game;
+    private ArrayList<Color> colorList = new ArrayList<Color>() {{
         add(Color.ANTIQUEWHITE);
         add(Color.GRAY);
         add(Color.ALICEBLUE);
@@ -40,48 +40,38 @@ public class GameController implements Initializable {
         add(Color.OLIVE);
         add(Color.ORANGERED);
     }};
-    private Level currentLevel;
-    private Boolean isPaused;
-    private int count;
-    private KataminoDragCell kataminoDragCell;
+    KataminoDragCell kataminoDragCell;
     private int currentPentominoId;
     private ArrayList<ArrayList<Integer>> coordinateArr;
 
     @FXML
-    private GridPane timerPane;
+    protected GridPane timerPane;
 
     @FXML
-    private GridPane gameGridPane;
+    protected TilePane gameTilePane;
 
     @FXML
-    private Label stopwatchLabel;
+    protected Label stopwatchLabel;
 
     @FXML
-    private Label playerLabel;
+    protected Label playerLabel;
 
     @FXML
-    private AnchorPane gridStack;
+    protected AnchorPane gridStack;
 
-    private KataminoDragBlock preview;
+    protected KataminoDragBlock preview;
 
-    public boolean isFull(){
-        ObservableList<Node> cells = gameGridPane.getChildren();
-        for(int i = 0; i < cells.size(); i ++)
-        {
-
-            KataminoDragCell currentPentomino = (KataminoDragCell)cells.get(i);
-
-            if( currentPentomino.isOnBoard() && ((currentPentomino.getPentominoInstanceID() == -1) || (currentPentomino.getPentominoInstanceID() == 0)))
-            {
+    public boolean isFull() {
+        ObservableList<Node> cells = gameTilePane.getChildren();
+        for (int i = 0; i < cells.size(); i++) {
+            KataminoDragCell currentPentomino = (KataminoDragCell) cells.get(i);
+            if ((currentPentomino.isOnBoard() && (currentPentomino.getPentominoInstanceID() == -1)) || (currentPentomino.getPentominoInstanceID() == 0)) {
                 return false;
             }
         }
         return true;
     }
 
-    public void placePentomino() {}
-
-    public void movePentomino () {}
 
     public boolean clashCheck(int row, int col) {
         //TODO:border bugs
@@ -89,47 +79,53 @@ public class GameController implements Initializable {
         Color cellColor = ((currentPentominoId % 12) >= 0 && (currentPentominoId != 0)) ? colorList.get(currentPentominoId % 12) : Color.web("#262626");
         int transferX = row - coordinateArr.get(0).get(0);
         int transferY = col - coordinateArr.get(0).get(1);
-        for (ArrayList<Integer> array: coordinateArr) {
+        for (ArrayList<Integer> array : coordinateArr) {
             array.set(0, array.get(0) + transferX);
             array.set(1, array.get(1) + transferY);
         }
         int index;
         for (int i = 0; i < coordinateArr.size(); i++) {
             index = (coordinateArr.get(i).get(0) * 22) + coordinateArr.get(i).get(1);
-            if(index >= 0)
-            {
-                KataminoDragCell currentPentomino = (KataminoDragCell) gameGridPane.getChildren().get(index);
-                if(currentPentomino.getPentominoInstanceID() == -1 || currentPentomino.getPentominoInstanceID() == 0)
-                {
+            if (index >= 0) {
+                KataminoDragCell currentPentomino = (KataminoDragCell) gameTilePane.getChildren().get(index);
+                if (currentPentomino.getPentominoInstanceID() == -1 || currentPentomino.getPentominoInstanceID() == 0) {
                     newLocationCells.add(currentPentomino);
-                }
-                else {
+                } else {
                     ShakeTransition shakeTransition = new ShakeTransition(gridStack);
                     shakeTransition.playFromStart();
                     return true;
                 }
             }
         }
-        for(KataminoDragCell currentCell: newLocationCells)
-        {
+        for (KataminoDragCell currentCell : newLocationCells) {
             currentCell.setPentominoInstanceID(currentPentominoId);
             currentCell.setCellColor(cellColor);
         }
         return false;
     }
-
-    public void colorClashingCells(){}
+    public Integer[] findLocationTilePane(Node node, TilePane tilePane){
+        for (int i = 0; i < tilePane.getPrefRows(); i++) {
+            for(int j = 0;j< tilePane.getPrefColumns(); j++) {
+                if(node == tilePane.getChildren().get((i * 22) + j)) {
+                    Integer[] location = new Integer[2];
+                    location[0] = i;
+                    location[1] = j;
+                    return location;
+                }
+            }
+        }
+        return null;
+    }
 
     public void generatePreview(MouseEvent e) {
-        if(((KataminoDragCell) e.getSource()).getPentominoInstanceID() > 0 && !gridStack.isVisible())
-        {
+        if (((KataminoDragCell) e.getSource()).getPentominoInstanceID() > 0 && !gridStack.isVisible()) {
             try {
-                preview.relocate(0,0);
+                preview.relocate(0, 0);
                 int[][] children = findSiblings((Node) e.getSource());
-                for (int i= 0; i < children.length; i++) {
+                for (int i = 0; i < children.length; i++) {
                     for (int j = 0; j < children[0].length; j++) {
-                        KataminoDragCell currentCell = (KataminoDragCell) preview.getChildren().get((i*22)+j);
-                        KataminoDragCell currentTileCell = (KataminoDragCell) gameGridPane.getChildren().get((i*22)+j);
+                        KataminoDragCell currentCell = (KataminoDragCell) preview.getChildren().get((i * 22) + j);
+                        KataminoDragCell currentTileCell = (KataminoDragCell) gameTilePane.getChildren().get((i * 22) + j);
                         if (children[i][j] == 0) {
                             currentCell.setCellColor(Color.TRANSPARENT);
                             currentCell.setBorderColor(Color.TRANSPARENT);
@@ -139,7 +135,8 @@ public class GameController implements Initializable {
                         }
                     }
                 }
-
+                System.out.println("Before rotation:");
+                System.out.println(coordinateArr);
                 preview.setPentomino(children);
                 preview.setOpacity(0.5);
                 preview.setLayoutY(preview.getLayoutY() + timerPane.getHeight());
@@ -151,152 +148,161 @@ public class GameController implements Initializable {
         }
     }
 
-    public void loadLevel() throws FileNotFoundException {
-       currentLevel = new FileManager().loadLevels();
-       Integer[][] board = currentLevel.getBoard();
-
-        for (int i= 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
-                KataminoDragCell currentCell = (KataminoDragCell) gameGridPane.getChildren().get((i*22)+j);
-                Color cellColor = ((board[i][j] % 12) >= 0 && (board[i][j] != 0)) ? colorList.get(board[i][j] % 12) : Color.web("#262626");
-                currentCell.customizeCell(board[i][j], board[i][j] == 0, cellColor);
-
-                if (currentCell.getPentominoInstanceID() == 0) {
-                    currentCell.setBorderColor(Color.WHITE);
-                }
-            }
-        }
-    }
-
-    Timeline stopwatchChecker;
-
     public void updateStopwatch() {
-        stopwatchChecker = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            stopwatchLabel.setText(secondsToString(count));
-            count++;
+        Timeline stopwatchChecker = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            if (!game.isStopped()) {
+                stopwatchLabel.setText(String.valueOf(String.format("%02d:%02d", game.getElapsedSeconds() / 60, game.getElapsedSeconds() % 60)));
+            }
         }));
         stopwatchChecker.setCycleCount(Timeline.INDEFINITE);
         stopwatchChecker.play();
     }
 
-    public void startGame(){
+    public void startGame() {
+        game.startStopWatch();
         updateStopwatch();
     }
 
     public void pauseGame() {
         stopwatchLabel.setText("▶️" + stopwatchLabel.getText());
-        stopwatchChecker.stop();
+        game.pause();
     }
 
-    public int[][] pentominoTransform(KeyEvent e){
+    public void resumeGame() {
+        game.resume();
+    }
 
-        int grid[][] = new int [11][22];
-        int transformedArray[][];
+    public int[][] pentominoTransform(KeyEvent e) {
+
+        int grid[][] = new int[11][22];
         int smllsRow = 1000;
         int smllsCol = 1000;
         int bgstCol = -1;
         int bgstRow = -1;
-        for (ArrayList coord:coordinateArr)
-        {
-            if((int)coord.get(0) < smllsRow){
-                smllsRow = (int)coord.get(0);
-            }
-            if((int)coord.get(1) < smllsCol){
-                smllsCol = (int)coord.get(1);
-            }
-            if((int)coord.get(1) > bgstCol){
-                bgstCol = (int)coord.get(1);
-            }
-            if((int)coord.get(0) > bgstRow){
-                bgstRow = (int)coord.get(0);
-            }
-        }
-        int width = bgstCol-smllsCol+1;
-        int height = bgstRow-smllsRow+1;
-        int[][] pentomino = new int[height][width];
 
-        for(ArrayList coord:coordinateArr){
-            pentomino[(int)coord.get(0)-smllsRow][(int)coord.get(1)-smllsCol] = currentPentominoId;
-        }
-        for( int i = 0; i < pentomino.length;i++){
-            for(int j = 0; j < pentomino[0].length;j++){
-                System.out.print(pentomino[i][j]);
+        for (ArrayList coord : coordinateArr) {
+            if ((int) coord.get(0) < smllsRow) {
+                smllsRow = (int) coord.get(0);
             }
-            System.out.println();
+            if ((int) coord.get(1) < smllsCol) {
+                smllsCol = (int) coord.get(1);
+            }
+            if ((int) coord.get(1) > bgstCol) {
+                bgstCol = (int) coord.get(1);
+            }
+            if ((int) coord.get(0) > bgstRow) {
+                bgstRow = (int) coord.get(0);
+            }
         }
-        System.out.println("**********");
-
-        transformedArray = pentomino;
+        System.out.println("Before rotation:");
+        System.out.println(coordinateArr);
+        int width = bgstCol - smllsCol + 1;
+        int height = bgstRow - smllsRow + 1;
 
         switch (e.getCode()) {
-            case W: transformedArray =flipVertically(pentomino); break;
-            case S: transformedArray =flipVertically(pentomino);  break;
-            case A: transformedArray =rotateLeft(pentomino);  break;
-            case D: transformedArray =rotateRight(pentomino);  break;
+            case W:
+                flipVertically(width, height, smllsRow, smllsCol);
+                break;
+            case S:
+                flipVertically(width, height, smllsRow, smllsCol);
+                break;
+            case A:
+                rotateLeft(width, height, smllsRow, smllsCol);
+                break;
+            case D:
+                rotateRight(width, height, smllsRow, smllsCol);
+                break;
         }
-
-        for( int i = 0; i < transformedArray.length;i++){
-            for(int j = 0; j < transformedArray[0].length;j++){
-                if(transformedArray[i][j] == currentPentominoId){
-                    grid[i + smllsRow][j + smllsCol] = currentPentominoId;
-                }
-            }
+        for (ArrayList<Integer> coord : coordinateArr) {
+            grid[coord.get(0)][coord.get(1)] = currentPentominoId;
         }
-        for( int i = 0; i < transformedArray.length;i++){
-            for(int j = 0; j < transformedArray[0].length;j++){
-                System.out.print(transformedArray[i][j]);
-            }
-            System.out.println();
-
-        }
-        System.out.println("**********");
-        coordinateArr.clear();
-        for( int i = 0; i < transformedArray.length;i++){
-            for(int j = 0; j < transformedArray[0].length;j++){
-                if(transformedArray[i][j] == currentPentominoId) {
-                    ArrayList<Integer> coord = new ArrayList<>();
-                    Integer newCoordx = i + smllsRow;
-                    Integer newCoordy = j + smllsCol;
-                    coord.add(newCoordx);
-                    coord.add(newCoordy);
-                    coordinateArr.add(coord);
-                }
-            }
-        }
+        System.out.println("After Rotation");
+        System.out.println(coordinateArr);
         return grid;
     }
 
-    public int[][] rotateRight(int[][] pentomino) {
-        pentomino = transposeMatrix(pentomino);
-        return flipHorizontally(pentomino);
+    public void rotateRight(int width, int height, int smllsRow, int smllsCol) {
+
+
+        int origin_row = coordinateArr.get(0).get(0);
+        int origin_col = coordinateArr.get(0).get(1);
+
+        // move origin to 0,0
+        for (ArrayList<Integer> coord : coordinateArr) {
+            int row = coord.get(0) - origin_row;
+            int col = coord.get(1) - origin_col;
+            int ncol = -row + origin_col; // clockwise
+            int nrow = col + origin_row;
+            coord.set(0, nrow);
+            coord.set(1, ncol);
+        }
     }
 
-    public int[][] rotateLeft(int[][] pentomino) {
-        pentomino = flipHorizontally(pentomino); // Why intelliJ gives a warning here?
-        return transposeMatrix(pentomino);
+    public void rotateLeft(int width, int height, int smllsRow, int smllsCol) {
+
+        int origin_row = coordinateArr.get(0).get(0);
+        int origin_col = coordinateArr.get(0).get(1);
+
+        // move origin to 0,0
+        for (ArrayList<Integer> coord : coordinateArr) {
+            int row = coord.get(0) - origin_row;
+            int col = coord.get(1) - origin_col;
+            int ncol = row + origin_col; // clockwise
+            int nrow = -col + origin_row;
+            coord.set(0, nrow);
+            coord.set(1, ncol);
+        }
+
     }
 
-    public int[][] flipVertically(int[][] matrix){
-        for(int col = 0;col < matrix[0].length; col++){
-            for(int row = 0; row < matrix.length/2; row++) {
-                int temp = matrix[row][col];
-                matrix[row][col] = matrix[matrix.length - row - 1][col];
-                matrix[matrix.length - row - 1][col] = temp;
+    public void flipVertically(int width, int height, int smllsRow, int smllsCol) {
+        int[][] pentomino = new int[height][width];
+        ArrayList [][] pent2coord = new ArrayList [height][width];
+
+        for (ArrayList coord : coordinateArr) {
+            pentomino[(int) coord.get(0) - smllsRow][(int) coord.get(1) - smllsCol] = currentPentominoId;
+            pent2coord[(int) coord.get(0) - smllsRow][(int) coord.get(1) - smllsCol] = coord;
+        }
+
+        // Column Reverse
+        for (int col = 0; col < pent2coord[0].length; col++) {
+            for (int row = 0; row < pent2coord.length / 2; row++) {
+                ArrayList temp = pent2coord[row][col];
+                pent2coord[row][col] = pent2coord[pent2coord.length - row - 1][col];
+                pent2coord[pent2coord.length - row - 1][col] = temp;
             }
         }
-        return matrix;
+
+        System.out.println(coordinateArr);
+        // Fill coordinate array
+        for (int i = 0; i < pent2coord.length; i++) {
+            for (int j = 0; j < pent2coord[0].length; j++) {
+                if (pent2coord[i][j] != null) {
+                    ArrayList<Integer> n_coords = new ArrayList<>();
+                    Integer newCoordx = i + smllsRow;
+                    Integer newCoordy = j + smllsCol;
+                    n_coords.add(newCoordx);
+                    n_coords.add(newCoordy);
+
+                    int ind = coordinateArr.indexOf(pent2coord[i][j]);
+                    if (ind != -1)
+                        coordinateArr.set(ind, n_coords);
+                }
+            }
+        }
     }
 
-    private int[][] transposeMatrix(int[][] matrix){
+    private int[][] transposeMatrix(int[][] matrix) {
         int[][] temp = new int[matrix[0].length][matrix.length];
         for (int i = 0; i < matrix.length; i++)
             for (int j = 0; j < matrix[0].length; j++)
                 temp[j][i] = matrix[i][j];
         return temp;
     }
-    private int[][] flipHorizontally(int[][] matrix){
-        for(int j = 0; j < matrix.length; j++){
-            for(int i = 0; i < matrix[j].length / 2; i++) {
+
+    private int[][] flipHorizontally(int[][] matrix) {
+        for (int j = 0; j < matrix.length; j++) {
+            for (int i = 0; i < matrix[j].length / 2; i++) {
                 int temp = matrix[j][i];
                 matrix[j][i] = matrix[j][matrix[j].length - i - 1];
                 matrix[j][matrix[j].length - i - 1] = temp;
@@ -306,141 +312,74 @@ public class GameController implements Initializable {
     }
 
     public void playPause(MouseEvent e) {
-        if (isPaused) {
-            isPaused = !isPaused;
-            startGame();
+        if (game.isStopped()) {
+            resumeGame();
         } else {
-            isPaused = !isPaused;
             pauseGame();
         }
     }
-    private EventHandler<KeyEvent> keyPressed = new EventHandler<KeyEvent>() {
+
+    EventHandler<KeyEvent> keyPressed = new EventHandler<KeyEvent>() {
         @Override
         public void handle(KeyEvent event) {
-            System.out.println("Hi");
             preview.setPentomino(pentominoTransform(event));
             event.consume();
         }
     };
 
-    public int[][] findSiblings(Node source){
+    public int[][] findSiblings(Node source) {
         ArrayList<Node> oldNodes = new ArrayList<>();
         KataminoDragCell currentPentomino;
         kataminoDragCell = (KataminoDragCell) source;
         currentPentominoId = kataminoDragCell.getPentominoInstanceID();
         int pentominoInstanceID = ((KataminoDragCell) source).getPentominoInstanceID();
-        ObservableList<Node> cells = gameGridPane.getChildren();
+        ObservableList<Node> cells = gameTilePane.getChildren();
         Stack<Node> currentSearch = new Stack<>();
-        int[][] currentShape= new int[11][22];
+        int[][] currentShape = new int[11][22];
         currentSearch.push(source);
         Integer colIndex;
         Integer rowIndex;
         coordinateArr = new ArrayList<>();
-        while(!currentSearch.empty()) {
-            colIndex = GridPane.getColumnIndex(currentSearch.peek());
-            rowIndex = GridPane.getRowIndex(currentSearch.peek());
-            if(colIndex == null)
-                colIndex = 0;
-            if(rowIndex == null)
-                rowIndex = 0;
+        while (!currentSearch.empty()) {
+            Integer[] location = findLocationTilePane(currentSearch.peek(), gameTilePane);
+            rowIndex = location[0];
+            colIndex = location[1];
             currentShape[rowIndex][colIndex] = pentominoInstanceID;
             ArrayList<Integer> arrayList = new ArrayList<Integer>();
             arrayList.add(rowIndex);
             arrayList.add(colIndex);
             coordinateArr.add(arrayList);
             oldNodes.add(currentSearch.pop());
-            if(colIndex + 1 <= 21)
-            {
-                currentPentomino = (KataminoDragCell)cells.get(rowIndex*22+colIndex + 1);
-                if(!oldNodes.contains(currentPentomino) && currentPentomino.getPentominoInstanceID() == pentominoInstanceID)
+            if (colIndex + 1 <= 21) {
+                currentPentomino = (KataminoDragCell) cells.get(rowIndex * 22 + colIndex + 1);
+                if (!oldNodes.contains(currentPentomino) && currentPentomino.getPentominoInstanceID() == pentominoInstanceID)
                     currentSearch.push(currentPentomino);
             }
 
-            if(colIndex - 1 >= 0)
-            {
-                currentPentomino = (KataminoDragCell)cells.get(rowIndex*22+colIndex - 1);
-                if(!oldNodes.contains(currentPentomino) &&currentPentomino.getPentominoInstanceID() == pentominoInstanceID)
+            if (colIndex - 1 >= 0) {
+                currentPentomino = (KataminoDragCell) cells.get(rowIndex * 22 + colIndex - 1);
+                if (!oldNodes.contains(currentPentomino) && currentPentomino.getPentominoInstanceID() == pentominoInstanceID)
                     currentSearch.push(currentPentomino);
             }
-            if(rowIndex + 1 <= 10)
-            {
-                currentPentomino = (KataminoDragCell)cells.get((rowIndex + 1)*22+colIndex);
-                if(!oldNodes.contains(currentPentomino) &&currentPentomino.getPentominoInstanceID() == pentominoInstanceID)
+            if (rowIndex + 1 <= 10) {
+                currentPentomino = (KataminoDragCell) cells.get((rowIndex + 1) * 22 + colIndex);
+                if (!oldNodes.contains(currentPentomino) && currentPentomino.getPentominoInstanceID() == pentominoInstanceID)
                     currentSearch.push(currentPentomino);
             }
-            if(rowIndex - 1 >= 0)
-            {
-                currentPentomino = (KataminoDragCell)cells.get((rowIndex - 1)*22+colIndex);
-                if(!oldNodes.contains(currentPentomino) &&currentPentomino.getPentominoInstanceID() == pentominoInstanceID)
+            if (rowIndex - 1 >= 0) {
+                currentPentomino = (KataminoDragCell) cells.get((rowIndex - 1) * 22 + colIndex);
+                if (!oldNodes.contains(currentPentomino) && currentPentomino.getPentominoInstanceID() == pentominoInstanceID)
                     currentSearch.push(currentPentomino);
             }
         }
 
+        print2D(currentShape);
         return currentShape;
     }
 
-    public String secondsToString(int pTime) {
-        return String.format("%02d:%02d", pTime / 60, pTime % 60);
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        count = 0;
-        isPaused = false;
-        try {
-            kataminoDragCell = new KataminoDragCell();
-            loadLevel();
-            preview = new KataminoDragBlock();
-            gridStack.setOnKeyPressed(keyPressed);
-            gridStack.getChildren().add(preview);
-            gridStack.setVisible(false);
-        } catch (Exception e) {
-            System.out.println(e);
-
-        }
-        playerLabel.setText("Adamotu 0");
-        startGame();
-        gameGridPane.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) { preview.fireEvent(event);
-            }
-        });
-        gameGridPane.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                preview.fireEvent(event);
-            }
-        });
-        EventHandler eventHandler = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (gridStack.isVisible()) {
-                    try {
-                        int rowNode = 0;
-                        int colNode = 0;
-                        for (Node node : gameGridPane.getChildren()) {
-                            if (node instanceof KataminoDragCell) {
-                                if (node.getBoundsInParent().contains(event.getSceneX(), event.getSceneY())) {
-                                    if (GridPane.getRowIndex(node) != null)
-                                        rowNode = (GridPane.getRowIndex(node) - 1);
-                                    if (GridPane.getColumnIndex(node) != null)
-                                        colNode = GridPane.getColumnIndex(node);
-                                }
-                            }
-                        }
-                        gridStack.setVisible(clashCheck(rowNode, colNode));
-                    } catch (Exception e) {
-                        System.out.println(e);
-                    }
-                    if (isFull()) {
-                        pauseGame();
-                        stopwatchLabel.setText("You Won!!");
-                        playerLabel.setText("Adamotu 199");
-                    }
-                }
-            }
-        };
-        gameGridPane.setOnMouseReleased(eventHandler);
-        gridStack.setOnMouseReleased(eventHandler);
+    public static void print2D(int mat[][]) {
+        // Loop through all rows
+        for (int[] row : mat)
+            System.out.println(Arrays.toString(row));
     }
 }
