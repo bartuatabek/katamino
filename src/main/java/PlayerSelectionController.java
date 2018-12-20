@@ -67,23 +67,21 @@ public class PlayerSelectionController implements Initializable {
     @FXML
     public void continueButtonClicked(MouseEvent event) throws IOException {
         String selectedPlayerName = (String) spinner.getValue();
-        System.out.print("Selected Player: "+selectedPlayerName);
+        System.out.print("Selected Player: "+ selectedPlayerName);
         Player player;
-        if(savedPlayers.contains(selectedPlayerName)){
+        if (savedPlayers.contains(selectedPlayerName)){
             player = fm.loadPlayer(selectedPlayerName);
         }
         else{
             player = new Player(selectedPlayerName);
         }
 
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("levelMenu.fxml"));
-
         FXMLLoader levelMenuLoader = new FXMLLoader(getClass().getResource("levelMenu.fxml"));
-        Parent levelPane = levelMenuLoader.load();
+        AnchorPane pane = levelMenuLoader.load();
         LevelMenuController lvlctrl = levelMenuLoader.getController();
         lvlctrl.setPlayer(player);
-        root.getChildren().setAll(levelPane);
-
+        lvlctrl.updateLevelAccess();
+        root.getChildren().setAll(pane);
     }
 
     public static Object getController(Node node) {

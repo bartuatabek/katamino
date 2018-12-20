@@ -7,12 +7,14 @@
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import kataminoBackButton.KataminoBackButton;
 import kataminoLevelButton.KataminoLevelButton;
@@ -36,8 +38,7 @@ public class LevelMenuController implements Initializable {
     // ObservableList<String> levels = FXCollections.observableArrayList();
 
     public void initialize(URL location, ResourceBundle resources) {
-        for(int i = 0; i < gridPane.getChildren().size();i++)
-        {
+        for (int i = 0; i < gridPane.getChildren().size();i++) {
             ((KataminoLevelButton)gridPane.getChildren().get(i)).setButtonText("" + (i+1));
         }
     }
@@ -50,12 +51,16 @@ public class LevelMenuController implements Initializable {
 
     @FXML
     public void levelButtonClicked(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("singlePlayerGame.fxml"));
-        Parent pane = loader.load();
-        Scene mainMenuScene = new Scene(pane, 1200, 700);
-
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("singlePlayerGame.fxml"));
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(mainMenuScene);
+
+        stage.setWidth(1250);
+        stage.setHeight(700);
+
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+        root.getChildren().setAll(pane);
     }
 
     public Player getPlayer() {
@@ -64,5 +69,18 @@ public class LevelMenuController implements Initializable {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public void updateLevelAccess() {
+        if (player != null) {
+            int accessibleLevelLimit = player.getAccessibleLevel();
+
+            for (int i = 0; i < gridPane.getChildren().size();i++) {
+                if (i > accessibleLevelLimit) {
+                    ((KataminoLevelButton)gridPane.getChildren().get(i)).setOpacity(0.5);
+                    ((KataminoLevelButton)gridPane.getChildren().get(i)).setDisable(true);
+                }
+            }
+        }
     }
 }
