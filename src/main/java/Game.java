@@ -8,6 +8,10 @@ public class Game {
     Stopwatch stopwatch;
     boolean stopped;
 
+    public void setStopwatch(Stopwatch stopwatch) {
+        this.stopwatch = stopwatch;
+    }
+
     public boolean isStopped() {
         return stopped;
     }

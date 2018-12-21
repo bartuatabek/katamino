@@ -16,7 +16,7 @@ public class MultiplayerGame extends Game{
             }
         };
         timer = new Timer("Timer");
-        long delay = 1000L;
+        long delay = 2000L;
         timer.schedule(task, delay);
     }
    public enum Turn {Player1,Player2}

@@ -56,14 +56,31 @@ public class MultiplayerGameController extends GameController {
     public void updateStopwatch() {
         Timeline stopwatchChecker = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             if (!game.isStopped()) {
-                //stopwatchLabel.setText(String.valueOf(String.format("%02d:%02d", Integer.parseInt((((MultiplayerGame)game).getTimer().toString())) / 60, Integer.parseInt((((MultiplayerGame)game).getTimer().toString())) % 60)));
+                stopwatchLabel.setText(String.valueOf(String.format("%02d:%02d", game.getElapsedSeconds() / 60, game.getElapsedSeconds() % 60)));
+            }
+        }));
+        Timeline turnChecker = new Timeline(new KeyFrame(Duration.seconds(10), event -> {
+            game.setStopwatch(new Stopwatch());
+            game.startStopWatch();
+
+            if (((MultiplayerGame) game).getTurn() == MultiplayerGame.Turn.Player1) {
+                ((MultiplayerGame) game).setTurn(MultiplayerGame.Turn.Player2);
+                playerLabel.setTextFill(Color.web("#ffe500"));
+                playerLabel2.setTextFill(Color.web("#808080"));
+            } else {
+                ((MultiplayerGame) game).setTurn(MultiplayerGame.Turn.Player1);
+                playerLabel2.setTextFill(Color.web("#ffe500"));
+                playerLabel.setTextFill(Color.web("#808080"));
             }
         }));
         stopwatchChecker.setCycleCount(Timeline.INDEFINITE);
         stopwatchChecker.play();
+        turnChecker.setCycleCount(Timeline.INDEFINITE);
+        turnChecker.play();
     }
 
     public void startGame() {
+        game.startStopWatch();
         updateStopwatch();
     }
 
@@ -71,7 +88,51 @@ public class MultiplayerGameController extends GameController {
         stopwatchLabel.setText("▶️" + stopwatchLabel.getText());
         game.pause();
     }
+private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
 
+        ArrayList<Node> friends = new ArrayList<>();
+        int cellID= cell.getPentominoInstanceID();
+        friends.add(cell);
+        KataminoDragCell currentCell;
+        int i = 0;
+    ObservableList<Node> cells = gameTilePane.getChildren();
+    Integer colIndex;
+    Integer rowIndex;
+        do {
+            currentCell = (KataminoDragCell) friends.get(i);
+            i++;
+            KataminoDragCell currentPentomino;
+            Integer[] location = findLocationTilePane(currentCell, gameTilePane);
+            rowIndex = location[0];
+            colIndex = location[1];
+            if (colIndex + 1 <= 21) {
+                currentPentomino = (KataminoDragCell) cells.get(rowIndex * 22 + colIndex + 1);
+                if (!(friends.contains(currentPentomino))&&(cellID==currentPentomino.getPentominoInstanceID()) ) {
+                    friends.add(currentPentomino);
+                }
+            }
+
+            if (colIndex - 1 >= 0) {
+                currentPentomino = (KataminoDragCell) cells.get(rowIndex * 22 + colIndex - 1);
+                if (!(friends.contains(currentPentomino)) &&(cellID==currentPentomino.getPentominoInstanceID())) {
+                    friends.add(currentPentomino);
+                }
+            }
+            if (rowIndex + 1 <= 10) {
+                currentPentomino = (KataminoDragCell) cells.get((rowIndex + 1) * 22 + colIndex);
+                if (!(friends.contains(currentPentomino))&&(cellID==currentPentomino.getPentominoInstanceID()) ) {
+                    friends.add(currentPentomino);
+                }
+            }
+            if (rowIndex - 1 >= 0) {
+                currentPentomino = (KataminoDragCell) cells.get((rowIndex - 1) * 22 + colIndex);
+                if (!(friends.contains(currentPentomino))&&(cellID==currentPentomino.getPentominoInstanceID())) {
+                    friends.add(currentPentomino);
+                }
+            }
+        } while (friends.size() > i);
+        return friends;
+}
 
     public ArrayList<ArrayList<ArrayList<Integer>>> gettingLenghtValue(ArrayList<Node> currentSearch)
     {
@@ -262,25 +323,30 @@ public class MultiplayerGameController extends GameController {
         }
         return actreturnList;
     }
+
     public boolean isLeftPossibleMove(){
         ObservableList<Node> cells = gameTilePane.getChildren();
         ArrayList<Node> currentSearch = new ArrayList<>();
         ArrayList<Node> currentOutside = new ArrayList<>();
 
         for (int i = 0; i < cells.size(); i++) {
-            KataminoDragCell currentCell= (KataminoDragCell) cells.get(i);
-            if ((currentCell.isOnBoard() && (currentCell.getPentominoInstanceID() == -1)) ||(currentCell.getPentominoInstanceID() == 0)) {
-                currentSearch.add(currentCell);
-            }
-            if ((!(currentCell.isOnBoard()) )&& (currentCell.getPentominoInstanceID() >0)&&(!(currentOutside.contains(currentCell)))) {
-                currentOutside.add(currentCell);
-            }
-            if(currentCell.isOnBoard() && (currentCell.getPentominoInstanceID() >0)) {
-                currentCell.setPentominoInstanceID(-2);
-                currentCell.setCellColor(Color.gray(0.4));
+                KataminoDragCell currentCell = (KataminoDragCell) cells.get(i);
+                if ((currentCell.isOnBoard() && (currentCell.getPentominoInstanceID() == -1)) || (currentCell.getPentominoInstanceID() == 0)) {
+                    currentSearch.add(currentCell);
+                }
+                if ((!(currentCell.isOnBoard())) && (currentCell.getPentominoInstanceID() > 0) && (!(currentOutside.contains(currentCell)))) {
+                    currentOutside.add(currentCell);
+                }
+                if (currentCell.isOnBoard() && (currentCell.getPentominoInstanceID() > 0)) {
+                   ArrayList<Node> list= helperGroupFinder(currentCell);
+                    for(Node x:list) {
+                        ((KataminoDragCell) x).setPentominoInstanceID(-2);
+                        ((KataminoDragCell) x).setCellColor(Color.gray(0.4));
+                    }
+                }
             }
 
-        }
+
         ArrayList<ArrayList<ArrayList<Integer>> >empties = gettingLenghtValue(currentSearch);
         ArrayList<ArrayList<ArrayList<Integer>>> pentos = gettingLenghtValue(currentOutside);
         System.out.println("Empties:"+empties.toString());
@@ -416,7 +482,6 @@ public class MultiplayerGameController extends GameController {
             System.out.println(e);
         }
         playerLabel.setText("Player 1");
-
         playerLabel2.setText("Player 2");
         startGame();
         gameTilePane.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -479,6 +544,8 @@ public class MultiplayerGameController extends GameController {
                             playerLabel.setTextFill(Color.web("#ffe500"));
                             playerLabel2.setTextFill(Color.web("#808080"));
                         }
+                        game.setStopwatch(new Stopwatch());
+                        game.startStopWatch();
                     }
                     }
                 }
