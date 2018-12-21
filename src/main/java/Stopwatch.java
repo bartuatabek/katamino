@@ -8,8 +8,7 @@ class Stopwatch {
     private long pauseStart;
 
     Stopwatch() {
-        pauseStart = 0;
-        totalPausedTime = 0;
+        reset();
     }
 
     void start() {
@@ -21,6 +20,11 @@ class Stopwatch {
         return (int) (now - startTime - getTotalPausedTime());
     }
 
+    void reset(){
+        startTime = System.currentTimeMillis() / 1000;
+        totalPausedTime = 0;
+        pauseStart = 0;
+    }
     void pause() {
         pauseStart = System.currentTimeMillis() / 1000;
     }

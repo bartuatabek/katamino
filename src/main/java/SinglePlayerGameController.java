@@ -34,12 +34,22 @@ public class SinglePlayerGameController extends GameController{
                 });
             }
         }
+        animate(false);
     }
 
     public void gameSetup(int level, int gameScore, Player player) {
         game = new SinglePlayerGame(level, player.getHighScore(), player);
         playerLabel.setText(((SinglePlayerGame) game).getPlayer().getPlayerName() + " " + ((SinglePlayerGame) game).getPlayer().getHighScore());
-
+        try {
+            loadLevel();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        startGame();
+    }
+    public void gameSetup(int level) {
+        game = new SinglePlayerGame(level);
+        playerLabel.setText("");
         try {
             loadLevel();
         } catch (Exception e) {
@@ -50,25 +60,16 @@ public class SinglePlayerGameController extends GameController{
 
     @Override
     public void gameOverAction() {
-        ((SinglePlayerGame) game).updateLevel();
-        try {
-            loadLevel();
-        } catch (Exception e) {
-            System.out.println(e);
+        if(((SinglePlayerGame) game).getPlayer() != null){
+            ((SinglePlayerGame) game).updateLevel();
+            try {
+                loadLevel();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         }
 
-        for (Node n: gameTilePane.getChildren()) {
-            RotateTransition rotator = new RotateTransition(Duration.millis(500), n);
-            rotator.setFromAngle(120);
-            rotator.setToAngle(0);
-            rotator.setInterpolator(Interpolator.EASE_BOTH);
-            rotator.setOnFinished(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    resumeGame();
-                }});
-            rotator.play();
-        }
+        animate(false);
     }
 
     @Override
@@ -108,30 +109,26 @@ public class SinglePlayerGameController extends GameController{
                             if (node instanceof KataminoDragCell) {
                                 if (node.getBoundsInParent().contains(event.getSceneX(), event.getSceneY())) {
                                     Integer[] location = findLocationTilePane(node, gameTilePane);
-                                    if (location[0] != null){
-                                        rowNode = location[0] - 1;
-                                    }
-                                    if (location[1] != null)
-                                    {
-                                        colNode = location[1];
-                                    }
+                                    rowNode = location[0] - 1;
+                                    colNode = location[1];
                                 }
                             }
                         }
-                        for(int o =0;o<11;o++)
+                        for (int o = 0; o < 11; o++)
                         {
-                            for(int k =0;k<22;k++){
-                                temp[o][k]=(KataminoDragCell) gameTilePane.getChildren().get(o*22+k);
+                            for (int k = 0; k < 22; k++){
+                                temp[o][k]=(KataminoDragCell) gameTilePane.getChildren().get(o * 22 + k);
                             }
                         }
                         game.getGameBoard().setGrid(temp);
-                        ( (SinglePlayerGame)game).savePlayerBoard();
+                        if(((SinglePlayerGame)game).getPlayer() != null)
+                            ( (SinglePlayerGame)game).savePlayerBoard();
                         gridStack.setVisible(clashCheck(rowNode, colNode));
                     } catch (Exception e) {
                         System.out.println(e);
                     }
-                    if (isFull()) {
-                        pauseGame();
+                    if(isFull()){
+                        stopwatchLabel.setText("You Won!!");
                     }
                 }
             }

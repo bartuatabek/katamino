@@ -49,14 +49,12 @@ public class GameBoard {
 //                (KataminoDragCell) board.getChildren().get((i*22)+j);
                 KataminoDragCell currentCell = new KataminoDragCell();
 
-
-
                 Color cellColor = ((board[i][j] % 12) >= 0 && (board[i][j] != 0)) ? colorList.get(board[i][j] % 12) : Color.web("#262626");
                 currentCell.customizeCell(board[i][j], board[i][j] == 0, cellColor);
                 if (currentCell.getPentominoInstanceID() == 0) {
                     currentCell.setBorderColor(Color.WHITE);
                 }
-                grid[i][j]=currentCell;
+                grid[i][j] = currentCell;
             }
         }
     }

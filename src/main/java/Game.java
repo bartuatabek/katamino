@@ -45,6 +45,9 @@ public class Game {
             stopped = false;
         }
     }
+    public void resetTime(){
+        stopwatch.reset();
+    }
 
     public int getElapsedSeconds() {
         return stopwatch.getElapsedTime();

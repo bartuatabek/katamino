@@ -76,26 +76,7 @@ public abstract class GameController implements Initializable {
                 return false;
             }
         }
-
-        RotateTransition rotator = new RotateTransition(Duration.millis(1000), gameTilePane.getChildren().get(0));
-        rotator.setFromAngle(0);
-        rotator.setToAngle(120);
-        rotator.setInterpolator(Interpolator.EASE_BOTH);
-        rotator.setOnFinished(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                gameOverAction();
-                pauseGame();
-            }});
-        rotator.play();
-
-        for (int i = 1; i < gameTilePane.getChildren().size(); i++) {
-            RotateTransition interstellarRotator = new RotateTransition(Duration.millis(1000), gameTilePane.getChildren().get(i));
-            interstellarRotator.setFromAngle(0);
-            interstellarRotator.setToAngle(120);
-            interstellarRotator.setInterpolator(Interpolator.EASE_BOTH);
-            interstellarRotator.play();
-        }
+        animate(true);
         return true;
     }
 
@@ -410,5 +391,40 @@ public abstract class GameController implements Initializable {
         // Loop through all rows
         for (int[] row : mat)
             System.out.println(Arrays.toString(row));
+    }
+    public void animate(boolean end){
+        for(int i = 0; i < gameTilePane.getChildren().size() - 1; i++) {
+            RotateTransition rotator = new RotateTransition(Duration.millis(1000),  gameTilePane.getChildren().get(i));
+            if(end) {
+                rotator.setFromAngle(0);
+                rotator.setToAngle(120);
+            }
+            else{
+                rotator.setFromAngle(120);
+                rotator.setToAngle(0);
+            }
+            rotator.setInterpolator(Interpolator.EASE_BOTH);
+            rotator.play();
+        }
+        RotateTransition rotator = new RotateTransition(Duration.millis(1000),  gameTilePane.getChildren().get(gameTilePane.getChildren().size() - 1));
+        if(end) {
+            rotator.setFromAngle(0);
+            rotator.setToAngle(120);
+        }
+        else {
+            rotator.setFromAngle(120);
+            rotator.setToAngle(0);
+        }
+        rotator.setInterpolator(Interpolator.EASE_BOTH);
+        if(end){
+            rotator.setOnFinished(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    gameOverAction();
+                    game.resetTime();
+                }
+            });
+        }
+        rotator.play();
     }
 }

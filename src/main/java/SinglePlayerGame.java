@@ -17,6 +17,13 @@ public class SinglePlayerGame extends Game {
         stopped = false;
     }
 
+    public SinglePlayerGame(int level) {
+        currentLevel = level;
+        gameBoard = new GameBoard(currentLevel);
+        stopwatch= new Stopwatch();
+        stopped = false;
+    }
+
     public Player getPlayer() {
         return player;
     }
