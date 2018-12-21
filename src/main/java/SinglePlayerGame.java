@@ -50,7 +50,7 @@ public class SinglePlayerGame extends Game {
 
     public void updateLevel() {
         player.setAccessibleLevel(player.getAccessibleLevel() + 1);
-        gameBoard = new GameBoard(currentLevel + 1);
+        gameBoard.updateGameBoard(currentLevel + 1);
         levelScore = 0;
     }
 

@@ -76,18 +76,25 @@ public abstract class GameController implements Initializable {
                 return false;
             }
         }
-        for (Node n: gameTilePane.getChildren()) {
-            RotateTransition rotator = new RotateTransition(Duration.millis(500), n);
-            rotator.setFromAngle(0);
-            rotator.setToAngle(120);
-            rotator.setInterpolator(Interpolator.EASE_BOTH);
-            rotator.setOnFinished(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    gameOverAction();
-                    pauseGame();
+
+        RotateTransition rotator = new RotateTransition(Duration.millis(1000), gameTilePane.getChildren().get(0));
+        rotator.setFromAngle(0);
+        rotator.setToAngle(120);
+        rotator.setInterpolator(Interpolator.EASE_BOTH);
+        rotator.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                gameOverAction();
+                pauseGame();
             }});
-            rotator.play();
+        rotator.play();
+
+        for (int i = 1; i < gameTilePane.getChildren().size(); i++) {
+            RotateTransition interstellarRotator = new RotateTransition(Duration.millis(1000), gameTilePane.getChildren().get(i));
+            interstellarRotator.setFromAngle(0);
+            interstellarRotator.setToAngle(120);
+            interstellarRotator.setInterpolator(Interpolator.EASE_BOTH);
+            interstellarRotator.play();
         }
         return true;
     }
