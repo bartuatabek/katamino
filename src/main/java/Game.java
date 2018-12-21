@@ -35,7 +35,7 @@ public class Game {
             stopped = true;
         }
     }
-    public ArrayList<ArrayList<Integer>> getHindCoords(int pentominoID){
+    public ArrayList<ArrayList<Integer>> getHintCoords(int pentominoID){
         return gameBoard.findHintCoords(pentominoID);
     }
     public void resume() {

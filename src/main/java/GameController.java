@@ -1,4 +1,4 @@
-/** Game controller controls the game board logic and tile actions.
+/* Game controller controls the game board logic and tile actions.
  * @author Bartu Atabek
  * @version 1.0
  */
@@ -44,7 +44,8 @@ public abstract class GameController implements Initializable {
     KataminoDragCell kataminoDragCell;
     private int currentPentominoId;
     private ArrayList<ArrayList<Integer>> coordinateArr;
-    Color hintIndicationColor = Color.RED;
+
+    Color hintIndicationColor = Color.ROSYBROWN;
     @FXML
     protected GridPane timerPane;
 
@@ -61,6 +62,8 @@ public abstract class GameController implements Initializable {
     protected AnchorPane gridStack;
 
     protected KataminoDragBlock preview;
+    Integer mouseRow = -1;
+    Integer mouseCol = -1;
 
     public boolean isFull() {
         ObservableList<Node> cells = gameTilePane.getChildren();
@@ -120,7 +123,8 @@ public abstract class GameController implements Initializable {
     public void generateHint(KeyEvent event){
 
         if (event.getCode() == KeyCode.H) {
-            displayHint(game.getHindCoords(currentPentominoId));
+            displayHint(game.getHintCoords(currentPentominoId));
+
         }
 
     }
@@ -149,9 +153,6 @@ public abstract class GameController implements Initializable {
                 },
                 2000
         );
-
-
-
     }
 
 
@@ -232,21 +233,41 @@ public abstract class GameController implements Initializable {
         }
         int width = bgstCol - smllsCol + 1;
         int height = bgstRow - smllsRow + 1;
-
         switch (e.getCode()) {
-            case W:
+            case W:{
                 flipVertically(width, height, smllsRow, smllsCol);
                 break;
-            case S:
+            }
+            case S: {
                 flipVertically(width, height, smllsRow, smllsCol);
                 break;
-            case A:
+            }
+            case A: {
                 rotateLeft(width, height, smllsRow, smllsCol);
                 break;
-            case D:
+            }
+
+            case D:{
                 rotateRight(width, height, smllsRow, smllsCol);
                 break;
+            }
         }
+        gridStack.addEventFilter(MouseEvent.ANY,mouseHandler);
+        Integer dif_row = mouseRow - coordinateArr.get(0).get(0) ;
+        Integer dif_col = mouseCol- coordinateArr.get(0).get(1);
+
+
+        System.out.println("x " +  mouseRow);
+        System.out.println("y " + mouseCol);
+
+        System.out.println("in move pent: "+coordinateArr);
+        for (ArrayList<Integer> coord : coordinateArr) {
+            coord.set(0,coord.get(0) + dif_row);
+            coord.set(1,coord.get(1) + dif_col);
+        }
+        System.out.println("**************");
+
+
         for (ArrayList<Integer> coord : coordinateArr) {
             grid[coord.get(0)][coord.get(1)] = currentPentominoId;
         }
@@ -254,7 +275,6 @@ public abstract class GameController implements Initializable {
     }
 
     public void rotateRight(int width, int height, int smllsRow, int smllsCol) {
-
 
         int origin_row = coordinateArr.get(0).get(0);
         int origin_col = coordinateArr.get(0).get(1);
@@ -286,6 +306,39 @@ public abstract class GameController implements Initializable {
         }
 
     }
+    EventHandler mouseHandler = new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent event) {
+            getMousePos(event);
+        }
+    };
+    public void getMousePos(MouseEvent event){
+
+        try {
+            int rowNode = 0;
+            int colNode = 0;
+            for (Node node : gameTilePane.getChildren()) {
+                if (node instanceof KataminoDragCell) {
+                    if (node.getBoundsInParent().contains(event.getSceneX(), event.getSceneY())) {
+                        Integer[] location = findLocationTilePane(node, gameTilePane);
+                        if (location[0] != null) {
+                            rowNode = location[0] - 1;
+                        }
+                        if (location[1] != null) {
+                            colNode = location[1];
+                        }
+                    }
+                }
+            }
+            mouseRow = rowNode;
+            mouseCol  = colNode;
+
+        }
+        catch (Exception e) {
+                System.out.println(e);
+            }
+    }
 
     public void flipVertically(int width, int height, int smllsRow, int smllsCol) {
         int[][] pentomino = new int[height][width];
@@ -305,7 +358,6 @@ public abstract class GameController implements Initializable {
             }
         }
 
-        System.out.println(coordinateArr);
         // Fill coordinate array
         for (int i = 0; i < pent2coord.length; i++) {
             for (int j = 0; j < pent2coord[0].length; j++) {
@@ -359,6 +411,7 @@ public abstract class GameController implements Initializable {
             event.consume();
         }
     };
+
 
     public int[][] findSiblings(Node source) {
         ArrayList<Node> oldNodes = new ArrayList<>();

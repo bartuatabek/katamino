@@ -102,7 +102,6 @@ public class FileManager {
             element = gson.fromJson(gson.toJson(player.getLatestTime()),JsonElement.class);
             object.add("latestTime",element );
             jsonArray.add(object);
-            System.out.print(jsonArray);
             Writer writer =new FileWriter("src/players.json");
             String result = gson.toJson(jsonArray);
             writer.write(result);
@@ -143,7 +142,6 @@ public class FileManager {
             element = gson.fromJson(gson.toJson(player.getLatestTime()),JsonElement.class);
             object.add("latestTime",element );
             jsonArray.add(object);
-            System.out.print(jsonArray);
             Writer writer =new FileWriter("src/players.json");
             String result = gson.toJson(jsonArray);
             writer.write(result);
