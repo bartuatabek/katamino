@@ -132,8 +132,6 @@ public class SinglePlayerGameController extends GameController{
                     }
                     if (isFull()) {
                         pauseGame();
-                        stopwatchLabel.setText("You Won!!");
-                        playerLabel.setText("Adamotu 199");
                     }
                 }
             }

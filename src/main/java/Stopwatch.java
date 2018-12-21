@@ -28,7 +28,7 @@ class Stopwatch {
     // Works for the first time only but why?
     void resume() {
         long now = System.currentTimeMillis() / 1000;
-        totalPausedTime = now - pauseStart;
+        totalPausedTime = totalPausedTime + now - pauseStart;
     }
 
     private long getTotalPausedTime() {
