@@ -62,7 +62,7 @@
                     Color cellColor = ((grid[i][j] % 12) >= 0 && (grid[i][j] != 0)) ? colorList.get(grid[i][j] % 12) : Color.TRANSPARENT;
                     currentCell.customizeCell(grid[i][j], grid[i][j] != 0, cellColor);
 
-                    if (currentCell.getPentominoInstanceID() == -1 || currentCell.getPentominoInstanceID() == -2) {
+                    if (currentCell.getPentominoInstanceID() <= 0) {
                         currentCell.setBorderColor(Color.TRANSPARENT);
                         currentCell.setBlocked(false);
                     }

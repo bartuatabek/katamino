@@ -21,11 +21,9 @@ public class SinglePlayerGameController extends GameController{
                 KataminoDragCell temp = game.getGameBoard().getGrid()[i][j];
 
                 int cellId = temp.getPentominoInstanceID();
-                currentCell.setPentominoInstanceID(cellId);
+                currentCell.customizeCell(cellId, temp.isOnBoard(), temp.getColor());
                 if (cellId == 0)
                     currentCell.setBorderColor(Color.WHITE);
-                currentCell.setCellColor(temp.getColor());
-                currentCell.setOnBoard(temp.isOnBoard());
                 currentCell.setOnMousePressed( new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {

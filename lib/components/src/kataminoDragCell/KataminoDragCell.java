@@ -36,14 +36,13 @@ public class KataminoDragCell extends Pane {
 		this.pentominoInstanceID = pentominoInstanceID;
 		this.onBoard = onBoard;
         setCellColor(cellColor);
+		blockView.setVisible(false);
 
 		if (pentominoInstanceID == -1) {
 			cell.setPrefWidth(56);
 			cell.setPrefHeight(56);
 		} else if (pentominoInstanceID == -2) {
-			blockView.setImage(new Image(new File("src/resources/kataminoDragCell.png").toURI().toString()));
-			blockView.setVisible(true);
-			setDisable(true);
+			setBlocked(true);
 		}
 	}
 
