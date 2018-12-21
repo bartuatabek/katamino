@@ -50,6 +50,8 @@ public class GameBoard {
                 currentCell.customizeCell(board[i][j], board[i][j] == 0, cellColor);
                 if (currentCell.getPentominoInstanceID() == 0) {
                     currentCell.setBorderColor(Color.WHITE);
+                } else if (currentCell.getPentominoInstanceID() == -2) {
+                    currentCell.setCellColor(Color.gray(0.4));
                 }
                 grid[i][j] = currentCell;
             }
