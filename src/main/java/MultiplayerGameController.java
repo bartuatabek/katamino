@@ -53,41 +53,14 @@ public class MultiplayerGameController extends GameController {
         }
     }
 
-    public void updateStopwatch() {
-        Timeline stopwatchChecker = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            if (!game.isStopped()) {
-                stopwatchLabel.setText(String.valueOf(String.format("%02d:%02d", game.getElapsedSeconds() / 60, game.getElapsedSeconds() % 60)));
-            }
-        }));
-        Timeline turnChecker = new Timeline(new KeyFrame(Duration.seconds(10), event -> {
-            game.setStopwatch(new Stopwatch());
-            game.startStopWatch();
-
-            if (((MultiplayerGame) game).getTurn() == MultiplayerGame.Turn.Player1) {
-                ((MultiplayerGame) game).setTurn(MultiplayerGame.Turn.Player2);
-                playerLabel.setTextFill(Color.web("#ffe500"));
-                playerLabel2.setTextFill(Color.web("#808080"));
-            } else {
-                ((MultiplayerGame) game).setTurn(MultiplayerGame.Turn.Player1);
-                playerLabel2.setTextFill(Color.web("#ffe500"));
-                playerLabel.setTextFill(Color.web("#808080"));
-            }
-        }));
-        stopwatchChecker.setCycleCount(Timeline.INDEFINITE);
-        stopwatchChecker.play();
+    @Override
+    public void startGame() {
+        game.startStopWatch();
+        updateStopwatch();
         turnChecker.setCycleCount(Timeline.INDEFINITE);
         turnChecker.play();
     }
 
-    public void startGame() {
-        game.startStopWatch();
-        updateStopwatch();
-    }
-
-    public void pauseGame() {
-        stopwatchLabel.setText("▶️" + stopwatchLabel.getText());
-        game.pause();
-    }
 private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
 
         ArrayList<Node> friends = new ArrayList<>();
@@ -160,26 +133,26 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
                 colIndex = location[1];
                 if (colIndex + 1 <= 21) {
                     currentPentomino = (KataminoDragCell) cells.get(rowIndex * 22 + colIndex + 1);
-                    if (!(friends.contains(currentPentomino)) && (currentSearch.contains(currentPentomino))) {
+                    if (!(friends.contains(currentPentomino)) && (currentSearch.contains(currentPentomino))&&(((KataminoDragCell)(friends.get(0))).getPentominoInstanceID()==currentPentomino.getPentominoInstanceID())) {
                         friends.add(currentPentomino);
                     }
                 }
 
                 if (colIndex - 1 >= 0) {
                     currentPentomino = (KataminoDragCell) cells.get(rowIndex * 22 + colIndex - 1);
-                    if (!(friends.contains(currentPentomino)) && (currentSearch.contains(currentPentomino))) {
+                    if (!(friends.contains(currentPentomino)) && (currentSearch.contains(currentPentomino))&&(((KataminoDragCell)(friends.get(0))).getPentominoInstanceID()==currentPentomino.getPentominoInstanceID())) {
                         friends.add(currentPentomino);
                     }
                 }
                 if (rowIndex + 1 <= 10) {
                     currentPentomino = (KataminoDragCell) cells.get((rowIndex + 1) * 22 + colIndex);
-                    if (!(friends.contains(currentPentomino)) && (currentSearch.contains(currentPentomino))) {
+                    if (!(friends.contains(currentPentomino)) && (currentSearch.contains(currentPentomino))&&(((KataminoDragCell)(friends.get(0))).getPentominoInstanceID()==currentPentomino.getPentominoInstanceID())) {
                         friends.add(currentPentomino);
                     }
                 }
                 if (rowIndex - 1 >= 0) {
                     currentPentomino = (KataminoDragCell) cells.get((rowIndex - 1) * 22 + colIndex);
-                    if (!(friends.contains(currentPentomino)) && (currentSearch.contains(currentPentomino))) {
+                    if (!(friends.contains(currentPentomino)) && (currentSearch.contains(currentPentomino))&&(((KataminoDragCell)(friends.get(0))).getPentominoInstanceID()==currentPentomino.getPentominoInstanceID())) {
                         friends.add(currentPentomino);
                     }
                 }
@@ -370,8 +343,9 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
                     {
                     boolean turn=isThere(curEmpty,curP,1,0);
                     System.out.println("İs there result "+turn);
-                    if(!turn)
-                        continue;
+                    if((!turn)&&(curP.get(0).size()==curEmpty.get(0).size())) {}
+                    else if (!turn)
+                            continue;
                     else{
                         System.out.println("İkinci elemana bakılıyor ");
                      turn= isThere(curEmpty,curP,0,1);
@@ -388,7 +362,8 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
                     if(curP.get(1).size()<=curEmpty.get(1).size()) {
                         boolean turn = isThere(curEmpty, curP, 0, 0);
                         System.out.println("isthere result " + turn);
-                        if (!turn)
+                        if((!turn)&&(curP.get(1).size()==curEmpty.get(1).size())) {}
+                        else if (!turn)
                             continue;
                         else {
                             System.out.println("İkinci elemana bakılıyor ");
@@ -537,6 +512,7 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
                         stopwatchLabel.setText(winner+" Won!!");
                     }
                     if(!entered) {
+                        turnChecker.stop();
                         if (((MultiplayerGame) game).getTurn() == MultiplayerGame.Turn.Player1) {
                             playerLabel2.setTextFill(Color.web("#ffe500"));
                             playerLabel.setTextFill(Color.web("#808080"));
@@ -546,13 +522,31 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
                         }
                         game.setStopwatch(new Stopwatch());
                         game.startStopWatch();
+                        turnChecker.setCycleCount(Timeline.INDEFINITE);
+                        turnChecker.play();
                     }
                     }
                 }
              };
         gameTilePane.setOnMouseReleased(eventHandler);
         gridStack.setOnMouseReleased(eventHandler);
+
     }
+    Timeline turnChecker = new Timeline(new KeyFrame(Duration.seconds(15), event2 -> {
+        game.setStopwatch(new Stopwatch());
+        game.startStopWatch();
+
+        if (((MultiplayerGame) game).getTurn() == MultiplayerGame.Turn.Player1) {
+            ((MultiplayerGame) game).setTurn(MultiplayerGame.Turn.Player2);
+            playerLabel.setTextFill(Color.web("#ffe500"));
+            playerLabel2.setTextFill(Color.web("#808080"));
+        } else {
+            ((MultiplayerGame) game).setTurn(MultiplayerGame.Turn.Player1);
+            playerLabel2.setTextFill(Color.web("#ffe500"));
+            playerLabel.setTextFill(Color.web("#808080"));
+        }
+    }));
+
 }
 
 
