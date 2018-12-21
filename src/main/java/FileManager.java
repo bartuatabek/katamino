@@ -33,6 +33,7 @@ public class FileManager {
         Integer[][][] levels = gson.fromJson(jsonReader, Integer[][][].class);
         return  levels[levelNo-1];
     }
+
     public Player loadPlayer(String name) {
         try {
             FileReader fileReader = new FileReader("src/players.json");
@@ -50,8 +51,7 @@ public class FileManager {
         return null;
     }
 
-    public ArrayList<Player> getAllPLayers()
-    {
+    public ArrayList<Player> getAllPLayers() {
         try {
             ArrayList<Player> list = new ArrayList<>();
             FileReader fileReader =new FileReader("src/players.json");
@@ -68,6 +68,7 @@ public class FileManager {
         }
         return null;
     }
+
     public ArrayList<String> loadPlayerNames(){
         try {
             FileReader fileReader = new FileReader("src/players.json");
@@ -82,8 +83,8 @@ public class FileManager {
             e.printStackTrace();
         }return null;
     }
-    public boolean saveANewPlayer(Player player) throws IOException
-    {
+
+    public boolean saveANewPlayer(Player player) throws IOException {
         boolean succeed=false;
         try {
             FileReader fileReader =new FileReader("src/players.json");
@@ -118,6 +119,7 @@ public class FileManager {
         }
         return succeed;
     }
+
     public boolean updatePlayerInfoInFile(Player player) throws IOException{
         boolean succeed=false;
         try {
@@ -141,7 +143,7 @@ public class FileManager {
             element = gson.fromJson (player.getHighScore()+"", JsonElement.class);
             object.add("highScore",element );
             element = gson.fromJson (player.getAccessibleLevel()+"", JsonElement.class);
-            object.add("accesibleLevel",element );
+            object.add("accessibleLevel",element );
             element = gson.fromJson(gson.toJson(player.getLatestBoard()),JsonElement.class);
             object.add("latestBoard",element );
             element = gson.fromJson(gson.toJson(player.getLatestTime()),JsonElement.class);
@@ -159,6 +161,7 @@ public class FileManager {
         }
         return succeed;
     }
+
     public HashMap< String,Integer>  getHighScores(){
         HashMap<String, Integer>  map = new HashMap<>();
         try {

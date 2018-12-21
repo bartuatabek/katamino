@@ -45,6 +45,13 @@ public class Player {
 
     public void setAccessibleLevel(int accessibleLevel) {
         this.accessibleLevel = accessibleLevel;
+        FileManager fm = new FileManager();
+
+        try {
+            fm.updatePlayerInfoInFile(this);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     public String getPlayerName() {
