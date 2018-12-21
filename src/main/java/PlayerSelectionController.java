@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import kataminoBackButton.KataminoBackButton;
 import kataminoButton.KataminoButton;
+import kataminoChangeButton.KataminoChangeButton;
 import kataminoPlayerAddButton.KataminoPlayerAddButton;
 
 import java.io.IOException;
@@ -24,16 +25,16 @@ import java.util.ResourceBundle;
 public class PlayerSelectionController implements Initializable {
 
     @FXML
-    private Spinner spinner;
-
-    @FXML
     private KataminoButton continueButton;
 
     @FXML
     private KataminoPlayerAddButton createPlayerButton;
 
     @FXML
-    private TextField playerNameField;
+    private KataminoChangeButton leftButton;
+
+    @FXML
+    private KataminoChangeButton rightButton;
 
     @FXML
     private Label errorLabel;
@@ -44,29 +45,40 @@ public class PlayerSelectionController implements Initializable {
     @FXML
     private AnchorPane root;
 
+
     private ObservableList<String> players;
-    private SpinnerValueFactory<String> valueFactory;
+
     private FileManager fm;
+
     private ArrayList<String> savedPlayers;
-    public PlayerSelectionController() {
-        fm = new FileManager();
-        players = FXCollections.observableArrayList();
-        valueFactory = //
-                new SpinnerValueFactory.ListSpinnerValueFactory<String>(players);
-        savedPlayers = fm.loadPlayerNames();
-        players.addAll(savedPlayers);
-    }
+
+    private int playerIndex = 0;
 
     public void initialize(URL location, ResourceBundle resources) {
-        continueButton.setButtonName("Continue");
+        fm = new FileManager();
+        players = FXCollections.observableArrayList();
+        savedPlayers = fm.loadPlayerNames();
+        players.addAll(savedPlayers);
+        continueButton.setButtonName(players.get(0));
+    }
 
-        valueFactory.setValue(players.get(0));
-        spinner.setValueFactory(valueFactory);
+    public void leftButtonClicked(MouseEvent e) {
+        if (playerIndex > 0) {
+            playerIndex--;
+            continueButton.setButtonName(players.get(playerIndex));
+        }
+    }
+
+    public void rightButtonClicked(MouseEvent e) {
+        if (playerIndex < players.size() - 1) {
+            playerIndex++;
+            continueButton.setButtonName(players.get(playerIndex));
+        }
     }
 
     @FXML
     public void continueButtonClicked(MouseEvent event) throws IOException {
-        String selectedPlayerName = (String) spinner.getValue();
+       String selectedPlayerName = ((KataminoButton) event.getSource()).getButtonName();
         Player player;
         if (savedPlayers.contains(selectedPlayerName)){
             player = fm.loadPlayer(selectedPlayerName);
@@ -94,23 +106,23 @@ public class PlayerSelectionController implements Initializable {
 
     @FXML
     public void createButtonClicked(){
-        String newPlayerName = playerNameField.getText();
-        errorLabel.setText("");
-        if(!newPlayerName.isEmpty() && !newPlayerName.endsWith(" ")){
-            if (!players.contains(newPlayerName)) {
-            System.out.println(newPlayerName);
-            players.add(newPlayerName);
-            valueFactory.setValue(newPlayerName);
-            spinner.setValueFactory(valueFactory);
-            }
-            else{
-                errorLabel.setText("Player Name Already Taken!!");
-            }
-        }
-        else{
-        // TODO: can add more
-        errorLabel.setText("Invalid Player Name!!");
-        }
+//        String newPlayerName = playerNameField.getText();
+//        errorLabel.setText("");
+//        if(!newPlayerName.isEmpty() && !newPlayerName.endsWith(" ")){
+//            if (!players.contains(newPlayerName)) {
+//            System.out.println(newPlayerName);
+//            players.add(newPlayerName);
+//            valueFactory.setValue(newPlayerName);
+//            spinner.setValueFactory(valueFactory);
+//            }
+//            else{
+//                errorLabel.setText("Player Name Already Taken!!");
+//            }
+//        }
+//        else{
+//        // TODO: can add more
+//        errorLabel.setText("Invalid Player Name!!");
+//        }
     }
     @FXML
     public void backButtonClicked(MouseEvent event) throws IOException {

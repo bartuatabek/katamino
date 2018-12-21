@@ -25,6 +25,10 @@ public class KataminoButton extends Pane {
     public void setButtonName(String name){
         label.setText(name);
     }
+
+    public String getButtonName() {
+        return label.getText();
+    }
     public void setFontSize(int size){
         label.setStyle("-fx-font-size:" + size);
     }

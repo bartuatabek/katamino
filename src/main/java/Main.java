@@ -15,6 +15,7 @@ public class Main extends Application {
         window.setTitle("Katamino v2.0");
         Parent root= FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
         initialScene = new Scene(root, 750, 450);
+        window.setResizable(false);
         window.setScene(initialScene);
         window.show();
     }
