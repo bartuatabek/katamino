@@ -3,15 +3,19 @@ import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import kataminoButton.KataminoButton;
 import kataminoDragBlock.KataminoDragBlock;
 import kataminoDragCell.KataminoDragCell;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -30,19 +34,92 @@ import java.util.ResourceBundle;
 public class MultiplayerGameController extends GameController {
     @FXML
     Label playerLabel2;
+    private boolean moveHasCompleted;
+    @FXML
+    protected GridPane replayPane;
 
-    public void loadBoard() throws FileNotFoundException {
+    @FXML
+    protected KataminoButton replay;
+
+  //  @FXML
+  //  private AnchorPane root;
+    public void replayClicked(MouseEvent event) throws IOException {
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("multiplayerGame.fxml"));
+        gridStack.getChildren().setAll(pane);
+    }
+    private boolean clashCheckForBoard(int row,int col){
+        ArrayList<KataminoDragCell> newLocationCells = new ArrayList<>();
+        Color cellColor = ((currentPentominoId % 12) >= 0 && (currentPentominoId != 0)) ? colorList.get(currentPentominoId % 12) : Color.web("#262626");
+        int insideCounter=0;
+        int outsideCounter=0;
+        int transferX = row - coordinateArr.get(0).get(0);
+        int transferY = col - coordinateArr.get(0).get(1);
+        for (ArrayList<Integer> array : coordinateArr) {
+            array.set(0, array.get(0) + transferX);
+            array.set(1, array.get(1) + transferY);
+        }
+        int index;
+        for (int i = 0; i < coordinateArr.size(); i++) {
+            index = (coordinateArr.get(i).get(0) * 22) + coordinateArr.get(i).get(1);
+            if (index >= 0) {
+                KataminoDragCell currentPentomino = (KataminoDragCell) gameTilePane.getChildren().get(index);
+                if ((currentPentomino.getPentominoInstanceID() == -1 || currentPentomino.getPentominoInstanceID() == 0)&& currentPentomino.isOnBoard()) {
+                    newLocationCells.add(currentPentomino);
+                    insideCounter++;
+                }else if((currentPentomino.getPentominoInstanceID() == -1 || currentPentomino.getPentominoInstanceID() == 0))
+                {
+                    outsideCounter++;
+                    newLocationCells.add(currentPentomino);
+                }
+            }
+        }
+        System.out.println("İNSİDE COUNTER:"+insideCounter);
+        System.out.println("Outside COUNTER:"+outsideCounter);
+        if(insideCounter>=5)
+        {
+            for (KataminoDragCell currentCell : newLocationCells) {
+                currentCell.setPentominoInstanceID(currentPentominoId);
+                currentCell.setCellColor(cellColor);
+            }
+            moveHasCompleted=true;
+        }
+        else if(outsideCounter>=5)
+        {
+            for (KataminoDragCell currentCell : newLocationCells) {
+                currentCell.setPentominoInstanceID(currentPentominoId);
+                currentCell.setCellColor(cellColor);
+            }
+            moveHasCompleted=false;
+
+        }
+        else {
+            ShakeTransition shakeTransition = new ShakeTransition(gridStack);
+            shakeTransition.playFromStart();
+            moveHasCompleted=false;
+            return true;
+        }
+
+     /*   for (KataminoDragCell currentCell : newLocationCells) {
+            currentCell.setPentominoInstanceID(currentPentominoId);
+            currentCell.setCellColor(cellColor);
+        }*/
+        return false;
+    }
+
+    private void loadBoard() throws FileNotFoundException {
         for (int i= 0; i < game.getGameBoard().getGrid().length; i++) {
             for (int j = 0; j < game.getGameBoard().getGrid()[0].length; j++) {
                 KataminoDragCell currentCell = (KataminoDragCell) gameTilePane.getChildren().get((i*22)+j);
                 KataminoDragCell temp = game.getGameBoard().getGrid()[i][j];
+                currentCell.setBlocked(false);
+
                 int cellId = temp.getPentominoInstanceID();
-                currentCell.setPentominoInstanceID(cellId);
+                currentCell.setPentominoInstanceID(temp.getPentominoInstanceID());
+                currentCell.setOnBoard(temp.isOnBoard());
+                currentCell.setCellColor(temp.getColor());
                 if (cellId == 0)
                     currentCell.setBorderColor(Color.WHITE);
-                currentCell.setCellColor(temp.getColor());
-                currentCell.setOnBoard(temp.isOnBoard());
-                currentCell.setOnMousePressed( new EventHandler<MouseEvent>() {
+                currentCell.setOnMousePressed(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
                         generatePreview(event);
@@ -51,6 +128,7 @@ public class MultiplayerGameController extends GameController {
             }
         }
         animate(false);
+
     }
 
     @Override
@@ -445,7 +523,20 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        game = new MultiplayerGame(2); /////////////////////////////////BOARDCHOOSE
+        try {
+        replay = new KataminoButton();
+            replay.setButtonName("Replay");
+            replay.setVisible(false);
+
+        }catch (IOException o)
+        {
+            System.out.println("olmadı");
+        }
+
+      /*  replay.setButtonName("Replay");
+        replay.setVisible(false);*/
+        game = new MultiplayerGame(1); /////////////////////////////////BOARDCHOOSE
+        moveHasCompleted=false;
         try {
             kataminoDragCell = new KataminoDragCell();
             loadBoard();
@@ -498,20 +589,24 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
                             }
                         }
                         game.getGameBoard().setGrid(temp);
-                        gridStack.setVisible(clashCheck(rowNode, colNode));
+                        gridStack.setVisible(clashCheckForBoard(rowNode,colNode));
                     } catch (Exception e) {
                         System.out.println(e);
                     }
-                    ((MultiplayerGame)game).changeTurn();
-                    System.out.println(((MultiplayerGame)game).getTurn().toString());
+
                     boolean entered=false;
                     if (isFull()||(!(isLeftPossibleMove()))) {
                         entered=true;
+                        ((MultiplayerGame)game).changeTurn();
                         pauseGame();
                         String winner= ((MultiplayerGame)game).getTurn().toString();
                         stopwatchLabel.setText(winner+" Won!!");
+                        replay.setVisible(true);
+
                     }
-                    if(!entered) {
+                    if((!entered)&& moveHasCompleted ) {
+                        ((MultiplayerGame)game).changeTurn();
+                        System.out.println(((MultiplayerGame)game).getTurn().toString());
                         turnChecker.stop();
                         if (((MultiplayerGame) game).getTurn() == MultiplayerGame.Turn.Player1) {
                             playerLabel2.setTextFill(Color.web("#ffe500"));
@@ -524,6 +619,7 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
                         game.startStopWatch();
                         turnChecker.setCycleCount(Timeline.INDEFINITE);
                         turnChecker.play();
+                        moveHasCompleted=false;
                     }
                     }
                 }

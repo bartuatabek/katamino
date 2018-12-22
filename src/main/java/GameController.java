@@ -30,7 +30,7 @@ public abstract class GameController implements Initializable {
 
     Game game;
 
-    private ArrayList<Color> colorList = new ArrayList<Color>() {{
+    protected ArrayList<Color> colorList = new ArrayList<Color>() {{
         add(Color.web("FF3B30"));
         add(Color.web("FF9500"));
         add(Color.web("FFCC00"));
@@ -47,9 +47,9 @@ public abstract class GameController implements Initializable {
 
     KataminoDragCell kataminoDragCell;
 
-    private int currentPentominoId;
+    protected int currentPentominoId;
 
-    private ArrayList<ArrayList<Integer>> coordinateArr;
+    protected ArrayList<ArrayList<Integer>> coordinateArr;
 
     @FXML
     protected GridPane timerPane;
