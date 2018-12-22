@@ -111,13 +111,15 @@ public class MultiplayerGameController extends GameController {
             for (int j = 0; j < game.getGameBoard().getGrid()[0].length; j++) {
                 KataminoDragCell currentCell = (KataminoDragCell) gameTilePane.getChildren().get((i*22)+j);
                 KataminoDragCell temp = game.getGameBoard().getGrid()[i][j];
+                currentCell.setBlocked(false);
+
                 int cellId = temp.getPentominoInstanceID();
-                currentCell.setPentominoInstanceID(cellId);
+                currentCell.setPentominoInstanceID(temp.getPentominoInstanceID());
+                currentCell.setOnBoard(temp.isOnBoard());
+                currentCell.setCellColor(temp.getColor());
                 if (cellId == 0)
                     currentCell.setBorderColor(Color.WHITE);
-                currentCell.setCellColor(temp.getColor());
-                currentCell.setOnBoard(temp.isOnBoard());
-                currentCell.setOnMousePressed( new EventHandler<MouseEvent>() {
+                currentCell.setOnMousePressed(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
                         generatePreview(event);
@@ -125,7 +127,6 @@ public class MultiplayerGameController extends GameController {
                 });
             }
         }
-
         animate(false, false);
     }
 
