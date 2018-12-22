@@ -57,8 +57,9 @@ public class LevelMenuController implements Initializable {
         AnchorPane pane = levelMenuLoader.load();
 
         SinglePlayerGameController gameController = levelMenuLoader.getController();
-        gameController.gameSetup(Integer.parseInt(((KataminoLevelButton)event.getSource()).getButtonText()), player.getHighScore(), player);
 
+       // gameController.gameSetup(Integer.parseInt(((KataminoLevelButton)event.getSource()).getButtonText()), player.getHighScore(), player);
+        gameController.gameSetup(Integer.parseInt(((KataminoLevelButton)event.getSource()).getButtonText()), player);
         stage.setWidth(1250);
         stage.setHeight(700);
 

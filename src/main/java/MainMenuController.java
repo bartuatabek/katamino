@@ -45,11 +45,11 @@ public class MainMenuController implements Initializable {
         settings.setButtonName("Settings");
 
         // initialize the media player
-        Media media = new Media(new File("src/main/resources/background.mp4").toURI().toString());
+/*        Media media = new Media(new File("src/main/resources/background.mp4").toURI().toString());
         MediaPlayer player = new MediaPlayer(media);
         player.setAutoPlay(true);
         player.setCycleCount(MediaPlayer.INDEFINITE);
-        background.setMediaPlayer(player);
+        background.setMediaPlayer(player);*/
     }
     @FXML
     public void multiplayerButtonClicked(MouseEvent event) throws IOException {

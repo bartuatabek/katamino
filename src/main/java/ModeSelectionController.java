@@ -46,7 +46,7 @@ public class ModeSelectionController implements Initializable {
         AnchorPane pane = customGameLoader.load();
 
         SinglePlayerGameController gameController = customGameLoader.getController();
-        gameController.gameSetup(1);
+        gameController.gameSetup(1,null);
 
         stage.setWidth(1250);
         stage.setHeight(700);

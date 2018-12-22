@@ -1,3 +1,4 @@
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,7 +41,6 @@ public class SinglePlayerGameController extends GameController{
                 KataminoDragCell currentCell = (KataminoDragCell) gameTilePane.getChildren().get((i*22)+j);
                 KataminoDragCell temp = game.getGameBoard().getGrid()[i][j];
                 currentCell.setBlocked(false);
-
                 int cellId = temp.getPentominoInstanceID();
                 currentCell.setPentominoInstanceID(temp.getPentominoInstanceID());
                 currentCell.setOnBoard(temp.isOnBoard());
@@ -55,22 +55,61 @@ public class SinglePlayerGameController extends GameController{
                 });
             }
         }
+        System.out.println("level BOARD");
         animate(false, false);
     }
 
+    public void loadOldBoard() throws FileNotFoundException {
+        System.out.println("LOAD OLD BOARD");
+        GameBoard  g=  new GameBoard( ((SinglePlayerGame)game).getPlayer().getAccessibleLevel());
+        for (int i= 0; i <g.getGrid().length; i++) {
+            for (int j = 0; j < g.getGrid()[0].length; j++) {
+                KataminoDragCell currentCell = (KataminoDragCell) gameTilePane.getChildren().get((i*22)+j);
+                KataminoDragCell temp = game.getGameBoard().getGrid()[i][j];
+                currentCell.setBlocked(false);
+                int cellId = temp.getPentominoInstanceID();
+                currentCell.setPentominoInstanceID(temp.getPentominoInstanceID());
+                currentCell.setOnBoard(temp.isOnBoard());
+                currentCell.setCellColor(temp.getColor());
+                if (cellId == 0)
+                    currentCell.setBorderColor(Color.WHITE);
+            }
+        }
+        GameBoard belongToElse= new GameBoard(((SinglePlayerGame)game).getPlayer().getLatestBoard());
+        game.setGameBoard(belongToElse);
+        for (int i= 0; i <belongToElse.getGrid().length; i++) {
+            for (int j = 0; j < belongToElse.getGrid()[0].length; j++) {
+                KataminoDragCell currentCell = (KataminoDragCell) gameTilePane.getChildren().get((i*22)+j);
+                KataminoDragCell temp = belongToElse.getGrid()[i][j];
+                currentCell.setBlocked(false);
+                currentCell.setPentominoInstanceID(temp.getPentominoInstanceID());
+                currentCell.setCellColor(temp.getColor());
+                currentCell.setOnMousePressed(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        generatePreview(event);
+                    }
+                });
+            }
+        }
+        animate(false, false);
+    }
     public void gameSetup(int level, int gameScore, Player player) {
         game = new SinglePlayerGame(level, player.getHighScore(), player);
         playerLabel.setText(((SinglePlayerGame) game).getPlayer().getPlayerName() + " " + ((SinglePlayerGame) game).getPlayer().getHighScore());
         try {
-            loadLevel();
+            loadOldBoard();
         } catch (Exception e) {
             System.out.println(e);
         }
         startGame();
     }
-    public void gameSetup(int level) {
+    public void gameSetup(int level,Player player) {
         game = new SinglePlayerGame(level);
-        playerLabel.setText("");
+        if(player.equals(null))
+            playerLabel.setText("");
+        else
+            playerLabel.setText(player.getPlayerName());
         try {
             loadLevel();
         } catch (Exception e) {
@@ -80,11 +119,18 @@ public class SinglePlayerGameController extends GameController{
     }
 
     @Override
-    public void gameOverAction() {
+    public void gameOverAction()  {
         if(((SinglePlayerGame) game).getPlayer() != null){
             ((SinglePlayerGame) game).incrementGameScore(99);
             playerLabel.setText(((SinglePlayerGame) game).getPlayer().getPlayerName() + " " + ((SinglePlayerGame) game).getPlayer().getHighScore());
-            ((SinglePlayerGame) game).updateLevel();
+
+           try {
+               ((SinglePlayerGame) game).updateLevel();
+           }catch (IOException o)
+           { System.out.println(o);}
+
+
+
             try {
                 loadLevel();
             } catch (Exception e) {
@@ -190,18 +236,20 @@ public class SinglePlayerGameController extends GameController{
     @FXML
     public void exitButtonClicked(MouseEvent event) throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
-
+    //    ( ( (SinglePlayerGame)game).getPlayer()).setLatestBoard(((SinglePlayerGame)game).getGameBoard().getBoard(),game.getElapsedSeconds());
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+         ( (SinglePlayerGame)game).savePlayerBoard();
         stage.setWidth(750);
         stage.setHeight(500);
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
         root.getChildren().setAll(pane);
+
     }
 
     @FXML
-    public void levelButtonClicked(MouseEvent event) throws IOException { //TODO: Check for saved level
+    public void levelButtonClicked(MouseEvent event) throws IOException {
         FXMLLoader levelMenuLoader = new FXMLLoader(getClass().getResource("levelMenu.fxml"));
         AnchorPane pane = levelMenuLoader.load();
         LevelMenuController lvlctrl = levelMenuLoader.getController();

@@ -719,7 +719,7 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
     }
 
     @FXML
-    public void boardButtonClicked(MouseEvent event) throws IOException { //TODO: Check for saved level
+    public void boardButtonClicked(MouseEvent event) throws IOException {
         FXMLLoader levelMenuLoader = new FXMLLoader(getClass().getResource("boardMenu.fxml"));
         AnchorPane pane = levelMenuLoader.load();
         BoardMenuController br = levelMenuLoader.getController();

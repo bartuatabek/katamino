@@ -56,13 +56,15 @@ public class SinglePlayerGame extends Game {
         return true;
     }
 
-    public void updateLevel() {
+    public void updateLevel() throws IOException {
         if (currentLevel == player.getAccessibleLevel()) {
             player.setAccessibleLevel(player.getAccessibleLevel() + 1);
+          //  player.setLatestBoard(gameBoard.getBoard(),getElapsedSeconds());
         }
 
         gameBoard.updateGameBoard(currentLevel + 1);
         levelScore = 0;
+
     }
 
 }

@@ -26,6 +26,14 @@ public class GameBoard {
         add(Color.web("FF5700"));
     }};
 
+    public Integer[][] getBoard() {
+        return board;
+    }
+
+    public void setBoard(Integer[][] board) {
+        this.board = board;
+    }
+
     Integer[][]board;
 
     public GameBoard(int levelNo) {
@@ -42,6 +50,18 @@ public class GameBoard {
         }
     }
 
+
+    public GameBoard(Integer[][] board) {
+       this.board=board;
+        grid = new KataminoDragCell[board.length][board[0].length];
+        try {
+            loadLevel();
+        } catch (FileNotFoundException f) {
+            System.out.println("IOException");
+        } catch (IOException ex) {
+            System.out.println("General exception");
+        }
+    }
     public void loadLevel() throws IOException {
         for (int i= 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
