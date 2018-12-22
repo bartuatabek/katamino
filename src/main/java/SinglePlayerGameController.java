@@ -82,6 +82,8 @@ public class SinglePlayerGameController extends GameController{
     @Override
     public void gameOverAction() {
         if(((SinglePlayerGame) game).getPlayer() != null){
+            ((SinglePlayerGame) game).incrementGameScore(99);
+            playerLabel.setText(((SinglePlayerGame) game).getPlayer().getPlayerName() + " " + ((SinglePlayerGame) game).getPlayer().getHighScore());
             ((SinglePlayerGame) game).updateLevel();
             try {
                 loadLevel();

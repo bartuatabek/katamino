@@ -101,7 +101,7 @@ public class FileManager {
             element = gson.fromJson (player.getHighScore()+"", JsonElement.class);
             object.add("highScore",element );
             element = gson.fromJson (player.getAccessibleLevel()+"", JsonElement.class);
-            object.add("accesibleLevel",element );
+            object.add("accessibleLevel",element );
             element = gson.fromJson(gson.toJson(player.getLatestBoard()),JsonElement.class);
             object.add("latestBoard",element );
             element = gson.fromJson(gson.toJson(player.getLatestTime()),JsonElement.class);
@@ -131,7 +131,7 @@ public class FileManager {
             for (i = 0; i < jsonArray.size(); i++){
                 name = jsonArray.get(i).getAsJsonObject().get("playerName").getAsString();
                 if (name.equals(player.getPlayerName())) {
-                    System.out.print("Found! "+name);
+//                    System.out.print("Found! "+name);
                     break;
                 }
             }

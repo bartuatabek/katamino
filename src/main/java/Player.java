@@ -37,6 +37,14 @@ public class Player {
 
     public void setHighScore(int highScore) {
         this.highScore = highScore;
+
+        FileManager fm = new FileManager();
+
+        try {
+            fm.updatePlayerInfoInFile(this);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     public int getAccessibleLevel() {

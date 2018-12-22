@@ -38,11 +38,12 @@ public class SinglePlayerGame extends Game {
 
     public void incrementGameScore(int amount) {
         this.gameScore = gameScore+amount;
+        player.setHighScore(gameScore);
     }
 
     public boolean savePlayerBoard() throws IOException {
 
-        KataminoDragCell[][] temp =gameBoard.getGrid();
+        KataminoDragCell[][] temp = gameBoard.getGrid();
         Integer[][] getter= new Integer[temp.length ][temp[0].length];
         for (int i =0; i< temp.length ;i++ )
         {
@@ -56,7 +57,10 @@ public class SinglePlayerGame extends Game {
     }
 
     public void updateLevel() {
-        player.setAccessibleLevel(player.getAccessibleLevel() + 1);
+        if (currentLevel == player.getAccessibleLevel()) {
+            player.setAccessibleLevel(player.getAccessibleLevel() + 1);
+        }
+
         gameBoard.updateGameBoard(currentLevel + 1);
         levelScore = 0;
     }
