@@ -12,8 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import kataminoDragCell.KataminoDragCell?>
+<?import kataminoLongButton.KataminoLongButton?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" style="-fx-background-color: #262626;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SinglePlayerGameController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" style="-fx-background-color: #262626;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SinglePlayerGameController">
    <children>
       <GridPane layoutX="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="672.0" prefWidth="1232.0" style="-fx-background-color: #262626;">
          <columnConstraints>
@@ -1032,5 +1033,16 @@
          </children>
       </GridPane>
       <AnchorPane fx:id="gridStack" prefHeight="700.0" prefWidth="1200.0" />
+      <AnchorPane fx:id="pauseMenu" disable="true" prefHeight="700.0" prefWidth="1250.0" visible="false">
+         <children>
+            <KataminoLongButton fx:id="levelButton" layoutX="490.0" layoutY="292.0" onMouseClicked="#levelButtonClicked" />
+            <KataminoLongButton fx:id="exitButton" layoutX="490.0" layoutY="392.0" onMouseClicked="#exitButtonClicked" />
+            <Label layoutX="541.0" layoutY="170.0" text="Pause" textFill="#868686">
+               <font>
+                  <Font name="SF Pixelate" size="48.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

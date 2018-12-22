@@ -127,8 +127,7 @@ public class MultiplayerGameController extends GameController {
                 });
             }
         }
-        animate(false);
-
+        animate(false, false);
     }
 
     @Override

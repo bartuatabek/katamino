@@ -76,7 +76,7 @@ public abstract class GameController implements Initializable {
                 return false;
             }
         }
-        animate(true);
+        animate(true,true);
         return true;
     }
 
@@ -392,10 +392,10 @@ public abstract class GameController implements Initializable {
         for (int[] row : mat)
             System.out.println(Arrays.toString(row));
     }
-    public void animate(boolean end){
+    public void animate(boolean disappear, boolean gameOver){
         for(int i = 0; i < gameTilePane.getChildren().size() - 1; i++) {
             RotateTransition rotator = new RotateTransition(Duration.millis(1000),  gameTilePane.getChildren().get(i));
-            if(end) {
+            if(disappear) {
                 rotator.setFromAngle(0);
                 rotator.setToAngle(120);
             }
@@ -407,7 +407,7 @@ public abstract class GameController implements Initializable {
             rotator.play();
         }
         RotateTransition rotator = new RotateTransition(Duration.millis(1000),  gameTilePane.getChildren().get(gameTilePane.getChildren().size() - 1));
-        if(end) {
+        if(disappear) {
             rotator.setFromAngle(0);
             rotator.setToAngle(120);
         }
@@ -416,7 +416,7 @@ public abstract class GameController implements Initializable {
             rotator.setToAngle(0);
         }
         rotator.setInterpolator(Interpolator.EASE_BOTH);
-        if(end){
+        if(gameOver){
             rotator.setOnFinished(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
