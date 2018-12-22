@@ -66,5 +66,8 @@ public class SinglePlayerGame extends Game {
         levelScore = 0;
 
     }
+    public int getCurrentLevel(){
+        return currentLevel;
+    }
 
 }

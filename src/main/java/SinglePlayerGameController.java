@@ -1,4 +1,4 @@
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -6,6 +6,8 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -20,6 +22,7 @@ import kataminoLongButton.KataminoLongButton;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SinglePlayerGameController extends GameController{
@@ -34,6 +37,28 @@ public class SinglePlayerGameController extends GameController{
 
     @FXML
     AnchorPane root;
+
+    @FXML
+    ImageView tutorial1;
+
+    @FXML
+    ImageView tutorial2;
+
+    @FXML
+    ImageView tutorial3;
+
+    @FXML
+    ImageView tutorial4;
+
+    @FXML
+    ImageView tutorial5;
+
+    @FXML
+    ImageView tutorial6;
+
+    private int currentTutorial;
+
+    private final Integer[][][] TUTORIAL_ARR = {null, {{3,9},{3,10},{3,11},{3,12},{4,12}}, {{4,9},{4,10},{4,11},{5,11},{5,12}}, {{5,10},{6,10},{6,11},{6,12},{7,12}}, {{5,9},{6,9},{7,9},{7,10},{7,11}}, null};
 
     public void loadLevel() throws FileNotFoundException {
         for (int i= 0; i < game.getGameBoard().getGrid().length; i++) {
@@ -55,7 +80,8 @@ public class SinglePlayerGameController extends GameController{
                 });
             }
         }
-        System.out.println("level BOARD");
+        tutorial6.setVisible(false);
+        tutorial6.setDisable(true);
         animate(false, false);
     }
 
@@ -97,6 +123,11 @@ public class SinglePlayerGameController extends GameController{
     public void gameSetup(int level, int gameScore, Player player) {
         game = new SinglePlayerGame(level, player.getHighScore(), player);
         playerLabel.setText(((SinglePlayerGame) game).getPlayer().getPlayerName() + " " + ((SinglePlayerGame) game).getPlayer().getHighScore());
+        if(level == 1){
+            currentTutorial = 0;
+            tutorial1.setVisible(true);
+            tutorial1.setDisable(false);
+        }
         try {
             loadOldBoard();
         } catch (Exception e) {
@@ -106,7 +137,7 @@ public class SinglePlayerGameController extends GameController{
     }
     public void gameSetup(int level,Player player) {
         game = new SinglePlayerGame(level);
-        if(player.equals(null))
+        if(player == null)
             playerLabel.setText("");
         else
             playerLabel.setText(player.getPlayerName());
@@ -116,6 +147,50 @@ public class SinglePlayerGameController extends GameController{
             System.out.println(e);
         }
         startGame();
+    }
+    public void nextTutorial(Event event)
+    {
+        if(event != null)
+        {
+            ((ImageView)event.getSource()).setVisible(false);
+            ((ImageView)event.getSource()).setDisable(true);
+            if(TUTORIAL_ARR[currentTutorial] == null)
+            {
+                nextTutorial(null);
+                return;
+            }
+            for(int j = 0; j < TUTORIAL_ARR[currentTutorial].length;j++)
+            {
+                ((KataminoDragCell)gameTilePane.getChildren().get(TUTORIAL_ARR[currentTutorial][j][0] * 22 + TUTORIAL_ARR[currentTutorial][j][1])).setBorderColor(Color.WHITE);
+            }
+        }
+        else
+        {
+            currentTutorial++;
+            if(TUTORIAL_ARR[currentTutorial] != null){
+                for(int j = 0; j < TUTORIAL_ARR[currentTutorial].length;j++)
+                {
+                    ((KataminoDragCell)gameTilePane.getChildren().get(TUTORIAL_ARR[currentTutorial][j][0] * 22 + TUTORIAL_ARR[currentTutorial][j][1])).setBorderColor(Color.RED);
+                }
+            }
+            if(currentTutorial == 1) {
+                tutorial2.setVisible(true);
+                tutorial2.setDisable(false);
+            }
+            else if (currentTutorial == 2){
+                tutorial3.setVisible(true);
+                tutorial3.setDisable(false);
+            }else if (currentTutorial == 3){
+                tutorial4.setVisible(true);
+                tutorial4.setDisable(false);
+            }else if (currentTutorial == 4){
+                tutorial5.setVisible(true);
+                tutorial5.setDisable(false);
+            }else if (currentTutorial == 5){
+                tutorial6.setVisible(true);
+                tutorial6.setDisable(false);
+            }
+        }
     }
 
     @Override
@@ -210,6 +285,21 @@ public class SinglePlayerGameController extends GameController{
                         gridStack.setVisible(clashCheck(rowNode, colNode));
                     } catch (Exception e) {
                         System.out.println(e);
+                    }
+                    if(((SinglePlayerGame)game).getCurrentLevel() == 1)
+                    {
+                        boolean goNext = true;
+                        label:
+                        for(int j = 0; j < TUTORIAL_ARR[currentTutorial].length;j++)
+                        {
+                            KataminoDragCell dragCell = ((KataminoDragCell)gameTilePane.getChildren().get(TUTORIAL_ARR[currentTutorial][j][0] * 22 + TUTORIAL_ARR[currentTutorial][j][1]));
+                            if(dragCell.getPentominoInstanceID() == 0 || dragCell.getPentominoInstanceID() == -1)
+                            {
+                                goNext = false;
+                            }
+                        }
+                        if(goNext)
+                            nextTutorial(null);
                     }
                     if(isFull()){
                         stopwatchLabel.setText("You Won!!");
