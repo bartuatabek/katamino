@@ -11,8 +11,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.layout.TilePane?>
 <?import kataminoDragCell.KataminoDragCell?>
+<?import kataminoLongButton.KataminoLongButton?>
 <?import kataminoButton.KataminoButton?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1250.0" style="-fx-background-color: #262626;"  xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MultiplayerGameController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1250.0" style="-fx-background-color: #262626;"  xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MultiplayerGameController">
     <children>
         <GridPane layoutX="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="872.0" prefWidth="1232.0" style="-fx-background-color: #262626;">
             <columnConstraints>
@@ -321,7 +322,7 @@
                     <children>
                         <VBox alignment="bottom_center">
                             <children>
-                                <KataminoButton fx:id="replayButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#replayClicked" />
+                                <KataminoButton fx:id="replayButton" maxHeight="-Infinity" buttonName="Restart" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#replayClicked" />
                             </children>
                         </VBox>
                     </children>
@@ -330,5 +331,16 @@
 
         </GridPane>
         <AnchorPane fx:id="gridStack" prefHeight="800.0" prefWidth="1200.0" />
+        <AnchorPane fx:id="pauseMenu" disable="true" prefHeight="700.0" prefWidth="1250.0" visible="false">
+            <children>
+                <KataminoLongButton fx:id="boardButton" layoutX="490.0" layoutY="292.0" onMouseClicked="#boardButtonClicked" />
+                <KataminoLongButton fx:id="exitButton" layoutX="490.0" layoutY="392.0" onMouseClicked="#exitButtonClicked" />
+                <Label layoutX="541.0" layoutY="170.0" text="Pause" textFill="#868686">
+                    <font>
+                        <Font name="SF Pixelate" size="48.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
     </children>
 </AnchorPane>
