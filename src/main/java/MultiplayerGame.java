@@ -5,7 +5,18 @@ public class MultiplayerGame extends Game{
     Turn turn;
     Timer timer;
 
+    public int getBoardID() {
+        return boardID;
+    }
+
+    public void setBoardID(int boardID) {
+        this.boardID = boardID;
+    }
+
+    int boardID;
+
     public MultiplayerGame(int boardId) {
+        boardID=boardId;
         gameBoard = new GameBoard(boardId);
         stopwatch= new Stopwatch();
         turn=Turn.Player1;

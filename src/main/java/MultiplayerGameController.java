@@ -4,11 +4,15 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import kataminoButton.KataminoButton;
 import kataminoDragBlock.KataminoDragBlock;
@@ -25,6 +29,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import kataminoDragBlock.KataminoDragBlock;
 import kataminoDragCell.KataminoDragCell;
+import kataminoLongButton.KataminoLongButton;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -39,13 +44,52 @@ public class MultiplayerGameController extends GameController {
     protected GridPane replayPane;
 
     @FXML
+    KataminoLongButton exitButton;
+
+    @FXML
+    KataminoLongButton boardButton;
+
+    @FXML
+    AnchorPane pauseMenu;
+
+    @FXML
+    AnchorPane root;
+
+    @FXML
     protected KataminoButton replay;
 
-  //  @FXML
+    public MultiplayerGameController() {
+        try {
+            replay = new KataminoButton();
+            replay.setButtonName("Restart");
+            replay.setVisible(false);
+
+        }catch (IOException o)
+        {
+            System.out.println("olmadı");
+        }
+        moveHasCompleted=false;
+
+    }
+    //  @FXML
   //  private AnchorPane root;
     public void replayClicked(MouseEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("multiplayerGame.fxml"));
-        gridStack.getChildren().setAll(pane);
+        game=new MultiplayerGame(((MultiplayerGame)game).getBoardID());
+        loadBoard();
+        ((MultiplayerGame)game).setTurn(MultiplayerGame.Turn.Player1);
+        turnChecker.playFromStart();
+        if (((MultiplayerGame) game).getTurn() == MultiplayerGame.Turn.Player1) {
+            ((MultiplayerGame) game).setTurn(MultiplayerGame.Turn.Player2);
+            playerLabel.setTextFill(Color.web("#ffe500"));
+            playerLabel2.setTextFill(Color.web("#808080"));
+        } else {
+            ((MultiplayerGame) game).setTurn(MultiplayerGame.Turn.Player1);
+            playerLabel2.setTextFill(Color.web("#ffe500"));
+            playerLabel.setTextFill(Color.web("#808080"));
+        }
+        pauseMenu.setDisable(true);
+        pauseMenu.setVisible(false);
+
     }
     private boolean clashCheckForBoard(int row,int col){
         ArrayList<KataminoDragCell> newLocationCells = new ArrayList<>();
@@ -136,6 +180,21 @@ public class MultiplayerGameController extends GameController {
         updateStopwatch();
         turnChecker.setCycleCount(Timeline.INDEFINITE);
         turnChecker.play();
+    }
+
+    public void resumeGame() {
+        super.resumeGame();
+        pauseMenu.setVisible(false);
+        pauseMenu.setDisable(true);
+        animate(false,false);
+    }
+
+    public void pauseGame() {
+        super.pauseGame();
+        pauseMenu.setVisible(true);
+        pauseMenu.setDisable(false);
+
+        animate(true,false);
     }
 
 private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
@@ -522,18 +581,7 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-        replay = new KataminoButton();
-            replay.setButtonName("Replay");
-            replay.setVisible(false);
 
-        }catch (IOException o)
-        {
-            System.out.println("olmadı");
-        }
-
-      /*  replay.setButtonName("Replay");
-        replay.setVisible(false);*/
         game = new MultiplayerGame(1); /////////////////////////////////BOARDCHOOSE
         moveHasCompleted=false;
         try {
@@ -558,6 +606,21 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
             @Override
             public void handle(MouseEvent event) {
                 preview.fireEvent(event);
+            }
+        });
+        exitButton.setButtonName("Exit");
+        boardButton.setButtonName("Boards");
+        pauseMenu.setOnMouseClicked(new EventHandler<MouseEvent>() { //not generic
+            @Override
+            public void handle(MouseEvent event) {
+                for (Node node : timerPane.getChildren()) {
+                    if(node instanceof VBox)
+                    {
+                        if (node.getBoundsInParent().contains(event.getSceneX(), event.getSceneY()) && ((VBox) node).getChildren().get(0) == stopwatchLabel) {
+                            stopwatchLabel.fireEvent(event);
+                        }
+                    }
+                }
             }
         });
         EventHandler eventHandler = new EventHandler<MouseEvent>() {
@@ -600,7 +663,9 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
                         pauseGame();
                         String winner= ((MultiplayerGame)game).getTurn().toString();
                         stopwatchLabel.setText(winner+" Won!!");
+                       // gridStack.setDisable(false);
                         replay.setVisible(true);
+                        turnChecker.stop();
 
                     }
                     if((!entered)&& moveHasCompleted ) {
@@ -641,6 +706,31 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
             playerLabel.setTextFill(Color.web("#808080"));
         }
     }));
+    @FXML
+    public void exitButtonClicked(MouseEvent event) throws IOException {
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setWidth(750);
+        stage.setHeight(500);
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+        root.getChildren().setAll(pane);
+    }
+
+    @FXML
+    public void boardButtonClicked(MouseEvent event) throws IOException { //TODO: Check for saved level
+        FXMLLoader levelMenuLoader = new FXMLLoader(getClass().getResource("boardMenu.fxml"));
+        AnchorPane pane = levelMenuLoader.load();
+        BoardMenuController br = levelMenuLoader.getController();
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setWidth(750);
+        stage.setHeight(500);
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+        root.getChildren().setAll(pane);
+    }
 
 }
 
