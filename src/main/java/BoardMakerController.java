@@ -1,3 +1,4 @@
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -50,8 +51,17 @@ public class BoardMakerController extends GameController implements Initializabl
         currentColor =  Color.color(Math.random(),Math.random(),Math.random());
         currentPentominoID = 1;
 
-        gameTilePane.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+        for (Node node : gameTilePane.getChildren()) {
+            if (node instanceof KataminoDragCell) {
+                node.setOnMouseClicked(colorTile);
+            }
+        }
+
     }
+
+    private EventHandler<MouseEvent> colorTile = event ->  {
+        ((KataminoDragCell)event.getSource()).setCellColor(currentColor);
+    };
 
     @FXML
     public void nextKataminoClicked()  {
@@ -76,11 +86,13 @@ public class BoardMakerController extends GameController implements Initializabl
     }
 
     @FXML
-    public void backButtonClicked(MouseEvent e) throws IOException {
+    public void backButtonClicked() throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("modeSelectionMenu.fxml"));
         root.getChildren().setAll(pane);
     }
 
+
+/*
     private EventHandler<MouseEvent> eventHandler = event -> {
         int rowNode;
         int colNode;
@@ -107,7 +119,7 @@ public class BoardMakerController extends GameController implements Initializabl
             }
         }
 
-    };
+    };*/
 
 
 
