@@ -358,6 +358,7 @@ public class SinglePlayerGameController extends GameController{
     public void levelButtonClicked(MouseEvent event) throws IOException {
         FXMLLoader levelMenuLoader = new FXMLLoader(getClass().getResource("levelMenu.fxml"));
         AnchorPane pane = levelMenuLoader.load();
+        ( (SinglePlayerGame)game).savePlayerBoard();
         LevelMenuController lvlctrl = levelMenuLoader.getController();
         lvlctrl.setPlayer(((SinglePlayerGame)game).getPlayer());
         lvlctrl.updateLevelAccess();
