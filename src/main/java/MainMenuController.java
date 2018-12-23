@@ -57,7 +57,7 @@ public class MainMenuController implements Initializable {
     }
     @FXML
     public void multiplayerButtonClicked(MouseEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("multiplayerGame.fxml"));
+       /* AnchorPane pane = FXMLLoader.load(getClass().getResource("multiplayerGame.fxml"));
 
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setWidth(1250);
@@ -65,6 +65,8 @@ public class MainMenuController implements Initializable {
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+        root.getChildren().setAll(pane);*/
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("boardMenu.fxml"));
         root.getChildren().setAll(pane);
     }
     @FXML
