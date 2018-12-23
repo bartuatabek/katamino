@@ -269,9 +269,9 @@ public class SinglePlayerGameController extends GameController{
                         int colNode = 0;
                         for (Node node : gameTilePane.getChildren()) {
                             if (node instanceof KataminoDragCell) {
-                                if (node.getBoundsInParent().contains(event.getSceneX(), event.getSceneY())) {
+                                if (node.getBoundsInParent().contains(event.getX(), event.getY())) {
                                     Integer[] location = findLocationTilePane(node, gameTilePane);
-                                    rowNode = location[0] - 1;
+                                    rowNode = location[0];
                                     colNode = location[1];
                                 }
                             }
