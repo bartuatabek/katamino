@@ -3,6 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -12,8 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import kataminoDragCell.KataminoDragCell?>
+<?import kataminoLongButton.KataminoLongButton?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" style="-fx-background-color: #262626;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SinglePlayerGameController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" style="-fx-background-color: #262626;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SinglePlayerGameController">
    <children>
       <GridPane layoutX="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="672.0" prefWidth="1232.0" style="-fx-background-color: #262626;">
          <columnConstraints>
@@ -1032,5 +1035,46 @@
          </children>
       </GridPane>
       <AnchorPane fx:id="gridStack" prefHeight="700.0" prefWidth="1200.0" />
+      <AnchorPane fx:id="pauseMenu" disable="true" prefHeight="700.0" prefWidth="1250.0" visible="false">
+         <children>
+            <KataminoLongButton fx:id="levelButton" layoutX="490.0" layoutY="292.0" onMouseClicked="#levelButtonClicked" />
+            <KataminoLongButton fx:id="exitButton" layoutX="490.0" layoutY="392.0" onMouseClicked="#exitButtonClicked" />
+            <Label layoutX="541.0" layoutY="170.0" text="Pause" textFill="#868686">
+               <font>
+                  <Font name="SF Pixelate" size="48.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <ImageView fx:id="tutorial1" disable="true" fitHeight="632.0" fitWidth="1232.0" layoutX="9.0" layoutY="56.0" onMouseClicked="#nextTutorial" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@tutorial1.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="tutorial2" disable="true" fitHeight="616.0" fitWidth="1232.0" layoutX="9.0" layoutY="56.0" onMouseClicked="#nextTutorial" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@tutorial2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="tutorial3" disable="true" fitHeight="632.0" fitWidth="1232.0" layoutX="9.0" layoutY="55.0" onMouseClicked="#nextTutorial" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@tutorial3.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="tutorial4" disable="true" fitHeight="632.0" fitWidth="1232.0" layoutX="9.0" layoutY="56.0" onMouseClicked="#nextTutorial" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@tutorial4.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="tutorial5" disable="true" fitHeight="632.0" fitWidth="1232.0" layoutX="9.0" layoutY="55.0" onMouseClicked="#nextTutorial" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@tutorial5.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="tutorial6" disable="true" fitHeight="632.0" fitWidth="1232.0" layoutX="9.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@tutorial6.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -17,6 +17,14 @@ public class SinglePlayerGame extends Game {
         stopped = false;
     }
 
+    public SinglePlayerGame(int level,Player player) {
+        currentLevel = level;
+        gameBoard = new GameBoard(currentLevel);
+        stopwatch= new Stopwatch();
+        stopped = false;
+        this.player=player;
+        gameScore=player.getHighScore();
+    }
     public SinglePlayerGame(int level) {
         currentLevel = level;
         gameBoard = new GameBoard(currentLevel);
@@ -38,11 +46,12 @@ public class SinglePlayerGame extends Game {
 
     public void incrementGameScore(int amount) {
         this.gameScore = gameScore+amount;
+        player.setHighScore(gameScore);
     }
 
     public boolean savePlayerBoard() throws IOException {
 
-        KataminoDragCell[][] temp =gameBoard.getGrid();
+        KataminoDragCell[][] temp = gameBoard.getGrid();
         Integer[][] getter= new Integer[temp.length ][temp[0].length];
         for (int i =0; i< temp.length ;i++ )
         {
@@ -55,10 +64,17 @@ public class SinglePlayerGame extends Game {
         return true;
     }
 
-    public void updateLevel() {
-        player.setAccessibleLevel(player.getAccessibleLevel() + 1);
+    public void updateLevel() throws IOException {
+        if (currentLevel == player.getAccessibleLevel()) {
+            player.setAccessibleLevel(player.getAccessibleLevel() + 1);
+          //  player.setLatestBoard(gameBoard.getBoard(),getElapsedSeconds());
+        }
         gameBoard.updateGameBoard(currentLevel + 1);
         levelScore = 0;
+        currentLevel++;
+    }
+    public int getCurrentLevel(){
+        return currentLevel;
     }
 
 }

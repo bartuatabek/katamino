@@ -36,7 +36,6 @@ public class KataminoDragCell extends Pane {
 		this.pentominoInstanceID = pentominoInstanceID;
 		this.onBoard = onBoard;
         setCellColor(cellColor);
-		blockView.setVisible(false);
 
 		if (pentominoInstanceID == -1) {
 			cell.setPrefWidth(56);
@@ -48,10 +47,8 @@ public class KataminoDragCell extends Pane {
 
 	public void setBlocked(Boolean blocked) {
 		if (blocked) {
-			blockView.setVisible(true);
 			setDisable(true);
 		} else {
-			blockView.setVisible(false);
 			setDisable(false);
 		}
 	}

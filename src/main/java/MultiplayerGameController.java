@@ -3,15 +3,23 @@ import javafx.animation.Timeline;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import kataminoButton.KataminoButton;
 import kataminoDragBlock.KataminoDragBlock;
 import kataminoDragCell.KataminoDragCell;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -21,6 +29,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import kataminoDragBlock.KataminoDragBlock;
 import kataminoDragCell.KataminoDragCell;
+import kataminoLongButton.KataminoLongButton;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -30,19 +39,131 @@ import java.util.ResourceBundle;
 public class MultiplayerGameController extends GameController {
     @FXML
     Label playerLabel2;
+    private boolean moveHasCompleted;
+    @FXML
+    protected GridPane replayPane;
 
-    public void loadBoard() throws FileNotFoundException {
+    @FXML
+    KataminoLongButton exitButton;
+
+    @FXML
+    KataminoLongButton boardButton;
+
+    @FXML
+    AnchorPane pauseMenu;
+
+    @FXML
+    AnchorPane root;
+
+    @FXML
+    protected KataminoButton replay;
+
+    public MultiplayerGameController() {
+        try {
+            replay = new KataminoButton();
+            replay.setButtonName("Restart");
+            replay.setVisible(false);
+
+        }catch (IOException o)
+        {
+            System.out.println("olmadı");
+        }
+        moveHasCompleted=false;
+
+    }
+    //  @FXML
+  //  private AnchorPane root;
+    public void replayClicked(MouseEvent event) throws IOException {
+        game=new MultiplayerGame(((MultiplayerGame)game).getBoardID());
+        loadBoard();
+        ((MultiplayerGame)game).setTurn(MultiplayerGame.Turn.Player1);
+        turnChecker.playFromStart();
+        if (((MultiplayerGame) game).getTurn() == MultiplayerGame.Turn.Player1) {
+            ((MultiplayerGame) game).setTurn(MultiplayerGame.Turn.Player2);
+            playerLabel.setTextFill(Color.web("#ffe500"));
+            playerLabel2.setTextFill(Color.web("#808080"));
+        } else {
+            ((MultiplayerGame) game).setTurn(MultiplayerGame.Turn.Player1);
+            playerLabel2.setTextFill(Color.web("#ffe500"));
+            playerLabel.setTextFill(Color.web("#808080"));
+        }
+        pauseMenu.setDisable(true);
+        pauseMenu.setVisible(false);
+
+    }
+    private boolean clashCheckForBoard(int row,int col){
+        ArrayList<KataminoDragCell> newLocationCells = new ArrayList<>();
+        Color cellColor = ((currentPentominoId % 12) >= 0 && (currentPentominoId != 0)) ? colorList.get(currentPentominoId % 12) : Color.web("#262626");
+        int insideCounter=0;
+        int outsideCounter=0;
+        int transferX = row - coordinateArr.get(0).get(0);
+        int transferY = col - coordinateArr.get(0).get(1);
+        for (ArrayList<Integer> array : coordinateArr) {
+            array.set(0, array.get(0) + transferX);
+            array.set(1, array.get(1) + transferY);
+        }
+        int index;
+        for (int i = 0; i < coordinateArr.size(); i++) {
+            index = (coordinateArr.get(i).get(0) * 22) + coordinateArr.get(i).get(1);
+            if (index >= 0) {
+                KataminoDragCell currentPentomino = (KataminoDragCell) gameTilePane.getChildren().get(index);
+                if ((currentPentomino.getPentominoInstanceID() == -1 || currentPentomino.getPentominoInstanceID() == 0)&& currentPentomino.isOnBoard()) {
+                    newLocationCells.add(currentPentomino);
+                    insideCounter++;
+                }else if((currentPentomino.getPentominoInstanceID() == -1 || currentPentomino.getPentominoInstanceID() == 0))
+                {
+                    outsideCounter++;
+                    newLocationCells.add(currentPentomino);
+                }
+            }
+        }
+        System.out.println("İNSİDE COUNTER:"+insideCounter);
+        System.out.println("Outside COUNTER:"+outsideCounter);
+        if(insideCounter>=5)
+        {
+            for (KataminoDragCell currentCell : newLocationCells) {
+                currentCell.setPentominoInstanceID(currentPentominoId);
+                currentCell.setCellColor(cellColor);
+            }
+            moveHasCompleted=true;
+        }
+        else if(outsideCounter>=5)
+        {
+            for (KataminoDragCell currentCell : newLocationCells) {
+                currentCell.setPentominoInstanceID(currentPentominoId);
+                currentCell.setCellColor(cellColor);
+            }
+            moveHasCompleted=false;
+
+        }
+        else {
+            ShakeTransition shakeTransition = new ShakeTransition(gridStack);
+            shakeTransition.playFromStart();
+            moveHasCompleted=false;
+            return true;
+        }
+
+     /*   for (KataminoDragCell currentCell : newLocationCells) {
+            currentCell.setPentominoInstanceID(currentPentominoId);
+            currentCell.setCellColor(cellColor);
+        }*/
+        return false;
+    }
+
+    private void loadBoard() throws FileNotFoundException {
         for (int i= 0; i < game.getGameBoard().getGrid().length; i++) {
             for (int j = 0; j < game.getGameBoard().getGrid()[0].length; j++) {
                 KataminoDragCell currentCell = (KataminoDragCell) gameTilePane.getChildren().get((i*22)+j);
                 KataminoDragCell temp = game.getGameBoard().getGrid()[i][j];
+                currentCell.setBlocked(false);
+
                 int cellId = temp.getPentominoInstanceID();
-                currentCell.setPentominoInstanceID(cellId);
+                currentCell.setPentominoInstanceID(temp.getPentominoInstanceID());
+                currentCell.setOnBoard(temp.isOnBoard());
+                currentCell.setCellColor(temp.getColor());
                 if (cellId == 0)
                     currentCell.setBorderColor(Color.WHITE);
-                currentCell.setCellColor(temp.getColor());
-                currentCell.setOnBoard(temp.isOnBoard());
-                currentCell.setOnMousePressed( new EventHandler<MouseEvent>() {
+                currentCell.setOnMousePressed(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
                         generatePreview(event);
@@ -50,7 +171,7 @@ public class MultiplayerGameController extends GameController {
                 });
             }
         }
-        animate(false);
+        animate(false, false);
     }
 
     @Override
@@ -59,6 +180,21 @@ public class MultiplayerGameController extends GameController {
         updateStopwatch();
         turnChecker.setCycleCount(Timeline.INDEFINITE);
         turnChecker.play();
+    }
+
+    public void resumeGame() {
+        super.resumeGame();
+        pauseMenu.setVisible(false);
+        pauseMenu.setDisable(true);
+        animate(false,false);
+    }
+
+    public void pauseGame() {
+        super.pauseGame();
+        pauseMenu.setVisible(true);
+        pauseMenu.setDisable(false);
+
+        animate(true,false);
     }
 
 private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
@@ -445,7 +581,9 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        game = new MultiplayerGame(2); /////////////////////////////////BOARDCHOOSE
+
+        game = new MultiplayerGame(1); /////////////////////////////////BOARDCHOOSE
+        moveHasCompleted=false;
         try {
             kataminoDragCell = new KataminoDragCell();
             loadBoard();
@@ -468,6 +606,21 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
             @Override
             public void handle(MouseEvent event) {
                 preview.fireEvent(event);
+            }
+        });
+        exitButton.setButtonName("Exit");
+        boardButton.setButtonName("Boards");
+        pauseMenu.setOnMouseClicked(new EventHandler<MouseEvent>() { //not generic
+            @Override
+            public void handle(MouseEvent event) {
+                for (Node node : timerPane.getChildren()) {
+                    if(node instanceof VBox)
+                    {
+                        if (node.getBoundsInParent().contains(event.getSceneX(), event.getSceneY()) && ((VBox) node).getChildren().get(0) == stopwatchLabel) {
+                            stopwatchLabel.fireEvent(event);
+                        }
+                    }
+                }
             }
         });
         EventHandler eventHandler = new EventHandler<MouseEvent>() {
@@ -498,20 +651,26 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
                             }
                         }
                         game.getGameBoard().setGrid(temp);
-                        gridStack.setVisible(clashCheck(rowNode, colNode));
+                        gridStack.setVisible(clashCheckForBoard(rowNode,colNode));
                     } catch (Exception e) {
                         System.out.println(e);
                     }
-                    ((MultiplayerGame)game).changeTurn();
-                    System.out.println(((MultiplayerGame)game).getTurn().toString());
+
                     boolean entered=false;
                     if (isFull()||(!(isLeftPossibleMove()))) {
                         entered=true;
+                        ((MultiplayerGame)game).changeTurn();
                         pauseGame();
                         String winner= ((MultiplayerGame)game).getTurn().toString();
                         stopwatchLabel.setText(winner+" Won!!");
+                       // gridStack.setDisable(false);
+                        replay.setVisible(true);
+                        turnChecker.stop();
+
                     }
-                    if(!entered) {
+                    if((!entered)&& moveHasCompleted ) {
+                        ((MultiplayerGame)game).changeTurn();
+                        System.out.println(((MultiplayerGame)game).getTurn().toString());
                         turnChecker.stop();
                         if (((MultiplayerGame) game).getTurn() == MultiplayerGame.Turn.Player1) {
                             playerLabel2.setTextFill(Color.web("#ffe500"));
@@ -524,6 +683,7 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
                         game.startStopWatch();
                         turnChecker.setCycleCount(Timeline.INDEFINITE);
                         turnChecker.play();
+                        moveHasCompleted=false;
                     }
                     }
                 }
@@ -546,6 +706,31 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
             playerLabel.setTextFill(Color.web("#808080"));
         }
     }));
+    @FXML
+    public void exitButtonClicked(MouseEvent event) throws IOException {
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setWidth(750);
+        stage.setHeight(500);
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+        root.getChildren().setAll(pane);
+    }
+
+    @FXML
+    public void boardButtonClicked(MouseEvent event) throws IOException {
+        FXMLLoader levelMenuLoader = new FXMLLoader(getClass().getResource("boardMenu.fxml"));
+        AnchorPane pane = levelMenuLoader.load();
+        BoardMenuController br = levelMenuLoader.getController();
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setWidth(750);
+        stage.setHeight(500);
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+        root.getChildren().setAll(pane);
+    }
 
 }
 

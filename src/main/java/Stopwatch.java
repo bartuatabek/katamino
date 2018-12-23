@@ -10,6 +10,10 @@ class Stopwatch {
     Stopwatch() {
         reset();
     }
+    Stopwatch(long elapsedtime){
+        startTime= (System.currentTimeMillis() / 1000)-(elapsedtime);
+    }
+
 
     void start() {
         startTime = System.currentTimeMillis() / 1000;
