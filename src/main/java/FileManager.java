@@ -32,6 +32,9 @@ public class FileManager {
         */
         return  gson.fromJson(jsonReader, Integer[][].class);
     }
+
+    // TODO save custom board
+
     public Player loadPlayer(String name) {
 
         try {

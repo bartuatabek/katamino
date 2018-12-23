@@ -54,6 +54,7 @@ public class LevelMenuController implements Initializable {
         Parent pane = loader.load();
         Scene mainMenuScene = new Scene(pane, 1200, 700);
 
+        // TODO no need for new stage
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(mainMenuScene);
     }
