@@ -123,7 +123,7 @@ public abstract class GameController implements Initializable {
 
     public Integer[] findLocationTilePane(Node node, TilePane tilePane){
         for (int i = 0; i < tilePane.getPrefRows(); i++) {
-            for(int j = 0;j< tilePane.getPrefColumns(); j++) {
+            for(int j = 0; j < tilePane.getPrefColumns(); j++) {
                 if(node == tilePane.getChildren().get((i * 22) + j)) {
                     Integer[] location = new Integer[2];
                     location[0] = i;

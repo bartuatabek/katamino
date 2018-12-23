@@ -29,8 +29,8 @@ public class ModeSelectionController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        kataminoArcadeButton.setButtonName("Classic(Arcade) Mode");
-        kataminoCustomButton.setButtonName("Custom Shapes Mode");
+        kataminoArcadeButton.setButtonName("Classic (Arcade) Mode");
+        kataminoCustomButton.setButtonName("Custom Board Mode");
     }
 
     @FXML
@@ -41,7 +41,14 @@ public class ModeSelectionController implements Initializable {
 
     @FXML
     public void customSelected(MouseEvent event) throws IOException {
-        FXMLLoader customGameLoader = new FXMLLoader(getClass().getResource("singlePlayerGame.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("CustomMenu.fxml"));
+        root.getChildren().setAll(pane);
+
+    }
+
+    @FXML
+    public void customSelected(MouseEvent event) throws IOException {
+        FXMLLoader customGameLoader = new FXMLLoader(getClass().getResource("CustomMenu.fxml"));
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         AnchorPane pane = customGameLoader.load();
 

@@ -8,6 +8,7 @@ import org.omg.CORBA.INTERNAL;
 
 import java.io.FileNotFoundException;
 import java.io.*;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +29,30 @@ public class FileManager {
         JsonReader jsonReader = new JsonReader(new FileReader("src/solution.json"));
 
         return  gson.fromJson(jsonReader, Integer[][].class);
+    }
+
+    boolean saveCustomBoard(int[][] board, String boardName)  {
+        String dir = System.getProperty("user.dir") + "/src/CustomBoards" ;
+        File file = new File(dir);
+        if (!file.exists()) {
+            if (file.mkdir()) {
+                System.out.println("Directory is created!");
+            } else {
+                return false;
+            }
+        }
+        try {
+            String filename = dir+"/"+boardName+".json";
+            FileWriter fw = new FileWriter(filename);
+            System.out.println(filename);
+            fw.write(gson.toJson(board));
+            fw.flush();
+            fw.close();
+            return true;
+        } catch (IOException e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public Player loadPlayer(String name) {
