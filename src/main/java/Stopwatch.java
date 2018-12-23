@@ -8,9 +8,12 @@ class Stopwatch {
     private long pauseStart;
 
     Stopwatch() {
-        pauseStart = 0;
-        totalPausedTime = 0;
+        reset();
     }
+    Stopwatch(long elapsedtime){
+        startTime= (System.currentTimeMillis() / 1000)-(elapsedtime);
+    }
+
 
     void start() {
         startTime = System.currentTimeMillis() / 1000;
@@ -21,6 +24,11 @@ class Stopwatch {
         return (int) (now - startTime - getTotalPausedTime());
     }
 
+    void reset(){
+        startTime = System.currentTimeMillis() / 1000;
+        totalPausedTime = 0;
+        pauseStart = 0;
+    }
     void pause() {
         pauseStart = System.currentTimeMillis() / 1000;
     }
@@ -28,7 +36,7 @@ class Stopwatch {
     // Works for the first time only but why?
     void resume() {
         long now = System.currentTimeMillis() / 1000;
-        totalPausedTime = now - pauseStart;
+        totalPausedTime = totalPausedTime + now - pauseStart;
     }
 
     private long getTotalPausedTime() {

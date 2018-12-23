@@ -17,9 +17,9 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints maxHeight="213.0" minHeight="10.0" prefHeight="169.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="213.0" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="288.0" minHeight="10.0" prefHeight="181.0" valignment="CENTER" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="267.0" minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <VBox alignment="BOTTOM_LEFT" nodeOrientation="LEFT_TO_RIGHT" GridPane.rowIndex="2">
@@ -36,9 +36,9 @@
                   </Label>
                </children>
             </VBox>
-            <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #262626; -fx-border-color: transparent;" GridPane.rowIndex="1">
+            <ScrollPane hbarPolicy="NEVER" pannable="true" prefHeight="181.0" prefWidth="200.0" style="-fx-background-color: #262626; -fx-border-color: transparent;" vbarPolicy="NEVER" GridPane.rowIndex="1">
                <content>
-                  <VBox fx:id="players" alignment="CENTER" prefHeight="190.0" prefWidth="750.0" spacing="15.0" style="-fx-background-color: #262626;" />
+                  <VBox fx:id="players" alignment="CENTER" prefHeight="200.0" prefWidth="750.0" spacing="15.0" style="-fx-background-color: #262626;" />
                </content>
             </ScrollPane>
          </children>

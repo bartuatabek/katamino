@@ -12,6 +12,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import kataminoBackButton.KataminoBackButton;
+import kataminoScoreLabel.KataminoScoreLabel;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -70,12 +72,16 @@ public class ScoreBoardController implements Initializable {
         int count = 1;
         int reverse = col1.size() - count;
         while (reverse > -1) {
-            Label label = new Label();
-            label.setText(col1.get(reverse)+"       "+col2.get(reverse));
-            label.setTextFill(Color.color(Math.random(), Math.random(), Math.random()));
-            players.getChildren().add(label);
-            reverse--;
-            count++;
+            try {
+                KataminoScoreLabel label = new KataminoScoreLabel();
+                label.setText(col1.get(reverse) + "       " + col2.get(reverse));
+                label.setTextFill(Color.color(Math.random(), Math.random(), Math.random()));
+                players.getChildren().add(label);
+                reverse--;
+                count++;
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         }
     }
 

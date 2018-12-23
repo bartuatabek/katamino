@@ -31,5 +31,3 @@ doc/*
 out/*
 .idea/*
 target/*
-
-*.json

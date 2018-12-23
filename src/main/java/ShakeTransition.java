@@ -66,8 +66,8 @@ class ShakeTransition extends Transition {
                 new KeyFrame(Duration.millis(900), new KeyValue(x, -10, WEB_EASE)),
                 new KeyFrame(Duration.millis(1000), new KeyValue(x, 0, WEB_EASE))
         );
-        xIni=((Node) node).getLayoutX();
-        x.addListener((ob,n,n1)->((Node) node).setLayoutX((xIni+n1.doubleValue())));
+        xIni= node.getLayoutX();
+        x.addListener((ob,n,n1)-> node.setLayoutX((xIni+n1.doubleValue())));
 
         setCycleDuration(Duration.seconds(0.5));
         setDelay(Duration.seconds(0.2));

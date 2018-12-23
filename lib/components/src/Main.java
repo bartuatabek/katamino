@@ -8,10 +8,12 @@ import kataminoButton.KataminoButton;
 import kataminoChangeButton.KataminoChangeButton;
 import kataminoDragBlock.KataminoDragBlock;
 import kataminoDragCell.KataminoDragCell;
+import kataminoHintButton.KataminoHintButton;
 import kataminoLevelButton.KataminoLevelButton;
 import kataminoLongButton.KataminoLongButton;
 import kataminoPlayerAddButton.KataminoPlayerAddButton;
 import kataminoSoundButton.KataminoSoundButton;
+import kataminoBoardButton.KataminoBoardButton;
 
 
 public class Main extends Application {
@@ -33,7 +35,7 @@ public class Main extends Application {
                     { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
                     { -1, -1, -1, -1, -1, -1, -1, -1, -1, -2,-2, -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
                     { -1, -1, -1, -1, -1, -1, -1, -1, -1, -2,-2, -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
-                    { -1, -1, -1, -1, -1, -1, -1, -1, -1, -2,-2, -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
+                    { -1, -1, -1, -1, -1, -1, -1, -1, -1, -2,-2, -2, -1, -1, 0, -1, 0, -1, -1, -1, -1, -1 },
                     { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
                     { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
                     { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 }
@@ -46,9 +48,11 @@ public class Main extends Application {
             root.getChildren().add(new KataminoLongButton());
             root.getChildren().add(new KataminoChangeButton());
             KataminoDragCell dragCell = new KataminoDragCell();
-            dragCell.customizeCell(-1, false, Color.SALMON);
             root.getChildren().add(dragCell);
             dragCell.customizeCell(-2, false, Color.SALMON);
+            dragCell.setBlocked(false);
+            root.getChildren().add(new KataminoBoardButton());
+            root.getChildren().add(new KataminoHintButton());
 
             Scene scene = new Scene(root,150,38);
             primaryStage.setScene(scene);

@@ -7,20 +7,22 @@ public class Player {
     private Integer[][] latestBoard;
     private long latestTime;
 
-    public Player(int highScore, int accessibleLevel, String playerName,long latestTime) {
+    public Player(int highScore, int accessibleLevel, String playerName, long latestTime) {
         this.highScore = highScore;
         this.accessibleLevel = accessibleLevel;
         this.playerName = playerName;
         this.latestTime=latestTime;
 
     }
+
     public Player( String playerName) {
         this.highScore = 0;
         this.accessibleLevel = 1;
         this.playerName = playerName;
-        this.latestBoard= null;
-        this.latestTime=0;
+        this.latestBoard = null;
+        this.latestTime = 0;
     }
+
     public long getLatestTime() {
         return latestTime;
     }
@@ -28,12 +30,21 @@ public class Player {
     public void setLatestTime(long latestTime) {
         this.latestTime = latestTime;
     }
+
     public int getHighScore() {
         return highScore;
     }
 
     public void setHighScore(int highScore) {
         this.highScore = highScore;
+
+        FileManager fm = new FileManager();
+
+        try {
+            fm.updatePlayerInfoInFile(this);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     public int getAccessibleLevel() {
@@ -42,6 +53,13 @@ public class Player {
 
     public void setAccessibleLevel(int accessibleLevel) {
         this.accessibleLevel = accessibleLevel;
+        FileManager fm = new FileManager();
+
+        try {
+            fm.updatePlayerInfoInFile(this);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     public String getPlayerName() {
@@ -52,12 +70,13 @@ public class Player {
         this.playerName = playerName;
     }
 
-public void setLatestBoard(Integer[][] latestBoard,long latestTime) throws IOException {
+    public void setLatestBoard(Integer[][] latestBoard,long latestTime) throws IOException {
         this.latestBoard=latestBoard;
         this.latestTime=latestTime;
         FileManager fm = new FileManager();
         fm.updatePlayerInfoInFile(this);
 }
+
     public Integer[][] getLatestBoard() {
         return latestBoard;
     }

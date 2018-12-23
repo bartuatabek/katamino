@@ -25,18 +25,18 @@
         private boolean moveToFront = false;
 
         private ArrayList<Color> colorList = new ArrayList<Color>(){{
-            add(Color.ANTIQUEWHITE);
-            add(Color.GRAY);
-            add(Color.ALICEBLUE);
-            add(Color.AZURE);
-            add(Color.SALMON);
-            add(Color.CHARTREUSE);
-            add(Color.CORNFLOWERBLUE);
-            add(Color.MEDIUMPURPLE);
-            add(Color.LIME);
-            add(Color.TEAL);
-            add(Color.OLIVE);
-            add(Color.ORANGERED);
+            add(Color.web("FF3B30"));
+            add(Color.web("FF9500"));
+            add(Color.web("FFCC00"));
+            add(Color.web("4CD964"));
+            add(Color.web("5AFAFA"));
+            add(Color.web("007AFF"));
+            add(Color.web("5856D6"));
+            add(Color.web("FF2D55"));
+            add(Color.web("8B572A"));
+            add(Color.web("B8E986"));
+            add(Color.web("BD10E0"));
+            add(Color.web("FF5700"));
         }};
 
         private int[][] grid;
@@ -62,7 +62,7 @@
                     Color cellColor = ((grid[i][j] % 12) >= 0 && (grid[i][j] != 0)) ? colorList.get(grid[i][j] % 12) : Color.TRANSPARENT;
                     currentCell.customizeCell(grid[i][j], grid[i][j] != 0, cellColor);
 
-                    if (currentCell.getPentominoInstanceID() == -1 || currentCell.getPentominoInstanceID() == -2) {
+                    if (currentCell.getPentominoInstanceID() <= 0) {
                         currentCell.setBorderColor(Color.TRANSPARENT);
                         currentCell.setBlocked(false);
                     }
