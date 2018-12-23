@@ -20,18 +20,14 @@ public class FileManager {
 
     public Integer[][] loadLevels(int levelNo) throws FileNotFoundException{//load specific level
         JsonReader jsonReader = new JsonReader(new FileReader("src/level.json"));
-        /*
-        Level level = new Level((Integer[][]) gson.fromJson(jsonReader, Integer[][].class));
-        for(int i = 0; i < level.getGrid().length;i++){
-            for(int j = 0; j < level.getGrid()[i].length;j++){
-                System.out.print("["+level.getGrid()[i][j]+"]");
 
-            }
-            System.out.println();
-        }
-        */
         Integer[][][] levels = gson.fromJson(jsonReader, Integer[][][].class);
         return  levels[levelNo-1];
+    }
+    public Integer[][] loadSolution(int levelNo) throws FileNotFoundException{//load specific level
+        JsonReader jsonReader = new JsonReader(new FileReader("src/solution.json"));
+
+        return  gson.fromJson(jsonReader, Integer[][].class);
     }
 
     public Player loadPlayer(String name) {
@@ -107,7 +103,6 @@ public class FileManager {
             element = gson.fromJson(gson.toJson(player.getLatestTime()),JsonElement.class);
             object.add("latestTime",element );
             jsonArray.add(object);
-            System.out.print(jsonArray);
             Writer writer =new FileWriter("src/players.json");
             String result = gson.toJson(jsonArray);
             writer.write(result);

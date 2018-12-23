@@ -24,7 +24,7 @@
             <children>
                 <VBox alignment="CENTER" prefHeight="129.0" prefWidth="722.0">
                     <children>
-                        <Label alignment="CENTER" prefHeight="72.0" prefWidth="441.0" text="Choose a level" textAlignment="CENTER" textFill="#868686">
+                        <Label alignment="CENTER" prefHeight="72.0" prefWidth="441.0" text="Choose a board" textAlignment="CENTER" textFill="#868686">
                             <font>
                                 <Font name="SF Pixelate" size="46.0" />
                             </font>

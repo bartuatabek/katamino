@@ -257,13 +257,16 @@ public class SinglePlayerGameController extends GameController{
 
         gameTilePane.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event) { preview.fireEvent(event);
+            public void handle(MouseEvent event) {
+                SinglePlayerGameController.super.getMousePos(event);
+                preview.fireEvent(event);
             }
         });
 
         gameTilePane.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                SinglePlayerGameController.super.getMousePos(event);
                 preview.fireEvent(event);
             }
         });
@@ -285,6 +288,8 @@ public class SinglePlayerGameController extends GameController{
                                 }
                             }
                         }
+                        SinglePlayerGameController.super.mouseCol = colNode;
+                        SinglePlayerGameController.super.mouseRow = rowNode;
                         for (int o = 0; o < 11; o++)
                         {
                             for (int k = 0; k < 22; k++){

@@ -55,6 +55,16 @@ public class MultiplayerGameController extends GameController {
     @FXML
     AnchorPane root;
 
+    public int getBoardId() {
+        return boardId;
+    }
+
+    public void setBoardId(int boardId) {
+        this.boardId = boardId;
+    }
+
+    int boardId;
+
     @FXML
     protected KataminoButton replay;
 
@@ -578,15 +588,20 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
         }
         return false;
     }
+    public void startMulti(){
+        game = new MultiplayerGame(boardId);
+        moveHasCompleted=false;
+        try {
+            loadBoard();
+        }catch (IOException t)
+        {System.out.println(t);}
+        startGame();
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        game = new MultiplayerGame(1); /////////////////////////////////BOARDCHOOSE
-        moveHasCompleted=false;
         try {
             kataminoDragCell = new KataminoDragCell();
-            loadBoard();
             preview = new KataminoDragBlock();
             gridStack.setOnKeyPressed(keyPressed);
             gridStack.getChildren().add(preview);
@@ -596,15 +611,18 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
         }
         playerLabel.setText("Player 1");
         playerLabel2.setText("Player 2");
-        startGame();
+
         gameTilePane.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event) { preview.fireEvent(event);
+            public void handle(MouseEvent event) {
+                MultiplayerGameController.super.getMousePos(event);
+                preview.fireEvent(event);
             }
         });
         gameTilePane.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                MultiplayerGameController.super.getMousePos(event);
                 preview.fireEvent(event);
             }
         });

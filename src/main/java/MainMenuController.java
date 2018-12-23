@@ -13,7 +13,7 @@ import javafx.scene.media.MediaView;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import kataminoButton.KataminoButton;
-import java.io.File;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -50,10 +50,14 @@ public class MainMenuController implements Initializable {
         player.setAutoPlay(true);
         player.setCycleCount(MediaPlayer.INDEFINITE);
         background.setMediaPlayer(player);*/
+        //MediaPlayer player = new MediaPlayer(new Media(getClass().getResource("background.mp4").toExternalForm()));
+        //player.setAutoPlay(true);
+        //player.setCycleCount(MediaPlayer.INDEFINITE);
+        //background.setMediaPlayer(player);
     }
     @FXML
     public void multiplayerButtonClicked(MouseEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("multiplayerGame.fxml"));
+       /* AnchorPane pane = FXMLLoader.load(getClass().getResource("multiplayerGame.fxml"));
 
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setWidth(1250);
@@ -61,6 +65,8 @@ public class MainMenuController implements Initializable {
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+        root.getChildren().setAll(pane);*/
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("boardMenu.fxml"));
         root.getChildren().setAll(pane);
     }
     @FXML
