@@ -57,6 +57,21 @@ public class GameBoard {
             }
         }
     }
+    public ArrayList<ArrayList<Integer>> findHintCoords(int pentoNo){
+        Integer[][] solution = currentLevel.getSolution();
+        ArrayList<ArrayList<Integer>> hintCoord = new ArrayList<>();
+        for (int i= 0; i < solution.length; i++) {
+            for (int j = 0; j < solution[0].length; j++) {
+                ArrayList<Integer> coord = new ArrayList<>();
+                if(solution[i][j] == pentoNo){
+                    coord.add(i);
+                    coord.add(j);
+                    hintCoord.add(coord);
+                }
+            }
+        }
+        return hintCoord;
+    }
 
     public KataminoDragCell[][] getGrid() {
         return grid;

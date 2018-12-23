@@ -9,12 +9,15 @@ import java.util.*;
 import javafx.animation.*;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point3D;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -51,6 +54,7 @@ public abstract class GameController implements Initializable {
 
     private ArrayList<ArrayList<Integer>> coordinateArr;
 
+    Color hintIndicationColor = Color.ROSYBROWN;
     @FXML
     protected GridPane timerPane;
 
@@ -67,6 +71,8 @@ public abstract class GameController implements Initializable {
     protected AnchorPane gridStack;
 
     protected KataminoDragBlock preview;
+    Integer mouseRow = -1;
+    Integer mouseCol = -1;
 
     public boolean isFull() {
         ObservableList<Node> cells = gameTilePane.getChildren();
@@ -128,6 +134,40 @@ public abstract class GameController implements Initializable {
         }
         return null;
     }
+    public void generateHint(KeyEvent event){
+
+        if (event.getCode() == KeyCode.H) {
+            displayHint(game.getHintCoords(currentPentominoId));
+
+        }
+
+    }
+    public void displayHint(ArrayList<ArrayList<Integer>> coords) {
+        Color[] prevColors = new Color[coords.size()];
+        ObservableList<Node> cells = gameTilePane.getChildren();
+        final int[] ind = {0};
+        for (ArrayList<Integer> coord : coords) {
+            KataminoDragCell currentPentomino = (KataminoDragCell) gameTilePane.getChildren().get((coord.get(0) * 22) + coord.get(1));
+            prevColors[ind[0]] = currentPentomino.getColor();
+            ind[0]++;
+            currentPentomino.setCellColor(hintIndicationColor);
+        }
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        ind[0] = 0;
+                        for (ArrayList<Integer> coord : coords){
+                            KataminoDragCell currentPentomino = (KataminoDragCell) gameTilePane.getChildren().get((coord.get(0) * 22) + coord.get(1));
+                            currentPentomino.setCellColor(prevColors[ind[0]]);
+                            ind[0]++;
+                        }
+                    }
+                },
+                2000
+        );
+    }
+
 
     public void generatePreview(MouseEvent e) {
         if (((KataminoDragCell) e.getSource()).getPentominoInstanceID() > 0 && !gridStack.isVisible()) {
@@ -147,8 +187,6 @@ public abstract class GameController implements Initializable {
                         }
                     }
                 }
-                System.out.println("Before rotation:");
-                System.out.println(coordinateArr);
                 preview.setPentomino(children);
                 preview.setOpacity(0.5);
                 preview.setLayoutY(preview.getLayoutY() + timerPane.getHeight());
@@ -185,12 +223,20 @@ public abstract class GameController implements Initializable {
     }
 
     public int[][] pentominoTransform(KeyEvent e) {
+        boolean crossesBorder = false;
+        ArrayList<ArrayList<Integer>> temp = new ArrayList<>();
+        for(ArrayList<Integer> coord : coordinateArr){
+            ArrayList<Integer> t_coord = new ArrayList<>();
+            t_coord.add(coord.get(0));
+            t_coord.add(coord.get(1));
+            temp.add(t_coord);
+        }
 
-        int[][] grid = new int[11][22];
+        int grid[][] = new int[11][22];
         int smllsRow = 1000;
         int smllsCol = 1000;
-        int bgstCol = -1;
-        int bgstRow = -1;
+        int bgstCol = 0;
+        int bgstRow = 0;
 
         for (ArrayList coord : coordinateArr) {
             if ((int) coord.get(0) < smllsRow) {
@@ -206,41 +252,62 @@ public abstract class GameController implements Initializable {
                 bgstRow = (int) coord.get(0);
             }
         }
-        System.out.println("Before rotation:");
-        System.out.println(coordinateArr);
         int width = bgstCol - smllsCol + 1;
         int height = bgstRow - smllsRow + 1;
-
         switch (e.getCode()) {
-            case W:
-                flipVertically(width, height, smllsRow, smllsCol);
+            case W:{
+                flipVertically(width, height, smllsRow, smllsCol, temp);
                 break;
-            case S:
-                flipVertically(width, height, smllsRow, smllsCol);
+            }
+            case S: {
+                flipVertically(width, height, smllsRow, smllsCol, temp);
                 break;
-            case A:
-                rotateLeft(width, height, smllsRow, smllsCol);
+            }
+            case A: {
+                rotateLeft(width, height, smllsRow, smllsCol, temp);
                 break;
-            case D:
-                rotateRight(width, height, smllsRow, smllsCol);
+            }
+
+            case D:{
+                rotateRight(width, height, smllsRow, smllsCol, temp);
                 break;
+            }
         }
+
+        Integer dif_row = mouseRow - temp.get(0).get(0);
+        Integer dif_col = mouseCol - temp.get(0).get(1);
+        for (ArrayList<Integer> cell_coord : temp) {
+            if(cell_coord.get(0) + dif_row < 0 || cell_coord.get(1) + dif_col <0 || cell_coord.get(1) + dif_col >20 || cell_coord.get(0) + dif_row >10 ){
+                crossesBorder = true;
+            }
+            cell_coord.set(0, cell_coord.get(0) + dif_row);
+            cell_coord.set(1, cell_coord.get(1) + dif_col);
+        }
+
+        if(!crossesBorder){
+            int ind = 0;
+            for(ArrayList<Integer> coord : temp){
+                ArrayList<Integer> t_coord = new ArrayList<>();
+                t_coord.add(coord.get(0));
+                t_coord.add(coord.get(1));
+                coordinateArr.set(ind, t_coord);
+                ind++;
+            }
+        }
+        System.out.println(coordinateArr);
         for (ArrayList<Integer> coord : coordinateArr) {
             grid[coord.get(0)][coord.get(1)] = currentPentominoId;
         }
-        System.out.println("After Rotation");
-        System.out.println(coordinateArr);
         return grid;
     }
 
-    public void rotateRight(int width, int height, int smllsRow, int smllsCol) {
+    public void rotateRight(int width, int height, int smllsRow, int smllsCol, ArrayList<ArrayList<Integer>> tempCoords) {
 
-
-        int origin_row = coordinateArr.get(0).get(0);
-        int origin_col = coordinateArr.get(0).get(1);
-
+        int origin_row = tempCoords.get(0).get(0);
+        int origin_col = tempCoords.get(0).get(1);
+        boolean corssesBorder = false;
         // move origin to 0,0
-        for (ArrayList<Integer> coord : coordinateArr) {
+        for (ArrayList<Integer> coord : tempCoords) {
             int row = coord.get(0) - origin_row;
             int col = coord.get(1) - origin_col;
             int ncol = -row + origin_col; // clockwise
@@ -250,13 +317,13 @@ public abstract class GameController implements Initializable {
         }
     }
 
-    public void rotateLeft(int width, int height, int smllsRow, int smllsCol) {
+    public void rotateLeft(int width, int height, int smllsRow, int smllsCol, ArrayList<ArrayList<Integer>> tempCoords) {
 
-        int origin_row = coordinateArr.get(0).get(0);
-        int origin_col = coordinateArr.get(0).get(1);
+        int origin_row = tempCoords.get(0).get(0);
+        int origin_col = tempCoords.get(0).get(1);
 
         // move origin to 0,0
-        for (ArrayList<Integer> coord : coordinateArr) {
+        for (ArrayList<Integer> coord : tempCoords) {
             int row = coord.get(0) - origin_row;
             int col = coord.get(1) - origin_col;
             int ncol = row + origin_col; // clockwise
@@ -264,14 +331,38 @@ public abstract class GameController implements Initializable {
             coord.set(0, nrow);
             coord.set(1, ncol);
         }
-
+    }
+    public void getMousePos(MouseEvent event){
+        try {
+            int rowNode = 0;
+            int colNode = 0;
+            for (Node node : gameTilePane.getChildren()) {
+                if (node instanceof KataminoDragCell) {
+                    if (node.getBoundsInParent().contains(event.getSceneX(), event.getSceneY())) {
+                        Integer[] location = findLocationTilePane(node, gameTilePane);
+                        if (location[0] != null) {
+                            rowNode = location[0] - 1;
+                        }
+                        if (location[1] != null) {
+                            colNode = location[1];
+                        }
+                    }
+                }
+            }
+            this.mouseRow = rowNode;
+            this.mouseCol = colNode;
+        }
+        catch (Exception e) {
+                System.out.println(e);
+            }
+            event.consume();
     }
 
-    public void flipVertically(int width, int height, int smllsRow, int smllsCol) {
+    public void flipVertically(int width, int height, int smllsRow, int smllsCol, ArrayList<ArrayList<Integer>> tempCoords) {
         int[][] pentomino = new int[height][width];
         ArrayList [][] pent2coord = new ArrayList [height][width];
 
-        for (ArrayList coord : coordinateArr) {
+        for (ArrayList coord : tempCoords) {
             pentomino[(int) coord.get(0) - smllsRow][(int) coord.get(1) - smllsCol] = currentPentominoId;
             pent2coord[(int) coord.get(0) - smllsRow][(int) coord.get(1) - smllsCol] = coord;
         }
@@ -285,7 +376,6 @@ public abstract class GameController implements Initializable {
             }
         }
 
-        System.out.println(coordinateArr);
         // Fill coordinate array
         for (int i = 0; i < pent2coord.length; i++) {
             for (int j = 0; j < pent2coord[0].length; j++) {
@@ -295,10 +385,9 @@ public abstract class GameController implements Initializable {
                     Integer newCoordy = j + smllsCol;
                     n_coords.add(newCoordx);
                     n_coords.add(newCoordy);
-
-                    int ind = coordinateArr.indexOf(pent2coord[i][j]);
+                    int ind = tempCoords.indexOf(pent2coord[i][j]);
                     if (ind != -1)
-                        coordinateArr.set(ind, n_coords);
+                        tempCoords.set(ind, n_coords);
                 }
             }
         }
@@ -335,9 +424,11 @@ public abstract class GameController implements Initializable {
         @Override
         public void handle(KeyEvent event) {
             preview.setPentomino(pentominoTransform(event));
+            generateHint(event);
             event.consume();
         }
     };
+
 
     public int[][] findSiblings(Node source) {
         ArrayList<Node> oldNodes = new ArrayList<>();
