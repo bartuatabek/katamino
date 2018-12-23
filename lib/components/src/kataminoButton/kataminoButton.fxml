@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<fx:root type="Pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<children>
+    <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@../resources/kataminoButton.png" />
+        </image>
+    </ImageView>
+    <Label fx:id="label" alignment="CENTER" contentDisplay="CENTER" layoutY="6.0" prefHeight="37.0" prefWidth="200.0" text="Button" textAlignment="CENTER" wrapText="true">
+        <font>
+            <Font name="SF Pixelate Bold" size="25.0" />
+        </font>
+    </Label>
+      <TextField fx:id="nameField" alignment="CENTER" prefHeight="37.0" prefWidth="200.0" promptText="Player" style="-fx-background-color: transparent;" visible="false">
+         <font>
+            <Font name="SF Pixelate" size="25.0" />
+         </font>
+      </TextField>
+</children>
+<cursor>
+    <Cursor fx:constant="HAND" />
+</cursor>
+</fx:root>
