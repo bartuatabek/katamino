@@ -25,6 +25,12 @@ public class SinglePlayerGame extends Game {
         this.player=player;
         gameScore=player.getHighScore();
     }
+    public SinglePlayerGame(int level) {
+        currentLevel = level;
+        gameBoard = new GameBoard(currentLevel);
+        stopwatch= new Stopwatch();
+        stopped = false;
+    }
 
     public Player getPlayer() {
         return player;
@@ -63,10 +69,9 @@ public class SinglePlayerGame extends Game {
             player.setAccessibleLevel(player.getAccessibleLevel() + 1);
           //  player.setLatestBoard(gameBoard.getBoard(),getElapsedSeconds());
         }
-
         gameBoard.updateGameBoard(currentLevel + 1);
         levelScore = 0;
-
+        currentLevel++;
     }
     public int getCurrentLevel(){
         return currentLevel;

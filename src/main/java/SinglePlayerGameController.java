@@ -138,12 +138,19 @@ public class SinglePlayerGameController extends GameController{
       //  startGame();
         updateStopwatch();
     }
+
     public void gameSetup(int level,Player player) {
-        game = new SinglePlayerGame(level,player);
-        if(player == null)
+        System.out.println(player);
+
+        if(player == null) {
             playerLabel.setText("");
-        else
+            game = new SinglePlayerGame(level);
+        }
+        else {
             playerLabel.setText(player.getPlayerName());
+            game = new SinglePlayerGame(level,player);
+        }
+
         try {
             loadLevel();
         } catch (Exception e) {
@@ -151,6 +158,7 @@ public class SinglePlayerGameController extends GameController{
         }
         startGame();
     }
+
     public void nextTutorial(Event event)
     {
         if(event != null)
@@ -170,28 +178,29 @@ public class SinglePlayerGameController extends GameController{
         else
         {
             currentTutorial++;
-            if(TUTORIAL_ARR[currentTutorial] != null){
+            if(TUTORIAL_ARR[currentTutorial] != null)
+            {
                 for(int j = 0; j < TUTORIAL_ARR[currentTutorial].length;j++)
                 {
                     ((KataminoDragCell)gameTilePane.getChildren().get(TUTORIAL_ARR[currentTutorial][j][0] * 22 + TUTORIAL_ARR[currentTutorial][j][1])).setBorderColor(Color.RED);
                 }
-            }
-            if(currentTutorial == 1) {
-                tutorial2.setVisible(true);
-                tutorial2.setDisable(false);
-            }
-            else if (currentTutorial == 2){
-                tutorial3.setVisible(true);
-                tutorial3.setDisable(false);
-            }else if (currentTutorial == 3){
-                tutorial4.setVisible(true);
-                tutorial4.setDisable(false);
-            }else if (currentTutorial == 4){
-                tutorial5.setVisible(true);
-                tutorial5.setDisable(false);
-            }else if (currentTutorial == 5){
-                tutorial6.setVisible(true);
-                tutorial6.setDisable(false);
+                if(currentTutorial == 1) {
+                    tutorial2.setVisible(true);
+                    tutorial2.setDisable(false);
+                }
+                else if (currentTutorial == 2){
+                    tutorial3.setVisible(true);
+                    tutorial3.setDisable(false);
+                }else if (currentTutorial == 3){
+                    tutorial4.setVisible(true);
+                    tutorial4.setDisable(false);
+                }else if (currentTutorial == 4){
+                    tutorial5.setVisible(true);
+                    tutorial5.setDisable(false);
+                }else if (currentTutorial == 5){
+                    tutorial6.setVisible(true);
+                    tutorial6.setDisable(false);
+                }
             }
         }
     }
@@ -292,13 +301,17 @@ public class SinglePlayerGameController extends GameController{
                     if(((SinglePlayerGame)game).getCurrentLevel() == 1)
                     {
                         boolean goNext = true;
-                        label:
-                        for(int j = 0; j < TUTORIAL_ARR[currentTutorial].length;j++)
+                        if(currentTutorial != 6 && TUTORIAL_ARR[currentTutorial] != null)
                         {
-                            KataminoDragCell dragCell = ((KataminoDragCell)gameTilePane.getChildren().get(TUTORIAL_ARR[currentTutorial][j][0] * 22 + TUTORIAL_ARR[currentTutorial][j][1]));
-                            if(dragCell.getPentominoInstanceID() == 0 || dragCell.getPentominoInstanceID() == -1)
+                            label:
+                            for(int j = 0; j < TUTORIAL_ARR[currentTutorial].length;j++)
                             {
-                                goNext = false;
+                                KataminoDragCell dragCell = ((KataminoDragCell)gameTilePane.getChildren().get(TUTORIAL_ARR[currentTutorial][j][0] * 22 + TUTORIAL_ARR[currentTutorial][j][1]));
+                                if(dragCell.getPentominoInstanceID() == 0 || dragCell.getPentominoInstanceID() == -1)
+                                {
+                                    goNext = false;
+                                    break label;
+                                }
                             }
                         }
                         if(goNext)
