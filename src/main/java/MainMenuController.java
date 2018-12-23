@@ -70,6 +70,12 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
+    public void settingsButtonClicked(MouseEvent event) throws IOException {
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("settings.fxml"));
+        root.getChildren().setAll(pane);
+    }
+
+    @FXML
     public void highScoreMenuButtonClicked(MouseEvent event) throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("highScore.fxml"));
         root.getChildren().setAll(pane);
