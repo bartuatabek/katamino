@@ -221,8 +221,8 @@ public abstract class GameController implements Initializable {
         int grid[][] = new int[11][22];
         int smllsRow = 1000;
         int smllsCol = 1000;
-        int bgstCol = -1;
-        int bgstRow = -1;
+        int bgstCol = 0;
+        int bgstRow = 0;
 
         for (ArrayList coord : coordinateArr) {
             if ((int) coord.get(0) < smllsRow) {
@@ -262,8 +262,6 @@ public abstract class GameController implements Initializable {
 
         Integer dif_row = mouseRow - temp.get(0).get(0);
         Integer dif_col = mouseCol - temp.get(0).get(1);
-        System.out.println("mouseRow:" + mouseRow);
-        System.out.println("mouseCol: " + mouseCol);
         for (ArrayList<Integer> cell_coord : temp) {
             if(cell_coord.get(0) + dif_row < 0 || cell_coord.get(1) + dif_col <0 || cell_coord.get(1) + dif_col >20 || cell_coord.get(0) + dif_row >10 ){
                 crossesBorder = true;
@@ -271,22 +269,21 @@ public abstract class GameController implements Initializable {
             cell_coord.set(0, cell_coord.get(0) + dif_row);
             cell_coord.set(1, cell_coord.get(1) + dif_col);
         }
-        System.out.println(temp);
 
         if(!crossesBorder){
-            coordinateArr.clear();
+            int ind = 0;
             for(ArrayList<Integer> coord : temp){
                 ArrayList<Integer> t_coord = new ArrayList<>();
                 t_coord.add(coord.get(0));
                 t_coord.add(coord.get(1));
-                coordinateArr.add(t_coord);
+                coordinateArr.set(ind, t_coord);
+                ind++;
             }
         }
         System.out.println(coordinateArr);
         for (ArrayList<Integer> coord : coordinateArr) {
             grid[coord.get(0)][coord.get(1)] = currentPentominoId;
         }
-        print2D(grid);
         return grid;
     }
 
@@ -322,7 +319,6 @@ public abstract class GameController implements Initializable {
         }
     }
     public void getMousePos(MouseEvent event){
-
         try {
             int rowNode = 0;
             int colNode = 0;
@@ -339,8 +335,8 @@ public abstract class GameController implements Initializable {
                     }
                 }
             }
-            mouseRow = rowNode;
-            mouseCol  = colNode;
+            this.mouseRow = rowNode;
+            this.mouseCol = colNode;
         }
         catch (Exception e) {
                 System.out.println(e);
@@ -349,7 +345,6 @@ public abstract class GameController implements Initializable {
     }
 
     public void flipVertically(int width, int height, int smllsRow, int smllsCol, ArrayList<ArrayList<Integer>> tempCoords) {
-        boolean transformed = false;
         int[][] pentomino = new int[height][width];
         ArrayList [][] pent2coord = new ArrayList [height][width];
 
