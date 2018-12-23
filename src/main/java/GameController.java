@@ -131,7 +131,6 @@ public abstract class GameController implements Initializable {
     public void displayHint(ArrayList<ArrayList<Integer>> coords) {
         Color[] prevColors = new Color[coords.size()];
         ObservableList<Node> cells = gameTilePane.getChildren();
-        System.out.println(coords);
         final int[] ind = {0};
         for (ArrayList<Integer> coord : coords) {
             KataminoDragCell currentPentomino = (KataminoDragCell) gameTilePane.getChildren().get((coord.get(0) * 22) + coord.get(1));
@@ -210,6 +209,14 @@ public abstract class GameController implements Initializable {
     }
 
     public int[][] pentominoTransform(KeyEvent e) {
+        boolean crossesBorder = false;
+        ArrayList<ArrayList<Integer>> temp = new ArrayList<>();
+        for(ArrayList<Integer> coord : coordinateArr){
+            ArrayList<Integer> t_coord = new ArrayList<>();
+            t_coord.add(coord.get(0));
+            t_coord.add(coord.get(1));
+            temp.add(t_coord);
+        }
 
         int grid[][] = new int[11][22];
         int smllsRow = 1000;
@@ -235,38 +242,45 @@ public abstract class GameController implements Initializable {
         int height = bgstRow - smllsRow + 1;
         switch (e.getCode()) {
             case W:{
-                flipVertically(width, height, smllsRow, smllsCol);
+                flipVertically(width, height, smllsRow, smllsCol, temp);
                 break;
             }
             case S: {
-                flipVertically(width, height, smllsRow, smllsCol);
+                flipVertically(width, height, smllsRow, smllsCol, temp);
                 break;
             }
             case A: {
-                rotateLeft(width, height, smllsRow, smllsCol);
+                rotateLeft(width, height, smllsRow, smllsCol, temp);
                 break;
             }
 
             case D:{
-                rotateRight(width, height, smllsRow, smllsCol);
+                System.out.println( coordinateArr);
+                rotateRight(width, height, smllsRow, smllsCol, temp);
+                System.out.println(" degismemis olmalı: "+ coordinateArr);
                 break;
             }
         }
-        gridStack.addEventFilter(MouseEvent.ANY,mouseHandler);
-        Integer dif_row = mouseRow - coordinateArr.get(0).get(0) ;
-        Integer dif_col = mouseCol- coordinateArr.get(0).get(1);
 
+        Integer dif_row = mouseRow - temp.get(0).get(0);
+        Integer dif_col = mouseCol - temp.get(0).get(1);
 
-        System.out.println("x " +  mouseRow);
-        System.out.println("y " + mouseCol);
-
-        System.out.println("in move pent: "+coordinateArr);
-        for (ArrayList<Integer> coord : coordinateArr) {
-            coord.set(0,coord.get(0) + dif_row);
-            coord.set(1,coord.get(1) + dif_col);
+        for (ArrayList<Integer> cell_coord : temp) {
+            if(cell_coord.get(0) + dif_row < 0 || cell_coord.get(1) + dif_col <0 || cell_coord.get(1) + dif_col >20 || cell_coord.get(0) + dif_row >10 ){
+                crossesBorder = true;
+            }
+            cell_coord.set(0, cell_coord.get(0) + dif_row);
+            cell_coord.set(1, cell_coord.get(1) + dif_col);
         }
-        System.out.println("**************");
-
+        System.out.println(temp);
+        System.out.println("is border corssed: "+crossesBorder);
+        System.out.println(coordinateArr);
+        if(!crossesBorder){
+            System.out.println("whyyyy!!!");
+            for(int i =0;i < temp.size();i++){
+                coordinateArr.set(i,temp.get(i));
+            }
+        }
 
         for (ArrayList<Integer> coord : coordinateArr) {
             grid[coord.get(0)][coord.get(1)] = currentPentominoId;
@@ -274,13 +288,13 @@ public abstract class GameController implements Initializable {
         return grid;
     }
 
-    public void rotateRight(int width, int height, int smllsRow, int smllsCol) {
+    public void rotateRight(int width, int height, int smllsRow, int smllsCol, ArrayList<ArrayList<Integer>> tempCoords) {
 
-        int origin_row = coordinateArr.get(0).get(0);
-        int origin_col = coordinateArr.get(0).get(1);
-
+        int origin_row = tempCoords.get(0).get(0);
+        int origin_col = tempCoords.get(0).get(1);
+        boolean corssesBorder = false;
         // move origin to 0,0
-        for (ArrayList<Integer> coord : coordinateArr) {
+        for (ArrayList<Integer> coord : tempCoords) {
             int row = coord.get(0) - origin_row;
             int col = coord.get(1) - origin_col;
             int ncol = -row + origin_col; // clockwise
@@ -290,13 +304,13 @@ public abstract class GameController implements Initializable {
         }
     }
 
-    public void rotateLeft(int width, int height, int smllsRow, int smllsCol) {
+    public void rotateLeft(int width, int height, int smllsRow, int smllsCol, ArrayList<ArrayList<Integer>> tempCoords) {
 
-        int origin_row = coordinateArr.get(0).get(0);
-        int origin_col = coordinateArr.get(0).get(1);
+        int origin_row = tempCoords.get(0).get(0);
+        int origin_col = tempCoords.get(0).get(1);
 
         // move origin to 0,0
-        for (ArrayList<Integer> coord : coordinateArr) {
+        for (ArrayList<Integer> coord : tempCoords) {
             int row = coord.get(0) - origin_row;
             int col = coord.get(1) - origin_col;
             int ncol = row + origin_col; // clockwise
@@ -304,15 +318,7 @@ public abstract class GameController implements Initializable {
             coord.set(0, nrow);
             coord.set(1, ncol);
         }
-
     }
-    EventHandler mouseHandler = new EventHandler<MouseEvent>() {
-
-        @Override
-        public void handle(MouseEvent event) {
-            getMousePos(event);
-        }
-    };
     public void getMousePos(MouseEvent event){
 
         try {
@@ -333,18 +339,19 @@ public abstract class GameController implements Initializable {
             }
             mouseRow = rowNode;
             mouseCol  = colNode;
-
         }
         catch (Exception e) {
                 System.out.println(e);
             }
+            event.consume();
     }
 
-    public void flipVertically(int width, int height, int smllsRow, int smllsCol) {
+    public void flipVertically(int width, int height, int smllsRow, int smllsCol, ArrayList<ArrayList<Integer>> tempCoords) {
+        boolean transformed = false;
         int[][] pentomino = new int[height][width];
         ArrayList [][] pent2coord = new ArrayList [height][width];
 
-        for (ArrayList coord : coordinateArr) {
+        for (ArrayList coord : tempCoords) {
             pentomino[(int) coord.get(0) - smllsRow][(int) coord.get(1) - smllsCol] = currentPentominoId;
             pent2coord[(int) coord.get(0) - smllsRow][(int) coord.get(1) - smllsCol] = coord;
         }
@@ -367,10 +374,9 @@ public abstract class GameController implements Initializable {
                     Integer newCoordy = j + smllsCol;
                     n_coords.add(newCoordx);
                     n_coords.add(newCoordy);
-
-                    int ind = coordinateArr.indexOf(pent2coord[i][j]);
+                    int ind = tempCoords.indexOf(pent2coord[i][j]);
                     if (ind != -1)
-                        coordinateArr.set(ind, n_coords);
+                        tempCoords.set(ind, n_coords);
                 }
             }
         }
