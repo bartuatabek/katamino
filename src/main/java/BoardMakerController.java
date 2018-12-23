@@ -82,13 +82,13 @@ public class BoardMakerController extends GameController implements Initializabl
             currentBoard[count/22][count%22] = currentPentominoID;
         cell.setCellColor(currentColor);
 
-
+        /*
         System.out.println("blocked:" + blocked);
         for (int i = 0 ; i < 11; i++) {
             for (int j = 0 ; j < 22 ; j++)
                 System.out.print(currentBoard[i][j] + " ");
             System.out.println();
-        }
+        }*/
     };
 
     @FXML
@@ -111,11 +111,6 @@ public class BoardMakerController extends GameController implements Initializabl
         // Pop up?
         // Return to which screen
         System.out.println("CONFIRM");
-        for (int i = 0 ; i < 11; i++) {
-            for (int j = 0; j < 22; j++)
-                System.out.print(currentBoard[i][j] + " ");
-            System.out.println();
-        }
 
         FileManager fm = new FileManager();
         fm.saveCustomBoard(currentBoard, "board1");

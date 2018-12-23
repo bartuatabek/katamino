@@ -8,6 +8,7 @@ import org.omg.CORBA.INTERNAL;
 
 import java.io.FileNotFoundException;
 import java.io.*;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,10 +34,9 @@ public class FileManager {
         return  gson.fromJson(jsonReader, Integer[][].class);
     }
 
-    public boolean saveCustomBoard(int[][] board, String boardName) {
-
-        String pathname = "C:\\Users\\Sena\\Desktop\\Katamino\\src\\CustomBoards";
-        File file = new File(pathname);
+    boolean saveCustomBoard(int[][] board, String boardName)  {
+        String dir = System.getProperty("user.dir") + "/src/CustomBoards" ;
+        File file = new File(dir);
         if (!file.exists()) {
             if (file.mkdir()) {
                 System.out.println("Directory is created!");
@@ -45,8 +45,9 @@ public class FileManager {
             }
         }
         try {
-            FileWriter fw = new FileWriter(pathname+boardName+".json");
-            System.out.println(gson.toJson(board));
+            String filename = dir+"/"+boardName+".json";
+            FileWriter fw = new FileWriter(filename);
+            System.out.println(filename);
             fw.write(gson.toJson(board));
             fw.flush();
             fw.close();

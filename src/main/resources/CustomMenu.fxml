@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import kataminoLongButton.KataminoLongButton?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<?import kataminoBackButton.KataminoBackButton?>
+<AnchorPane fx:id="root"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="CustomMenuController"
+            prefHeight="400.0" prefWidth="600.0">
+    <children>
+        <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="750.0" style="-fx-background-color: #262626;">
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="124.0" valignment="CENTER" />
+                <RowConstraints minHeight="10.0" prefHeight="118.0" valignment="BOTTOM" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label text="Select Mode" textFill="#868686">
+                    <font>
+                        <Font name="SF Pixelate" size="45.0" />
+                    </font>
+                </Label>
+                <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" spacing="25.0" GridPane.rowIndex="1">
+                    <children>
+                        <KataminoLongButton fx:id="playButton" onMouseClicked="#playSelected" />
+                        <KataminoLongButton fx:id="boardMakerButton" onMouseClicked="#boardMakerSelected"/>
+                    </children>
+                    <GridPane.margin>
+                        <Insets top="50.0" />
+                    </GridPane.margin>
+                </VBox>
+                <VBox alignment="BOTTOM_LEFT" prefHeight="118.0" prefWidth="750.0" GridPane.rowIndex="2">
+                    <children>
+                        <KataminoBackButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#backButtonClicked" scaleX="0.5" scaleY="0.5" scaleZ="0.5" />
+                    </children>
+                </VBox>
+            </children>
+        </GridPane>
+    </children>
+</AnchorPane>

@@ -37,11 +37,8 @@ public class ModeSelectionController implements Initializable {
 
     @FXML
     public void customSelected(MouseEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("BoardMaker.fxml"));
-        Scene mainMenuScene = new Scene(pane, 1200, 700);
-
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(mainMenuScene);
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("CustomMenu.fxml"));
+        root.getChildren().setAll(pane);
 
     }
     @FXML
