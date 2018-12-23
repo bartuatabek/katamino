@@ -17,11 +17,13 @@ public class SinglePlayerGame extends Game {
         stopped = false;
     }
 
-    public SinglePlayerGame(int level) {
+    public SinglePlayerGame(int level,Player player) {
         currentLevel = level;
         gameBoard = new GameBoard(currentLevel);
         stopwatch= new Stopwatch();
         stopped = false;
+        this.player=player;
+        gameScore=player.getHighScore();
     }
 
     public Player getPlayer() {

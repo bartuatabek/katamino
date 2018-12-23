@@ -118,10 +118,12 @@ public class SinglePlayerGameController extends GameController{
                 });
             }
         }
+
         animate(false, false);
     }
     public void gameSetup(int level, int gameScore, Player player) {
         game = new SinglePlayerGame(level, player.getHighScore(), player);
+        game.setStopwatch(new Stopwatch(player.getLatestTime()));
         playerLabel.setText(((SinglePlayerGame) game).getPlayer().getPlayerName() + " " + ((SinglePlayerGame) game).getPlayer().getHighScore());
         if(level == 1){
             currentTutorial = 0;
@@ -133,10 +135,11 @@ public class SinglePlayerGameController extends GameController{
         } catch (Exception e) {
             System.out.println(e);
         }
-        startGame();
+      //  startGame();
+        updateStopwatch();
     }
     public void gameSetup(int level,Player player) {
-        game = new SinglePlayerGame(level);
+        game = new SinglePlayerGame(level,player);
         if(player == null)
             playerLabel.setText("");
         else
@@ -280,7 +283,7 @@ public class SinglePlayerGameController extends GameController{
                             }
                         }
                         game.getGameBoard().setGrid(temp);
-                        if(((SinglePlayerGame)game).getPlayer() != null)
+                        if(((SinglePlayerGame)game).getPlayer() != null&&((((SinglePlayerGame)game).getPlayer().getAccessibleLevel())==(((SinglePlayerGame)game).getCurrentLevel()) ))
                             ( (SinglePlayerGame)game).savePlayerBoard();
                         gridStack.setVisible(clashCheck(rowNode, colNode));
                     } catch (Exception e) {
