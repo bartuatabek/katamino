@@ -55,15 +55,16 @@ public class SinglePlayerGameController extends GameController{
         startGame();
         gameTilePane.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
-            public void handle(MouseEvent event) { preview.fireEvent(event);
+            public void handle(MouseEvent event) {
                 SinglePlayerGameController.super.getMousePos(event);
+                preview.fireEvent(event);
             }
         });
         gameTilePane.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                preview.fireEvent(event);
                 SinglePlayerGameController.super.getMousePos(event);
+                preview.fireEvent(event);
             }
         });
 

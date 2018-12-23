@@ -255,16 +255,15 @@ public abstract class GameController implements Initializable {
             }
 
             case D:{
-                System.out.println( coordinateArr);
                 rotateRight(width, height, smllsRow, smllsCol, temp);
-                System.out.println(" degismemis olmalı: "+ coordinateArr);
                 break;
             }
         }
 
         Integer dif_row = mouseRow - temp.get(0).get(0);
         Integer dif_col = mouseCol - temp.get(0).get(1);
-
+        System.out.println("mouseRow:" + mouseRow);
+        System.out.println("mouseCol: " + mouseCol);
         for (ArrayList<Integer> cell_coord : temp) {
             if(cell_coord.get(0) + dif_row < 0 || cell_coord.get(1) + dif_col <0 || cell_coord.get(1) + dif_col >20 || cell_coord.get(0) + dif_row >10 ){
                 crossesBorder = true;
@@ -273,18 +272,21 @@ public abstract class GameController implements Initializable {
             cell_coord.set(1, cell_coord.get(1) + dif_col);
         }
         System.out.println(temp);
-        System.out.println("is border corssed: "+crossesBorder);
-        System.out.println(coordinateArr);
+
         if(!crossesBorder){
-            System.out.println("whyyyy!!!");
-            for(int i =0;i < temp.size();i++){
-                coordinateArr.set(i,temp.get(i));
+            coordinateArr.clear();
+            for(ArrayList<Integer> coord : temp){
+                ArrayList<Integer> t_coord = new ArrayList<>();
+                t_coord.add(coord.get(0));
+                t_coord.add(coord.get(1));
+                coordinateArr.add(t_coord);
             }
         }
-
+        System.out.println(coordinateArr);
         for (ArrayList<Integer> coord : coordinateArr) {
             grid[coord.get(0)][coord.get(1)] = currentPentominoId;
         }
+        print2D(grid);
         return grid;
     }
 
