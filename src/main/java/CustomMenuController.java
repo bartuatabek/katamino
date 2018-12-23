@@ -1,8 +1,10 @@
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -22,6 +24,12 @@ public class CustomMenuController implements Initializable{
 
     @FXML
     private AnchorPane root;
+
+    ///////////////////////////////////////////////////////////
+    private ObservableList<String> customBoards;
+    private SpinnerValueFactory<String> valueFactory;
+    private FileManager fm;
+    ///////////////////////////////////////////////////////////
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
