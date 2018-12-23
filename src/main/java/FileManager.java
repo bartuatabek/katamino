@@ -33,7 +33,29 @@ public class FileManager {
         return  gson.fromJson(jsonReader, Integer[][].class);
     }
 
-    // TODO save custom board
+    public boolean saveCustomBoard(int[][] board, String boardName) {
+
+        String pathname = "C:\\Users\\Sena\\Desktop\\Katamino\\src\\CustomBoards";
+        File file = new File(pathname);
+        if (!file.exists()) {
+            if (file.mkdir()) {
+                System.out.println("Directory is created!");
+            } else {
+                return false;
+            }
+        }
+        try {
+            FileWriter fw = new FileWriter(pathname+boardName+".json");
+            System.out.println(gson.toJson(board));
+            fw.write(gson.toJson(board));
+            fw.flush();
+            fw.close();
+            return true;
+        } catch (IOException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     public Player loadPlayer(String name) {
 

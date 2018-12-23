@@ -4,10 +4,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import kataminoBackButton.KataminoBackButton;
 import kataminoButton.KataminoButton;
 import kataminoDragCell.KataminoDragCell;
@@ -38,9 +40,22 @@ public class BoardMakerController extends GameController implements Initializabl
 
     private int currentPentominoID;
 
-    private int [][] currentBoard;
+    private int[][] currentBoard;
 
-    protected Color currentColor;
+    private Color currentColor;
+
+
+    /* ************For blocks not yet implemented*************
+    //Setting the image pattern
+    String link = "http://4.bp.blogspot.com/-k5rNBSKgLSM"
+            + "/UBQJotL5UoI/AAAAAAAAB50/Y_88LwoLGf4/s320"
+            + "/Seamless+floor+concrete+stone+block+tiles+texture.jpg";
+    private Image image = new Image(link);
+    ImagePattern radialGradient = new ImagePattern(image, 20, 20, 40, 40, false);
+    **********************************************************/
+    private boolean blocked = false;
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -51,20 +66,34 @@ public class BoardMakerController extends GameController implements Initializabl
         currentColor =  Color.color(Math.random(),Math.random(),Math.random());
         currentPentominoID = 1;
 
-        for (Node node : gameTilePane.getChildren()) {
-            if (node instanceof KataminoDragCell) {
-                node.setOnMouseClicked(colorTile);
-            }
-        }
-
+        for (Node node : gameTilePane.getChildren())
+            if (node instanceof KataminoDragCell)
+                    node.setOnMouseClicked(colorTile);
     }
 
     private EventHandler<MouseEvent> colorTile = event ->  {
-        ((KataminoDragCell)event.getSource()).setCellColor(currentColor);
+        KataminoDragCell cell = (KataminoDragCell)event.getSource();
+        int count = gameTilePane.getChildren().indexOf(cell);
+        if(blocked) {
+            cell.setBlocked(true);
+            currentBoard[count/22][count%22] = -2;
+        }
+        else
+            currentBoard[count/22][count%22] = currentPentominoID;
+        cell.setCellColor(currentColor);
+
+
+        System.out.println("blocked:" + blocked);
+        for (int i = 0 ; i < 11; i++) {
+            for (int j = 0 ; j < 22 ; j++)
+                System.out.print(currentBoard[i][j] + " ");
+            System.out.println();
+        }
     };
 
     @FXML
     public void nextKataminoClicked()  {
+        blocked = false;
         currentColor =  Color.color(Math.random(),Math.random(),Math.random());
         currentPentominoID++;
         System.out.println("NEXT KATAMINO");
@@ -72,9 +101,8 @@ public class BoardMakerController extends GameController implements Initializabl
 
     @FXML
     public void blockButtonClicked() {
-        currentColor = Color.WHITE;
-        currentPentominoID = -2;
-        System.out.println("BLOCK");
+        currentColor = Color.BLACK;
+        blocked = true;
     }
 
     @FXML
@@ -83,6 +111,14 @@ public class BoardMakerController extends GameController implements Initializabl
         // Pop up?
         // Return to which screen
         System.out.println("CONFIRM");
+        for (int i = 0 ; i < 11; i++) {
+            for (int j = 0; j < 22; j++)
+                System.out.print(currentBoard[i][j] + " ");
+            System.out.println();
+        }
+
+        FileManager fm = new FileManager();
+        fm.saveCustomBoard(currentBoard, "board1");
     }
 
     @FXML
@@ -90,38 +126,6 @@ public class BoardMakerController extends GameController implements Initializabl
         AnchorPane pane = FXMLLoader.load(getClass().getResource("modeSelectionMenu.fxml"));
         root.getChildren().setAll(pane);
     }
-
-
-/*
-    private EventHandler<MouseEvent> eventHandler = event -> {
-        int rowNode;
-        int colNode;
-        for (Node node : gameTilePane.getChildren()) {
-            if (node instanceof KataminoDragCell) {
-                if (node.getBoundsInParent().contains(event.getSceneX(), event.getSceneY())) {
-                    Integer[] location1 = findLocationTilePane(node, gameTilePane);
-                    if (location1 != null) {
-                        System.out.println(location1[0]);
-                        System.out.println(location1[1]);
-                        rowNode = location1[0] - 1;
-                        colNode = location1[1] - 4;
-
-                        currentBoard[rowNode][colNode] = currentPentominoID;
-                        KataminoDragCell clickedCell = (KataminoDragCell) gameTilePane.getChildren().get(rowNode * 22 + colNode);
-                        clickedCell.setPentominoInstanceID(currentPentominoID);
-                        clickedCell.setCellColor(Color.WHITE);//currentColor);
-                        System.out.println(rowNode);
-                        System.out.println(colNode);
-                        break;
-                    }
-                    System.out.println("NAL");
-                }
-            }
-        }
-
-    };*/
-
-
 
 }
 
