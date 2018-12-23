@@ -6,13 +6,14 @@
     import javafx.scene.Node;
     import javafx.scene.input.MouseEvent;
     import javafx.scene.layout.GridPane;
+    import javafx.scene.layout.TilePane;
     import javafx.scene.paint.Color;
     import kataminoDragCell.KataminoDragCell;
 
     import java.io.IOException;
     import java.util.ArrayList;
 
-    public class KataminoDragBlock extends GridPane {
+    public class KataminoDragBlock extends TilePane {
 
         // node position
         private double x = 0;
@@ -20,29 +21,28 @@
         // mouse position
         private double mousex = 0;
         private double mousey = 0;
-        private Node view;
         private boolean dragging = false;
-        private boolean moveToFront = true;
+        private boolean moveToFront = false;
 
         private ArrayList<Color> colorList = new ArrayList<Color>(){{
-            add(Color.ANTIQUEWHITE);
-            add(Color.GRAY);
-            add(Color.ALICEBLUE);
-            add(Color.AZURE);
-            add(Color.SALMON);
-            add(Color.CHARTREUSE);
-            add(Color.CORNFLOWERBLUE);
-            add(Color.MEDIUMPURPLE);
-            add(Color.LIME);
-            add(Color.TEAL);
-            add(Color.OLIVE);
-            add(Color.ORANGERED);
+            add(Color.web("FF3B30"));
+            add(Color.web("FF9500"));
+            add(Color.web("FFCC00"));
+            add(Color.web("4CD964"));
+            add(Color.web("5AFAFA"));
+            add(Color.web("007AFF"));
+            add(Color.web("5856D6"));
+            add(Color.web("FF2D55"));
+            add(Color.web("8B572A"));
+            add(Color.web("B8E986"));
+            add(Color.web("BD10E0"));
+            add(Color.web("FF5700"));
         }};
 
         private int[][] grid;
 
         @FXML
-        private GridPane dragBlockGrid;
+        private TilePane dragBlockGrid;
 
         public KataminoDragBlock() throws IOException {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("kataminoDragBlock.fxml"));
@@ -62,8 +62,9 @@
                     Color cellColor = ((grid[i][j] % 12) >= 0 && (grid[i][j] != 0)) ? colorList.get(grid[i][j] % 12) : Color.TRANSPARENT;
                     currentCell.customizeCell(grid[i][j], grid[i][j] != 0, cellColor);
 
-                    if (currentCell.getPentominoInstanceID() == -1) {
+                    if (currentCell.getPentominoInstanceID() <= 0) {
                         currentCell.setBorderColor(Color.TRANSPARENT);
+                        currentCell.setBlocked(false);
                     }
                 }
             }
@@ -139,14 +140,6 @@
          */
         protected boolean isDragging() {
             return dragging;
-        }
-
-
-        /**
-         * @return the view
-         */
-        public Node getView() {
-            return view;
         }
 
         /**

@@ -21,8 +21,15 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+# ignore files in folder doc
+doc/*
+!doc/Diagrams
+# but keep the folder
+!doc/.keep
 
 # ignore files in folder out
 out/*
 .idea/*
 target/*
+
+*.json

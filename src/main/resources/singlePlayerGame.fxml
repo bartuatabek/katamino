@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import kataminoDragCell.KataminoDragCell?>
+<?import kataminoLongButton.KataminoLongButton?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #262626;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GameController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" style="-fx-background-color: #262626;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SinglePlayerGameController">
    <children>
-      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: #262626;">
+      <GridPane layoutX="9.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="672.0" prefWidth="1232.0" style="-fx-background-color: #262626;">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
@@ -22,7 +27,7 @@
             <RowConstraints maxHeight="654.9831161499023" minHeight="10.0" prefHeight="629.2725219726562" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <GridPane fx:id="timerPane" prefHeight="94.0" prefWidth="1200.0">
+            <GridPane fx:id="timerPane">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -56,291 +61,1020 @@
                   <HBox prefWidth="200.0" spacing="20.0" GridPane.columnIndex="2" />
                </children>
             </GridPane>
-            <GridPane fx:id="gameGridPane" hgap="1.0" prefHeight="628.0" prefWidth="1190.0" vgap="1.0" GridPane.rowIndex="1">
-               <columnConstraints>
-                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
+            <TilePane fx:id="gameTilePane" prefColumns="22" prefRows="11" prefTileHeight="56.0" prefTileWidth="56.0" GridPane.rowIndex="1">
                <children>
-                  <KataminoDragCell onMousePressed="#generatePreview" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="10" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="11" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="12" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="13" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="14" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="15" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="16" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="17" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="18" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="19" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="20" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="21" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.rowIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="1" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.rowIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="2" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.rowIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="3" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.rowIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="4" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.rowIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="5" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.rowIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="6" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.rowIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="7" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.rowIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="8" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.rowIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="9" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.rowIndex="10" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="2" GridPane.rowIndex="10" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="3" GridPane.rowIndex="10" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="4" GridPane.rowIndex="10" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="5" GridPane.rowIndex="10" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="6" GridPane.rowIndex="10" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="7" GridPane.rowIndex="10" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="8" GridPane.rowIndex="10" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="9" GridPane.rowIndex="10" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="10" GridPane.rowIndex="10" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="11" GridPane.rowIndex="10" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="12" GridPane.rowIndex="10" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="13" GridPane.rowIndex="10" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="14" GridPane.rowIndex="10" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="15" GridPane.rowIndex="10" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="16" GridPane.rowIndex="10" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="18" GridPane.rowIndex="10" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="17" GridPane.rowIndex="10" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="19" GridPane.rowIndex="10" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="20" GridPane.rowIndex="10" />
-                  <KataminoDragCell onMousePressed="#generatePreview" GridPane.columnIndex="21" GridPane.rowIndex="10" />
-               </children>
-            </GridPane>
+                  <KataminoDragCell>
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="10.0" layoutY="10.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="66.0" layoutY="10.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="122.0" layoutY="10.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="178.0" layoutY="10.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="234.0" layoutY="10.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="290.0" layoutY="10.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="346.0" layoutY="10.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="402.0" layoutY="10.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="458.0" layoutY="10.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="514.0" layoutY="10.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="570.0" layoutY="10.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="626.0" layoutY="10.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="682.0" layoutY="10.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="738.0" layoutY="10.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="794.0" layoutY="10.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="850.0" layoutY="10.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="906.0" layoutY="10.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="962.0" layoutY="10.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1018.0" layoutY="10.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1074.0" layoutY="10.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1130.0" layoutY="10.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1186.0" layoutY="10.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="10.0" layoutY="66.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="66.0" layoutY="66.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="122.0" layoutY="66.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="178.0" layoutY="66.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="234.0" layoutY="66.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="290.0" layoutY="66.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="346.0" layoutY="66.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="402.0" layoutY="66.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="458.0" layoutY="66.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="514.0" layoutY="66.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="570.0" layoutY="66.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="626.0" layoutY="66.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="682.0" layoutY="66.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="738.0" layoutY="66.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="794.0" layoutY="66.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="850.0" layoutY="66.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="906.0" layoutY="66.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="962.0" layoutY="66.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1018.0" layoutY="66.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1074.0" layoutY="66.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1130.0" layoutY="66.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1186.0" layoutY="66.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="10.0" layoutY="122.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="66.0" layoutY="122.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="122.0" layoutY="122.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="178.0" layoutY="122.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="234.0" layoutY="122.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="290.0" layoutY="122.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="346.0" layoutY="122.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="402.0" layoutY="122.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="458.0" layoutY="122.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="514.0" layoutY="122.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="570.0" layoutY="122.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="626.0" layoutY="122.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="682.0" layoutY="122.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="738.0" layoutY="122.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="794.0" layoutY="122.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="850.0" layoutY="122.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="906.0" layoutY="122.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="962.0" layoutY="122.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1018.0" layoutY="122.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1074.0" layoutY="122.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1130.0" layoutY="122.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1186.0" layoutY="122.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="10.0" layoutY="178.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="66.0" layoutY="178.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="122.0" layoutY="178.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="178.0" layoutY="178.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="234.0" layoutY="178.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="290.0" layoutY="178.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="346.0" layoutY="178.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="402.0" layoutY="178.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="458.0" layoutY="178.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="514.0" layoutY="178.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="570.0" layoutY="178.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="626.0" layoutY="178.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="682.0" layoutY="178.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="738.0" layoutY="178.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="794.0" layoutY="178.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="850.0" layoutY="178.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="906.0" layoutY="178.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="962.0" layoutY="178.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1018.0" layoutY="178.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1074.0" layoutY="178.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1130.0" layoutY="178.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1186.0" layoutY="178.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="10.0" layoutY="234.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="66.0" layoutY="234.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="122.0" layoutY="234.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="178.0" layoutY="234.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="234.0" layoutY="234.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="290.0" layoutY="234.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="346.0" layoutY="234.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="402.0" layoutY="234.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="458.0" layoutY="234.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="514.0" layoutY="234.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="570.0" layoutY="234.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="626.0" layoutY="234.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="682.0" layoutY="234.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="738.0" layoutY="234.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="794.0" layoutY="234.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="850.0" layoutY="234.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="906.0" layoutY="234.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="962.0" layoutY="234.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1018.0" layoutY="234.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1074.0" layoutY="234.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1130.0" layoutY="234.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1186.0" layoutY="234.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="10.0" layoutY="290.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="66.0" layoutY="290.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="122.0" layoutY="290.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="178.0" layoutY="290.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="234.0" layoutY="290.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="290.0" layoutY="290.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="346.0" layoutY="290.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="402.0" layoutY="290.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="458.0" layoutY="290.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="514.0" layoutY="290.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="570.0" layoutY="290.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="626.0" layoutY="290.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="682.0" layoutY="290.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="738.0" layoutY="290.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="794.0" layoutY="290.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="850.0" layoutY="290.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="906.0" layoutY="290.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="962.0" layoutY="290.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1018.0" layoutY="290.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1074.0" layoutY="290.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1130.0" layoutY="290.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1186.0" layoutY="290.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="10.0" layoutY="346.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="66.0" layoutY="346.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="122.0" layoutY="346.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="178.0" layoutY="346.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="234.0" layoutY="346.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="290.0" layoutY="346.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="346.0" layoutY="346.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="402.0" layoutY="346.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="458.0" layoutY="346.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="514.0" layoutY="346.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="570.0" layoutY="346.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="626.0" layoutY="346.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="682.0" layoutY="346.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="738.0" layoutY="346.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="794.0" layoutY="346.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="850.0" layoutY="346.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="906.0" layoutY="346.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="962.0" layoutY="346.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1018.0" layoutY="346.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1074.0" layoutY="346.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1130.0" layoutY="346.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1186.0" layoutY="346.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="10.0" layoutY="402.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="66.0" layoutY="402.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="122.0" layoutY="402.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="178.0" layoutY="402.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="234.0" layoutY="402.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="290.0" layoutY="402.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="346.0" layoutY="402.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="402.0" layoutY="402.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="458.0" layoutY="402.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="514.0" layoutY="402.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="570.0" layoutY="402.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="626.0" layoutY="402.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="682.0" layoutY="402.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="738.0" layoutY="402.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="794.0" layoutY="402.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="850.0" layoutY="402.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="906.0" layoutY="402.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="962.0" layoutY="402.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1018.0" layoutY="402.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1074.0" layoutY="402.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1130.0" layoutY="402.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1186.0" layoutY="402.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="10.0" layoutY="458.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="66.0" layoutY="458.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="122.0" layoutY="458.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="178.0" layoutY="458.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="234.0" layoutY="458.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="290.0" layoutY="458.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="346.0" layoutY="458.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="402.0" layoutY="458.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="458.0" layoutY="458.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="514.0" layoutY="458.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="570.0" layoutY="458.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="626.0" layoutY="458.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="682.0" layoutY="458.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="738.0" layoutY="458.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="794.0" layoutY="458.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="850.0" layoutY="458.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="906.0" layoutY="458.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="962.0" layoutY="458.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1018.0" layoutY="458.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1074.0" layoutY="458.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1130.0" layoutY="458.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1186.0" layoutY="458.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="10.0" layoutY="514.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="66.0" layoutY="514.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="122.0" layoutY="514.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="178.0" layoutY="514.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="234.0" layoutY="514.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="290.0" layoutY="514.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="346.0" layoutY="514.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="402.0" layoutY="514.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="458.0" layoutY="514.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="514.0" layoutY="514.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="570.0" layoutY="514.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="626.0" layoutY="514.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="682.0" layoutY="514.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="738.0" layoutY="514.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="794.0" layoutY="514.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="850.0" layoutY="514.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="906.0" layoutY="514.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="962.0" layoutY="514.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1018.0" layoutY="514.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1074.0" layoutY="514.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1130.0" layoutY="514.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1186.0" layoutY="514.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="10.0" layoutY="570.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="66.0" layoutY="570.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="122.0" layoutY="570.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="178.0" layoutY="570.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="234.0" layoutY="570.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="290.0" layoutY="570.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="346.0" layoutY="570.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="402.0" layoutY="570.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="458.0" layoutY="570.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="514.0" layoutY="570.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="570.0" layoutY="570.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="626.0" layoutY="570.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="682.0" layoutY="570.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="738.0" layoutY="570.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="794.0" layoutY="570.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="850.0" layoutY="570.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="906.0" layoutY="570.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="962.0" layoutY="570.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1018.0" layoutY="570.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1074.0" layoutY="570.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+                  <KataminoDragCell layoutX="1130.0" layoutY="570.0">
+                     <rotationAxis>
+                        <Point3D x="1.0" y="1.0" z="1.0" />
+                     </rotationAxis></KataminoDragCell>
+               </children></TilePane>
          </children>
       </GridPane>
       <AnchorPane fx:id="gridStack" prefHeight="700.0" prefWidth="1200.0" />
+      <AnchorPane fx:id="pauseMenu" disable="true" prefHeight="700.0" prefWidth="1250.0" visible="false">
+         <children>
+            <KataminoLongButton fx:id="levelButton" layoutX="490.0" layoutY="292.0" onMouseClicked="#levelButtonClicked" />
+            <KataminoLongButton fx:id="exitButton" layoutX="490.0" layoutY="392.0" onMouseClicked="#exitButtonClicked" />
+            <Label layoutX="541.0" layoutY="170.0" text="Pause" textFill="#868686">
+               <font>
+                  <Font name="SF Pixelate" size="48.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <ImageView fx:id="tutorial1" disable="true" fitHeight="632.0" fitWidth="1232.0" layoutX="9.0" layoutY="56.0" onMouseClicked="#nextTutorial" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@tutorial1.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="tutorial2" disable="true" fitHeight="616.0" fitWidth="1232.0" layoutX="9.0" layoutY="56.0" onMouseClicked="#nextTutorial" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@tutorial2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="tutorial3" disable="true" fitHeight="632.0" fitWidth="1232.0" layoutX="9.0" layoutY="55.0" onMouseClicked="#nextTutorial" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@tutorial3.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="tutorial4" disable="true" fitHeight="632.0" fitWidth="1232.0" layoutX="9.0" layoutY="56.0" onMouseClicked="#nextTutorial" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@tutorial4.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="tutorial5" disable="true" fitHeight="632.0" fitWidth="1232.0" layoutX="9.0" layoutY="55.0" onMouseClicked="#nextTutorial" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@tutorial5.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="tutorial6" disable="true" fitHeight="632.0" fitWidth="1232.0" layoutX="9.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@tutorial6.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
