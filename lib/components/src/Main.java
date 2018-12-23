@@ -4,6 +4,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import kataminoBackButton.KataminoBackButton;
+import kataminoBoardButton.KataminoBoardButton;
 import kataminoButton.KataminoButton;
 import kataminoChangeButton.KataminoChangeButton;
 import kataminoDragBlock.KataminoDragBlock;
@@ -13,7 +14,6 @@ import kataminoLevelButton.KataminoLevelButton;
 import kataminoLongButton.KataminoLongButton;
 import kataminoPlayerAddButton.KataminoPlayerAddButton;
 import kataminoSoundButton.KataminoSoundButton;
-import kataminoBoardButton.KataminoBoardButton;
 
 
 public class Main extends Application {
@@ -51,7 +51,9 @@ public class Main extends Application {
             root.getChildren().add(dragCell);
             dragCell.customizeCell(-2, false, Color.SALMON);
             dragCell.setBlocked(false);
-            root.getChildren().add(new KataminoBoardButton());
+            KataminoBoardButton boardButton = new KataminoBoardButton();
+            boardButton.setBoardButton(3);
+            root.getChildren().add(boardButton);
             root.getChildren().add(new KataminoHintButton());
 
             Scene scene = new Scene(root,150,38);
