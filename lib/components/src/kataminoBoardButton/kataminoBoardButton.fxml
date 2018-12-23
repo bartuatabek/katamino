@@ -5,13 +5,20 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" type="Pane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" type="Pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="boardImage" fitHeight="110.0" fitWidth="108.0" layoutX="22.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="boardImage1" fitHeight="130.0" fitWidth="130.0" pickOnBounds="true" smooth="false">
          <image>
-            <Image url="@../resources/kataminoBoardButton.png" />
+            <Image url="@../resources/kataminoBoardButton1.png" />
+         </image></ImageView>
+      <ImageView fx:id="boardImage2" fitHeight="130.0" fitWidth="130.0" pickOnBounds="true" smooth="false">
+         <image>
+            <Image url="@../resources/kataminoBoardButton2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="boardImage3" fitHeight="130.0" fitWidth="130.0" pickOnBounds="true" smooth="false">
+         <image>
+            <Image url="@../resources/kataminoBoardButton1.png" />
          </image>
       </ImageView>
    </children>
