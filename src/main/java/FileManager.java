@@ -27,8 +27,9 @@ public class FileManager {
     }
     public Integer[][] loadSolution(int levelNo) throws FileNotFoundException{//load specific level
         JsonReader jsonReader = new JsonReader(new FileReader("src/solution.json"));
+        Integer[][][] solutions = gson.fromJson(jsonReader, Integer[][][].class);
 
-        return  gson.fromJson(jsonReader, Integer[][].class);
+        return  solutions[levelNo-1];
     }
 
     boolean saveCustomBoard(int[][] board, String boardName) throws IOException {

@@ -101,7 +101,9 @@ public class SinglePlayerGameController extends GameController{
                     currentCell.setBorderColor(Color.WHITE);
             }
         }
-        GameBoard belongToElse= new GameBoard(((SinglePlayerGame)game).getPlayer().getLatestBoard());
+        int levelNo = ((SinglePlayerGame)game).getPlayer().getAccessibleLevel();
+        System.out.println(levelNo);
+        GameBoard belongToElse = new GameBoard(((SinglePlayerGame)game).getPlayer().getLatestBoard(),levelNo);
         game.setGameBoard(belongToElse);
         for (int i= 0; i <belongToElse.getGrid().length; i++) {
             for (int j = 0; j < belongToElse.getGrid()[0].length; j++) {
@@ -258,7 +260,6 @@ public class SinglePlayerGameController extends GameController{
         gameTilePane.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                SinglePlayerGameController.super.getMousePos(event);
                 preview.fireEvent(event);
             }
         });
@@ -266,7 +267,6 @@ public class SinglePlayerGameController extends GameController{
         gameTilePane.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                SinglePlayerGameController.super.getMousePos(event);
                 preview.fireEvent(event);
             }
         });
@@ -288,8 +288,6 @@ public class SinglePlayerGameController extends GameController{
                                 }
                             }
                         }
-                        SinglePlayerGameController.super.mouseCol = colNode;
-                        SinglePlayerGameController.super.mouseRow = rowNode;
                         for (int o = 0; o < 11; o++)
                         {
                             for (int k = 0; k < 22; k++){

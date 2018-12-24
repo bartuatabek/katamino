@@ -615,14 +615,12 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
         gameTilePane.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                MultiplayerGameController.super.getMousePos(event);
                 preview.fireEvent(event);
             }
         });
         gameTilePane.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                MultiplayerGameController.super.getMousePos(event);
                 preview.fireEvent(event);
             }
         });
