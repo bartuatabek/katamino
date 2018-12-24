@@ -10,6 +10,8 @@ public class GameBoard {
     private  KataminoDragCell[][] grid;
 
     private Level currentLevel;
+    private Integer[][] solution;
+
 
     private ArrayList<Color> colorList = new ArrayList<Color>(){{
         add(Color.web("FF3B30"));
@@ -37,10 +39,17 @@ public class GameBoard {
     Integer[][]board;
 
     public GameBoard(int levelNo) {
-        currentLevel = new Level(levelNo);
-        board = currentLevel.getBoard();
-        grid = new KataminoDragCell[board.length][board[0].length];
 
+        this.currentLevel = new Level(levelNo);
+        this.board = currentLevel.getBoard();
+        this.grid = new KataminoDragCell[board.length][board[0].length];
+        if(currentLevel != null){
+            solution = currentLevel.getSolution();
+        }
+
+        if(solution == null){
+            System.out.println("why");
+        }
         try {
             loadLevel();
         } catch (FileNotFoundException f) {
@@ -53,7 +62,7 @@ public class GameBoard {
 
     public GameBoard(Integer[][] board) {
        this.board=board;
-        grid = new KataminoDragCell[board.length][board[0].length];
+        this.grid = new KataminoDragCell[board.length][board[0].length];
         try {
             loadLevel();
         } catch (FileNotFoundException f) {
@@ -78,12 +87,12 @@ public class GameBoard {
         }
     }
     public ArrayList<ArrayList<Integer>> findHintCoords(int pentoNo){
-        Integer[][] solution = currentLevel.getSolution();
         ArrayList<ArrayList<Integer>> hintCoord = new ArrayList<>();
-        for (int i= 0; i < solution.length; i++) {
-            for (int j = 0; j < solution[0].length; j++) {
+        System.out.println(solution);
+        for (int i= 0; i < this.solution.length; i++) {
+            for (int j = 0; j < this.solution[0].length; j++) {
                 ArrayList<Integer> coord = new ArrayList<>();
-                if(solution[i][j] == pentoNo){
+                if(this.solution[i][j] == pentoNo){
                     coord.add(i);
                     coord.add(j);
                     hintCoord.add(coord);
@@ -102,8 +111,8 @@ public class GameBoard {
     }
 
     public void updateGameBoard(int levelNo) {
-        currentLevel = new Level(levelNo);
-        board = currentLevel.getBoard();
+        this.currentLevel = new Level(levelNo);
+        this.board = this.currentLevel.getBoard();
 
         try {
             loadLevel();

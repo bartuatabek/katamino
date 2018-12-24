@@ -10,6 +10,7 @@ import javafx.animation.*;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -169,7 +170,7 @@ public abstract class GameController implements Initializable {
     }
 
 
-    public void generatePreview(MouseEvent e) {
+    public void generatePreview(MouseEvent e){
         if (((KataminoDragCell) e.getSource()).getPentominoInstanceID() > 0 && !gridStack.isVisible()) {
             try {
                 preview.relocate(0, 0);
@@ -191,7 +192,8 @@ public abstract class GameController implements Initializable {
                 preview.setOpacity(0.5);
                 preview.setLayoutY(preview.getLayoutY() + timerPane.getHeight());
                 gridStack.setVisible(true);
-                gridStack.getScene().setOnKeyPressed(keyPressed);
+                gridStack.getScene().addEventHandler(MouseEvent.MOUSE_DRAGGED,mHandler);
+                gridStack.getScene().addEventHandler(KeyEvent.KEY_PRESSED,keyPressed);
             } catch (Exception exp) {
                 System.out.println(exp);
             }
@@ -273,16 +275,14 @@ public abstract class GameController implements Initializable {
                 break;
             }
         }
-
-        Integer dif_row = mouseRow - temp.get(0).get(0);
-        Integer dif_col = mouseCol - temp.get(0).get(1);
         for (ArrayList<Integer> cell_coord : temp) {
-            if(cell_coord.get(0) + dif_row < 0 || cell_coord.get(1) + dif_col <0 || cell_coord.get(1) + dif_col >20 || cell_coord.get(0) + dif_row >10 ){
+            if(cell_coord.get(0)  < 0 || cell_coord.get(1)  <0 || cell_coord.get(1)  >21 || cell_coord.get(0) >10 ){
                 crossesBorder = true;
             }
-            cell_coord.set(0, cell_coord.get(0) + dif_row);
-            cell_coord.set(1, cell_coord.get(1) + dif_col);
+            cell_coord.set(0, cell_coord.get(0));
+            cell_coord.set(1, cell_coord.get(1));
         }
+        System.out.println(temp);
 
         if(!crossesBorder){
             int ind = 0;
@@ -294,7 +294,10 @@ public abstract class GameController implements Initializable {
                 ind++;
             }
         }
-        System.out.println(coordinateArr);
+        else{
+            ShakeTransition shakeTransition = new ShakeTransition(gridStack);
+            shakeTransition.playFromStart();
+        }
         for (ArrayList<Integer> coord : coordinateArr) {
             grid[coord.get(0)][coord.get(1)] = currentPentominoId;
         }
@@ -332,31 +335,33 @@ public abstract class GameController implements Initializable {
             coord.set(1, ncol);
         }
     }
-    public void getMousePos(MouseEvent event){
-        try {
-            int rowNode = 0;
-            int colNode = 0;
-            for (Node node : gameTilePane.getChildren()) {
-                if (node instanceof KataminoDragCell) {
-                    if (node.getBoundsInParent().contains(event.getSceneX(), event.getSceneY())) {
-                        Integer[] location = findLocationTilePane(node, gameTilePane);
-                        if (location[0] != null) {
-                            rowNode = location[0] - 1;
-                        }
-                        if (location[1] != null) {
-                            colNode = location[1];
+    EventHandler mHandler = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+            try {
+                int rowNode = 0;
+                int colNode = 0;
+                for (Node node : gameTilePane.getChildren()) {
+                    if (node instanceof KataminoDragCell) {
+                        if (node.getBoundsInParent().contains(event.getSceneX(), event.getSceneY())) {
+                            Integer[] location = findLocationTilePane(node, gameTilePane);
+                            if (location[0] != null) {
+                                rowNode = location[0] - 1;
+                            }
+                            if (location[1] != null) {
+                                colNode = location[1];
+                            }
                         }
                     }
                 }
-            }
-            this.mouseRow = rowNode;
-            this.mouseCol = colNode;
-        }
-        catch (Exception e) {
+                mouseRow = rowNode;
+                mouseCol = colNode;
+
+            } catch (Exception e) {
                 System.out.println(e);
             }
-            event.consume();
-    }
+        }
+    };
 
     public void flipVertically(int width, int height, int smllsRow, int smllsCol, ArrayList<ArrayList<Integer>> tempCoords) {
         int[][] pentomino = new int[height][width];

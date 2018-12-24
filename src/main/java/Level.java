@@ -7,6 +7,7 @@ public class Level {
             FileManager fm = new FileManager();
              board = fm.loadLevels(levelNo);
              solution = fm.loadSolution(levelNo);
+             System.out.println();
          }
         catch(Exception e)
         {}
