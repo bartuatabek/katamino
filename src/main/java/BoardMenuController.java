@@ -30,14 +30,11 @@ public class BoardMenuController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         for (int i = 0; i < gridPane.getChildren().size();i++) {
             ((KataminoBoardButton)gridPane.getChildren().get(i)).setBoardButton(i);
-            gridPane.getChildren().get(i).setOnMouseClicked( new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    try {
-                        boardButtonClicked(event);
-                    } catch (Exception e) {
-                        System.out.println(e);
-                    }
+            gridPane.getChildren().get(i).setOnMouseClicked(event -> {
+                try {
+                    boardButtonClicked(event);
+                } catch (Exception e) {
+                    System.out.println(e);
                 }
             });
         }

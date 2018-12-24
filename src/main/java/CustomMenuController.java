@@ -39,7 +39,7 @@ public class CustomMenuController implements Initializable{
 
     @FXML
     public void playSelected(MouseEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("customBoardMenu.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("boardMenu.fxml"));
         root.getChildren().setAll(pane);
     }
 

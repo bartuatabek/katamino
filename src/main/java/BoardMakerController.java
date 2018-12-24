@@ -47,6 +47,9 @@ public class BoardMakerController extends GameController implements Initializabl
 
     private Color currentColor;
     private boolean blocked = false;
+    private boolean empty;
+    private boolean newClicked;
+
 
     protected ArrayList<Color> colorList = new ArrayList<Color>() {{
         add(Color.web("FF3B30"));
@@ -71,6 +74,8 @@ public class BoardMakerController extends GameController implements Initializabl
         currentPentominoID = 0;
         currentColor = colorList.get(0);
         currentBoard = new int[11][22];
+        empty = true;
+        newClicked = false;
 
         for (int i = 0; i < 11; i++) {
             for (int j = 0; j < 22; j++) {
@@ -84,60 +89,67 @@ public class BoardMakerController extends GameController implements Initializabl
     }
 
     private EventHandler<MouseEvent> colorTile = event ->  {
+        System.out.println("Start: " + currentPentominoID);
         KataminoDragCell cell = (KataminoDragCell)event.getSource();
         int count = gameTilePane.getChildren().indexOf(cell);
+        boolean disconnected = false;
+        boolean newKatamino = false;
 
-        if(!(currentPentominoID == 0 && currentBoard[count/22][count%22] == currentPentominoID)) {
-            boolean disconnected = true;
-            if (count>=23) {
-                int up_left_count = count-23;
-                if(currentBoard[up_left_count/22][up_left_count%22] == currentPentominoID)
+        final int up_count = count - 22, left_count = count - 1, right_count = count + 1, down_count = count + 22;
+        if(empty) {
+            empty = false;
+        }
+        else {
+            disconnected = true;
+            if(count>=22) {
+                if (currentBoard[up_count / 22][up_count % 22] != -1)
                     disconnected = false;
             }
-            if(count>=22 && disconnected) {
-                int up_count = count-22;
+            if(count>=1) {
+                if (disconnected && currentBoard[left_count / 22][left_count % 22] != -1)
+                    disconnected = false;
+            }
+            if(count<=(11*22-1)) {
+                if (disconnected && currentBoard[right_count / 22][right_count % 22] != -1)
+                    disconnected = false;
+            }
+            if(count<=(11*22-22)) {
+                if (disconnected && currentBoard[down_count / 22][down_count % 22] != -1)
+                    disconnected = false;
+            }
+        }
+        if (!newClicked) {
+            newKatamino = true;
+            if(count>=22) {
                 if(currentBoard[up_count/22][up_count%22] == currentPentominoID)
-                    disconnected = false;
+                    newKatamino = false;
             }
-            if(count>=21 && disconnected) {
-                int up_right_count = count-21;
-                if(currentBoard[up_right_count/22][up_right_count%22] == currentPentominoID)
-                    disconnected = false;
+            if(count>=1) {
+                if(newKatamino && currentBoard[left_count/22][left_count%22] == currentPentominoID)
+                    newKatamino = false;
             }
-            if(count>=1 && disconnected) {
-                int left_count = count-1;
-                if(currentBoard[left_count/22][left_count%22] == currentPentominoID)
-                    disconnected = false;
+            if(count<=(11*22-1)) {
+                if(newKatamino && currentBoard[right_count/22][right_count%22] ==currentPentominoID)
+                    newKatamino = false;
             }
-            if(count<=(11*22-1) && disconnected) {
-                int right_count = count+1;
-                if(currentBoard[right_count/22][right_count%22] ==currentPentominoID)
-                    disconnected = false;
+            if(count<=(11*22-22)) {
+                if(newKatamino && currentBoard[down_count/22][down_count%22] == currentPentominoID)
+                    newKatamino = false;
             }
-            if(count<=(11*22-21) && disconnected) {
-                int down_left_count = count+21;
-                if(currentBoard[down_left_count/22][down_left_count%22] == currentPentominoID)
-                    disconnected = false;
-            }
-            if(count<=(11*22-22) && disconnected) {
-                int down_count = count+22;
-                if(currentBoard[down_count/22][down_count%22] == currentPentominoID)
-                    disconnected = false;
-            }
-            if(count<=(11*22-23) && disconnected) {
-                int down_right_count = count+23;
-                if(currentBoard[down_right_count/22][down_right_count%22] == currentPentominoID)
-                    disconnected = false;
-            }
-            if(disconnected) {
-                nextKataminoClicked();
-            }
+        }
+        System.out.println( "disconnected: " + disconnected);
+        System.out.println( "blocked: " + blocked);
+        System.out.println( "newKatamino: " + newKatamino);
+        if(!disconnected) {
             if(blocked) {
                 cell.setBlocked(true);
                 currentBoard[count/22][count%22] = -2;
             }
-            else
-                currentBoard[count/22][count%22] = currentPentominoID;
+            else if(newKatamino) {
+                nextKataminoClicked();
+            }
+
+            currentBoard[count / 22][count % 22] = currentPentominoID;
             cell.setCellColor(currentColor);
 
             System.out.println("----------------------------");
@@ -147,7 +159,8 @@ public class BoardMakerController extends GameController implements Initializabl
                 }
                 System.out.println();
             }
-    }
+        }
+        newClicked = false;
     };
 
     @FXML
@@ -155,6 +168,7 @@ public class BoardMakerController extends GameController implements Initializabl
         blocked = false;
         currentPentominoID++;
         currentColor = colorList.get((currentPentominoID-1)%(colorList.size()));
+        newClicked = true;
     }
 
     @FXML
