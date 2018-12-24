@@ -46,20 +46,7 @@ public class CustomMenuController implements Initializable{
 
     @FXML
     public void playSelected(MouseEvent event) throws IOException {
-        FXMLLoader customGameLoader = new FXMLLoader(getClass().getResource("singlePlayerGame.fxml"));
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        AnchorPane pane = customGameLoader.load();
-
-        SinglePlayerGameController gameController = customGameLoader.getController();
-        gameController.gameSetup(1,null);
-
-        stage.setWidth(1250);
-        stage.setHeight(700);
-
-        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
-        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
-        root.getChildren().setAll(pane);
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("customBoardMenu.fxml"));
         root.getChildren().setAll(pane);
     }
 

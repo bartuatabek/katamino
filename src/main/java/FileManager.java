@@ -31,8 +31,8 @@ public class FileManager {
         return  gson.fromJson(jsonReader, Integer[][].class);
     }
 
-    boolean saveCustomBoard(int[][] board, String boardName)  {
-        String dir = System.getProperty("user.dir") + "/src/CustomBoards" ;
+    boolean saveCustomBoard(int[][] board, String boardName) throws IOException {
+        /*String dir = System.getProperty("user.dir") + "/src/CustomBoards" ;
         File file = new File(dir);
         if (!file.exists()) {
             if (file.mkdir()) {
@@ -53,6 +53,33 @@ public class FileManager {
             e.printStackTrace();
             return false;
         }
+*/
+
+        int latest=0;
+        try {
+            FileReader fileReader =new FileReader("src/level.json");
+            JsonParser parser = new JsonParser();
+            JsonArray jsonArray = parser.parse(fileReader).getAsJsonArray();
+            for(int i=0;i<jsonArray.size();i++){
+                    latest++;
+                }
+          //  JsonObject object = new JsonObject();
+           // JsonPrimitive element = new JsonPrimitive(board);
+         //   JsonElement element = new  JsonElement(board);
+            JsonElement element =  gson.toJsonTree(board) ;
+         //   object.add(element);
+            jsonArray.add(element);
+           System.out.print( jsonArray.toString());
+            Writer writer =new FileWriter("src/level.json");
+            String result = gson.toJson(jsonArray);
+            writer.write(result);
+            writer.close();
+        }
+        catch (FileNotFoundException e) {
+        }
+       return  false;
+
+
     }
 
     public Player loadPlayer(String name) {

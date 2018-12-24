@@ -106,7 +106,7 @@ public class BoardMakerController extends GameController implements Initializabl
     }
 
     @FXML
-    public void confirmButtonClicked() {
+    public void confirmButtonClicked() throws IOException{
         // Save the level
         // Pop up?
         // Return to which screen
