@@ -20,6 +20,7 @@ import kataminoDragCell.KataminoDragCell;
 import java.io.IOException;
 import java.net.URL;
 
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class BoardMakerController extends GameController implements Initializable  {
@@ -46,17 +47,22 @@ public class BoardMakerController extends GameController implements Initializabl
     private int[][] currentBoard;
 
     private Color currentColor;
-
-
-    /* ************For blocks not yet implemented*************
-    //Setting the image pattern
-    String link = "http://4.bp.blogspot.com/-k5rNBSKgLSM"
-            + "/UBQJotL5UoI/AAAAAAAAB50/Y_88LwoLGf4/s320"
-            + "/Seamless+floor+concrete+stone+block+tiles+texture.jpg";
-    private Image image = new Image(link);
-    ImagePattern radialGradient = new ImagePattern(image, 20, 20, 40, 40, false);
-    **********************************************************/
     private boolean blocked = false;
+
+    protected ArrayList<Color> colorList = new ArrayList<Color>() {{
+        add(Color.web("FF3B30"));
+        add(Color.web("FF9500"));
+        add(Color.web("FFCC00"));
+        add(Color.web("4CD964"));
+        add(Color.web("5AFAFA"));
+        add(Color.web("007AFF"));
+        add(Color.web("5856D6"));
+        add(Color.web("FF2D55"));
+        add(Color.web("8B572A"));
+        add(Color.web("B8E986"));
+        add(Color.web("BD10E0"));
+        add(Color.web("FF5700"));
+    }};
 
 
 
@@ -65,9 +71,15 @@ public class BoardMakerController extends GameController implements Initializabl
         newKataminoButton.setButtonName("Next Katamino");
         confirmButton.setButtonName("Confirm");
         blockButton.setButtonName("Block");
+        currentPentominoID = 0;
+        currentColor = colorList.get(0);
         currentBoard = new int[11][22];
-        currentColor =  Color.color(Math.random(),Math.random(),Math.random());
-        currentPentominoID = 1;
+
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 22; j++) {
+                currentBoard[i][j] = -1;
+            }
+        }
 
         for (Node node : gameTilePane.getChildren())
             if (node instanceof KataminoDragCell)
@@ -77,6 +89,51 @@ public class BoardMakerController extends GameController implements Initializabl
     private EventHandler<MouseEvent> colorTile = event ->  {
         KataminoDragCell cell = (KataminoDragCell)event.getSource();
         int count = gameTilePane.getChildren().indexOf(cell);
+
+        boolean disconnected = true;
+        if (count>=23) {
+            int up_left_count = count-23;
+            if(currentBoard[up_left_count/22][up_left_count%22] != -1)
+                disconnected = false;
+        }
+        if(count>=22 && disconnected) {
+            int up_count = count-22;
+            if(currentBoard[up_count/22][up_count%22] != -1)
+                disconnected = false;
+        }
+        if(count>=21 && disconnected) {
+            int up_right_count = count-21;
+            if(currentBoard[up_right_count/22][up_right_count%22] != -1)
+                disconnected = false;
+        }
+        if(count>=1 && disconnected) {
+            int left_count = count-1;
+            if(currentBoard[left_count/22][left_count%22] != -1)
+                disconnected = false;
+        }
+        if(count<=(11*22-1) && disconnected) {
+            int right_count = count+1;
+            if(currentBoard[right_count/22][right_count%22] != -1)
+                disconnected = false;
+        }
+        if(count<=(11*22-21) && disconnected) {
+            int down_left_count = count+21;
+            if(currentBoard[down_left_count/22][down_left_count%22] != -1)
+                disconnected = false;
+        }
+        if(count<=(11*22-22) && disconnected) {
+            int down_count = count+22;
+            if(currentBoard[down_count/22][down_count%22] != -1)
+                disconnected = false;
+        }
+        if(count<=(11*22-23) && disconnected) {
+            int down_right_count = count+23;
+            if(currentBoard[down_right_count/22][down_right_count%22] != -1)
+                disconnected = false;
+        }
+        if(disconnected) {
+            nextKataminoClicked();
+        }
         if(blocked) {
             cell.setBlocked(true);
             currentBoard[count/22][count%22] = -2;
@@ -85,26 +142,25 @@ public class BoardMakerController extends GameController implements Initializabl
             currentBoard[count/22][count%22] = currentPentominoID;
         cell.setCellColor(currentColor);
 
-        /*
-        System.out.println("blocked:" + blocked);
-        for (int i = 0 ; i < 11; i++) {
-            for (int j = 0 ; j < 22 ; j++)
+        System.out.println("----------------------------");
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 22; j++) {
                 System.out.print(currentBoard[i][j] + " ");
+            }
             System.out.println();
-        }*/
+        }
     };
 
     @FXML
     public void nextKataminoClicked()  {
         blocked = false;
-        currentColor =  Color.color(Math.random(),Math.random(),Math.random());
         currentPentominoID++;
-        System.out.println("NEXT KATAMINO");
+        currentColor = colorList.get((currentPentominoID-1)%(colorList.size()));
     }
 
     @FXML
     public void blockButtonClicked() {
-        currentColor = Color.BLACK;
+        currentColor = Color.BLACK; // -2??
         blocked = true;
     }
 

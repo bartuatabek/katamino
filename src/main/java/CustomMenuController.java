@@ -1,3 +1,4 @@
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,18 +28,16 @@ public class CustomMenuController implements Initializable{
     @FXML
     private AnchorPane root;
 
-    ///////////////////////////////////////////////////////////
-    private ObservableList<String> customBoards;
-    private SpinnerValueFactory<String> valueFactory;
-    private FileManager fm;
-    ///////////////////////////////////////////////////////////
+    FileManager fm = new FileManager();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         playButton.setButtonName("Custom Boards");
         boardMakerButton.setButtonName("Board Maker");
+        fm = new FileManager();
     }
 
+    // TODO change
     @FXML
     public void playSelected(MouseEvent event) throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("customBoardMenu.fxml"));
