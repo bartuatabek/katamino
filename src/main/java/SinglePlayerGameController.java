@@ -101,7 +101,9 @@ public class SinglePlayerGameController extends GameController{
                     currentCell.setBorderColor(Color.WHITE);
             }
         }
-        GameBoard belongToElse= new GameBoard(((SinglePlayerGame)game).getPlayer().getLatestBoard());
+        int levelNo = ((SinglePlayerGame)game).getPlayer().getAccessibleLevel();
+        System.out.println(levelNo);
+        GameBoard belongToElse = new GameBoard(((SinglePlayerGame)game).getPlayer().getLatestBoard(),levelNo);
         game.setGameBoard(belongToElse);
         for (int i= 0; i <belongToElse.getGrid().length; i++) {
             for (int j = 0; j < belongToElse.getGrid()[0].length; j++) {

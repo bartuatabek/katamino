@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+
 public class Level {
     private Integer[][] board;
     private Integer[][] solution;
@@ -7,12 +9,10 @@ public class Level {
             FileManager fm = new FileManager();
              board = fm.loadLevels(levelNo);
              solution = fm.loadSolution(levelNo);
-             System.out.println();
          }
         catch(Exception e)
         {}
     }
-
     public Integer[][] getSolution() {
         return solution;
     }

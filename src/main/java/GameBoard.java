@@ -60,8 +60,14 @@ public class GameBoard {
     }
 
 
-    public GameBoard(Integer[][] board) {
-       this.board=board;
+    public GameBoard(Integer[][] board, int levelNo) {
+        this.board = board;
+        FileManager fm = new FileManager();
+        try {
+            solution = fm.loadSolution(levelNo);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         this.grid = new KataminoDragCell[board.length][board[0].length];
         try {
             loadLevel();
@@ -88,7 +94,6 @@ public class GameBoard {
     }
     public ArrayList<ArrayList<Integer>> findHintCoords(int pentoNo){
         ArrayList<ArrayList<Integer>> hintCoord = new ArrayList<>();
-        System.out.println(solution);
         for (int i= 0; i < this.solution.length; i++) {
             for (int j = 0; j < this.solution[0].length; j++) {
                 ArrayList<Integer> coord = new ArrayList<>();

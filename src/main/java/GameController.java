@@ -153,6 +153,7 @@ public abstract class GameController implements Initializable {
             ind[0]++;
             currentPentomino.setCellColor(hintIndicationColor);
         }
+
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
                     @Override
@@ -160,6 +161,8 @@ public abstract class GameController implements Initializable {
                         ind[0] = 0;
                         for (ArrayList<Integer> coord : coords){
                             KataminoDragCell currentPentomino = (KataminoDragCell) gameTilePane.getChildren().get((coord.get(0) * 22) + coord.get(1));
+                            if(currentPentomino.getPentominoInstanceID() != 0)
+                            {break;}
                             currentPentomino.setCellColor(prevColors[ind[0]]);
                             ind[0]++;
                         }
@@ -429,7 +432,9 @@ public abstract class GameController implements Initializable {
         @Override
         public void handle(KeyEvent event) {
             preview.setPentomino(pentominoTransform(event));
-            generateHint(event);
+            if(game instanceof SinglePlayerGame){
+                generateHint(event);
+            }
             event.consume();
         }
     };
