@@ -38,11 +38,6 @@ public class CustomMenuController implements Initializable{
         playButton.setButtonName("Custom Boards");
         boardMakerButton.setButtonName("Board Maker");
     }
-    /*@FXML
-    public void playSelected() throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("singlePlayerGame.fxml"));
-        root.getChildren().setAll(pane);
-    }*/
 
     @FXML
     public void playSelected(MouseEvent event) throws IOException {
@@ -52,12 +47,16 @@ public class CustomMenuController implements Initializable{
 
     @FXML
     public void boardMakerSelected(MouseEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("BoardMaker.fxml"));
-        Scene mainMenuScene = new Scene(pane, 1450, 700);
-
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("boardMaker.fxml"));
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(mainMenuScene);
 
+        stage.setWidth(1250);
+        stage.setHeight(720);
+
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+        root.getChildren().setAll(pane);
     }
     @FXML
     public void backButtonClicked(MouseEvent event) throws IOException {

@@ -3,6 +3,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -10,6 +11,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import kataminoBackButton.KataminoBackButton;
 import kataminoButton.KataminoButton;
 import kataminoDragCell.KataminoDragCell;
@@ -117,8 +120,16 @@ public class BoardMakerController extends GameController implements Initializabl
     }
 
     @FXML
-    public void backButtonClicked() throws IOException {
+    public void backButtonClicked(MouseEvent event) throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("modeSelectionMenu.fxml"));
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+        stage.setWidth(750);
+        stage.setHeight(450);
+
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
         root.getChildren().setAll(pane);
     }
 
