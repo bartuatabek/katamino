@@ -1,16 +1,13 @@
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import kataminoBackButton.KataminoBackButton;
@@ -32,6 +29,8 @@ public class BoardMakerController extends GameController implements Initializabl
 
     @FXML
     protected KataminoBackButton backButton;
+
+
 
     @FXML
     protected KataminoButton newKataminoButton;
@@ -64,8 +63,6 @@ public class BoardMakerController extends GameController implements Initializabl
         add(Color.web("FF5700"));
     }};
 
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         newKataminoButton.setButtonName("Next Katamino");
@@ -90,65 +87,67 @@ public class BoardMakerController extends GameController implements Initializabl
         KataminoDragCell cell = (KataminoDragCell)event.getSource();
         int count = gameTilePane.getChildren().indexOf(cell);
 
-        boolean disconnected = true;
-        if (count>=23) {
-            int up_left_count = count-23;
-            if(currentBoard[up_left_count/22][up_left_count%22] != -1)
-                disconnected = false;
-        }
-        if(count>=22 && disconnected) {
-            int up_count = count-22;
-            if(currentBoard[up_count/22][up_count%22] != -1)
-                disconnected = false;
-        }
-        if(count>=21 && disconnected) {
-            int up_right_count = count-21;
-            if(currentBoard[up_right_count/22][up_right_count%22] != -1)
-                disconnected = false;
-        }
-        if(count>=1 && disconnected) {
-            int left_count = count-1;
-            if(currentBoard[left_count/22][left_count%22] != -1)
-                disconnected = false;
-        }
-        if(count<=(11*22-1) && disconnected) {
-            int right_count = count+1;
-            if(currentBoard[right_count/22][right_count%22] != -1)
-                disconnected = false;
-        }
-        if(count<=(11*22-21) && disconnected) {
-            int down_left_count = count+21;
-            if(currentBoard[down_left_count/22][down_left_count%22] != -1)
-                disconnected = false;
-        }
-        if(count<=(11*22-22) && disconnected) {
-            int down_count = count+22;
-            if(currentBoard[down_count/22][down_count%22] != -1)
-                disconnected = false;
-        }
-        if(count<=(11*22-23) && disconnected) {
-            int down_right_count = count+23;
-            if(currentBoard[down_right_count/22][down_right_count%22] != -1)
-                disconnected = false;
-        }
-        if(disconnected) {
-            nextKataminoClicked();
-        }
-        if(blocked) {
-            cell.setBlocked(true);
-            currentBoard[count/22][count%22] = -2;
-        }
-        else
-            currentBoard[count/22][count%22] = currentPentominoID;
-        cell.setCellColor(currentColor);
-
-        System.out.println("----------------------------");
-        for (int i = 0; i < 11; i++) {
-            for (int j = 0; j < 22; j++) {
-                System.out.print(currentBoard[i][j] + " ");
+        if(!(currentPentominoID == 0 && currentBoard[count/22][count%22] == currentPentominoID)) {
+            boolean disconnected = true;
+            if (count>=23) {
+                int up_left_count = count-23;
+                if(currentBoard[up_left_count/22][up_left_count%22] == currentPentominoID)
+                    disconnected = false;
             }
-            System.out.println();
-        }
+            if(count>=22 && disconnected) {
+                int up_count = count-22;
+                if(currentBoard[up_count/22][up_count%22] == currentPentominoID)
+                    disconnected = false;
+            }
+            if(count>=21 && disconnected) {
+                int up_right_count = count-21;
+                if(currentBoard[up_right_count/22][up_right_count%22] == currentPentominoID)
+                    disconnected = false;
+            }
+            if(count>=1 && disconnected) {
+                int left_count = count-1;
+                if(currentBoard[left_count/22][left_count%22] == currentPentominoID)
+                    disconnected = false;
+            }
+            if(count<=(11*22-1) && disconnected) {
+                int right_count = count+1;
+                if(currentBoard[right_count/22][right_count%22] ==currentPentominoID)
+                    disconnected = false;
+            }
+            if(count<=(11*22-21) && disconnected) {
+                int down_left_count = count+21;
+                if(currentBoard[down_left_count/22][down_left_count%22] == currentPentominoID)
+                    disconnected = false;
+            }
+            if(count<=(11*22-22) && disconnected) {
+                int down_count = count+22;
+                if(currentBoard[down_count/22][down_count%22] == currentPentominoID)
+                    disconnected = false;
+            }
+            if(count<=(11*22-23) && disconnected) {
+                int down_right_count = count+23;
+                if(currentBoard[down_right_count/22][down_right_count%22] == currentPentominoID)
+                    disconnected = false;
+            }
+            if(disconnected) {
+                nextKataminoClicked();
+            }
+            if(blocked) {
+                cell.setBlocked(true);
+                currentBoard[count/22][count%22] = -2;
+            }
+            else
+                currentBoard[count/22][count%22] = currentPentominoID;
+            cell.setCellColor(currentColor);
+
+            System.out.println("----------------------------");
+            for (int i = 0; i < 11; i++) {
+                for (int j = 0; j < 22; j++) {
+                    System.out.print(currentBoard[i][j] + " ");
+                }
+                System.out.println();
+            }
+    }
     };
 
     @FXML

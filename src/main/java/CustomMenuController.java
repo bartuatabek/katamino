@@ -1,12 +1,9 @@
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
@@ -19,11 +16,13 @@ import java.util.ResourceBundle;
 
 public class CustomMenuController implements Initializable{
 
+
     @FXML
     private KataminoLongButton playButton;
 
     @FXML
     private KataminoLongButton boardMakerButton;
+
 
     @FXML
     private AnchorPane root;
@@ -35,9 +34,9 @@ public class CustomMenuController implements Initializable{
         playButton.setButtonName("Custom Boards");
         boardMakerButton.setButtonName("Board Maker");
         fm = new FileManager();
+
     }
 
-    // TODO change
     @FXML
     public void playSelected(MouseEvent event) throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("customBoardMenu.fxml"));
@@ -58,7 +57,7 @@ public class CustomMenuController implements Initializable{
         root.getChildren().setAll(pane);
     }
     @FXML
-    public void backButtonClicked(MouseEvent event) throws IOException {
+    public void backButtonClicked() throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("modeSelectionMenu.fxml"));
         root.getChildren().setAll(pane);
     }
