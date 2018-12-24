@@ -1,15 +1,8 @@
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-import kataminoLevelButton.KataminoLevelButton;
 import kataminoLongButton.KataminoLongButton;
 
 import java.io.IOException;
@@ -41,7 +34,7 @@ public class ModeSelectionController implements Initializable {
 
     @FXML
     public void customSelected(MouseEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("CustomMenu.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("customMenu.fxml"));
         root.getChildren().setAll(pane);
 
     }

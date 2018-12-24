@@ -35,7 +35,7 @@ public class CustomMenuController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        playButton.setButtonName("Play with a Custom Board");
+        playButton.setButtonName("Custom Boards");
         boardMakerButton.setButtonName("Board Maker");
     }
     /*@FXML

@@ -52,7 +52,7 @@ public class Main extends Application {
             dragCell.customizeCell(-2, false, Color.SALMON);
             dragCell.setBlocked(false);
             KataminoBoardButton boardButton = new KataminoBoardButton();
-            boardButton.setBoardButton(3);
+            boardButton.setBoardButton(5);
             root.getChildren().add(boardButton);
             root.getChildren().add(new KataminoHintButton());
 

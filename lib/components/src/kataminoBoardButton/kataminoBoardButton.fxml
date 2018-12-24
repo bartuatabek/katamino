@@ -18,7 +18,7 @@
       </ImageView>
       <ImageView fx:id="boardImage3" fitHeight="130.0" fitWidth="130.0" pickOnBounds="true" smooth="false">
          <image>
-            <Image url="@../resources/kataminoBoardButton1.png" />
+            <Image url="@../resources/kataminoBoardButton3.png" />
          </image>
       </ImageView>
    </children>

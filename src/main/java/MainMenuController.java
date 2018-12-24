@@ -14,6 +14,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import kataminoButton.KataminoButton;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -45,11 +46,12 @@ public class MainMenuController implements Initializable {
         settings.setButtonName("Settings");
 
         // initialize the media player
-/*        Media media = new Media(new File("src/main/resources/background.mp4").toURI().toString());
+        Media media = new Media(new File("src/main/resources/background.mp4").toURI().toString());
         MediaPlayer player = new MediaPlayer(media);
         player.setAutoPlay(true);
         player.setCycleCount(MediaPlayer.INDEFINITE);
-        background.setMediaPlayer(player);*/
+        background.setMediaPlayer(player);
+
         //MediaPlayer player = new MediaPlayer(new Media(getClass().getResource("background.mp4").toExternalForm()));
         //player.setAutoPlay(true);
         //player.setCycleCount(MediaPlayer.INDEFINITE);

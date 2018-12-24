@@ -46,7 +46,7 @@ public class CustomBoardMenuController implements Initializable {
 
     @FXML
     public void backButtonClicked(MouseEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("customMenu.fxml"));
         root.getChildren().setAll(pane);
     }
 
