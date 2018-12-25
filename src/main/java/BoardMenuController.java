@@ -58,7 +58,7 @@ public class BoardMenuController implements Initializable {
 
         //for later use Integer.parseInt(((KataminoBoardButton)event.getSource()).getId())
         int boardNo=  ((KataminoBoardButton)(event.getSource())).getButtonId();
-        gameController.setBoardId(boardNo);
+        gameController.setBoardId(boardNo+4);
 
         gameController.startMulti();
        System.out.println((((KataminoBoardButton)event.getSource()).getId()));
