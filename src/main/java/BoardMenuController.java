@@ -64,7 +64,7 @@ public class BoardMenuController implements Initializable {
        System.out.println((((KataminoBoardButton)event.getSource()).getId()));
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setWidth(1250);
-        stage.setHeight(850);
+        stage.setHeight(720);
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);

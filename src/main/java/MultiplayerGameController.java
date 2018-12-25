@@ -40,8 +40,9 @@ public class MultiplayerGameController extends GameController {
     @FXML
     Label playerLabel2;
     private boolean moveHasCompleted;
+
     @FXML
-    protected GridPane replayPane;
+    protected KataminoLongButton replayButton;
 
     @FXML
     KataminoLongButton exitButton;
@@ -65,42 +66,12 @@ public class MultiplayerGameController extends GameController {
 
     int boardId;
 
-    @FXML
-    protected KataminoButton replay;
-
     public MultiplayerGameController() {
-        try {
-            replay = new KataminoButton();
-            replay.setButtonName("Restart");
-            replay.setVisible(false);
-
-        }catch (IOException o)
-        {
-            System.out.println("olmadı");
-        }
         moveHasCompleted=false;
-
     }
     //  @FXML
   //  private AnchorPane root;
-    public void replayClicked(MouseEvent event) throws IOException {
-        game=new MultiplayerGame(((MultiplayerGame)game).getBoardID());
-        loadBoard();
-        ((MultiplayerGame)game).setTurn(MultiplayerGame.Turn.Player1);
-        turnChecker.playFromStart();
-        if (((MultiplayerGame) game).getTurn() == MultiplayerGame.Turn.Player1) {
-            ((MultiplayerGame) game).setTurn(MultiplayerGame.Turn.Player2);
-            playerLabel.setTextFill(Color.web("#ffe500"));
-            playerLabel2.setTextFill(Color.web("#808080"));
-        } else {
-            ((MultiplayerGame) game).setTurn(MultiplayerGame.Turn.Player1);
-            playerLabel2.setTextFill(Color.web("#ffe500"));
-            playerLabel.setTextFill(Color.web("#808080"));
-        }
-        pauseMenu.setDisable(true);
-        pauseMenu.setVisible(false);
 
-    }
     private boolean clashCheckForBoard(int row,int col){
         ArrayList<KataminoDragCell> newLocationCells = new ArrayList<>();
         Color cellColor = ((currentPentominoId % 12) >= 0 && (currentPentominoId != 0)) ? colorList.get(currentPentominoId % 12) : Color.web("#262626");
@@ -626,6 +597,7 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
         });
         exitButton.setButtonName("Exit");
         boardButton.setButtonName("Boards");
+        replayButton.setButtonName("Replay");
         pauseMenu.setOnMouseClicked(new EventHandler<MouseEvent>() { //not generic
             @Override
             public void handle(MouseEvent event) {
@@ -680,7 +652,6 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
                         String winner= ((MultiplayerGame)game).getTurn().toString();
                         stopwatchLabel.setText(winner+" Won!!");
                        // gridStack.setDisable(false);
-                        replay.setVisible(true);
                         turnChecker.stop();
 
                     }
@@ -748,6 +719,24 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
         root.getChildren().setAll(pane);
     }
 
+    public void replayClicked(MouseEvent event) throws IOException {
+        game=new MultiplayerGame(((MultiplayerGame)game).getBoardID());
+        loadBoard();
+        ((MultiplayerGame)game).setTurn(MultiplayerGame.Turn.Player1);
+        turnChecker.playFromStart();
+        if (((MultiplayerGame) game).getTurn() == MultiplayerGame.Turn.Player1) {
+            ((MultiplayerGame) game).setTurn(MultiplayerGame.Turn.Player2);
+            playerLabel.setTextFill(Color.web("#ffe500"));
+            playerLabel2.setTextFill(Color.web("#808080"));
+        } else {
+            ((MultiplayerGame) game).setTurn(MultiplayerGame.Turn.Player1);
+            playerLabel2.setTextFill(Color.web("#ffe500"));
+            playerLabel.setTextFill(Color.web("#808080"));
+        }
+        pauseMenu.setDisable(true);
+        pauseMenu.setVisible(false);
+
+    }
 }
 
 
