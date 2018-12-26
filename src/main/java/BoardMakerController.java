@@ -41,6 +41,8 @@ public class BoardMakerController extends GameController implements Initializabl
     @FXML
     protected KataminoButton blockButton;
 
+    @FXML protected  KataminoButton undoButton;
+
     private int currentPentominoID;
 
     private int[][] currentBoard;
@@ -49,9 +51,11 @@ public class BoardMakerController extends GameController implements Initializabl
     private boolean blocked = false;
     private boolean empty;
     private boolean newClicked;
+    private int count;
+    private KataminoDragCell cell;
 
 
-    protected ArrayList<Color> colorList = new ArrayList<Color>() {{
+    private ArrayList<Color> colorList = new ArrayList<Color>() {{
         add(Color.web("FF3B30"));
         add(Color.web("FF9500"));
         add(Color.web("FFCC00"));
@@ -71,11 +75,13 @@ public class BoardMakerController extends GameController implements Initializabl
         newKataminoButton.setButtonName("Next");
         confirmButton.setButtonName("Confirm");
         blockButton.setButtonName("Block");
+        undoButton.setButtonName("Undo");
         currentPentominoID = 0;
         currentColor = colorList.get(0);
         currentBoard = new int[11][22];
         empty = true;
         newClicked = false;
+        count = -1;
 
         for (int i = 0; i < 11; i++) {
             for (int j = 0; j < 22; j++) {
@@ -90,8 +96,8 @@ public class BoardMakerController extends GameController implements Initializabl
 
     private EventHandler<MouseEvent> colorTile = event ->  {
         System.out.println("Start: " + currentPentominoID);
-        KataminoDragCell cell = (KataminoDragCell)event.getSource();
-        int count = gameTilePane.getChildren().indexOf(cell);
+        cell = (KataminoDragCell)event.getSource();
+        count = gameTilePane.getChildren().indexOf(cell);
         boolean disconnected = false;
         boolean newKatamino = false;
 
@@ -165,6 +171,11 @@ public class BoardMakerController extends GameController implements Initializabl
         newClicked = false;
     };
 
+    @FXML
+    public void undoClicked() {
+        currentBoard[count/22][count%22] = -1;
+        cell.setCellColor(Color.web("#262626"));
+    }
     @FXML
     public void nextKataminoClicked()  {
         blocked = false;

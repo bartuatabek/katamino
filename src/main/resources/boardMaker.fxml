@@ -10,7 +10,7 @@
 <?import kataminoButton.KataminoButton?>
 <?import kataminoDragCell.KataminoDragCell?>
 
-<AnchorPane fx:id="root" prefHeight="700.0" prefWidth="1250.0" style="-fx-background-color: #262626;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BoardMakerController">
+<AnchorPane fx:id="root" prefHeight="700.0" prefWidth="1250.0" style="-fx-background-color: #262626;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BoardMakerController">
    <children>
       <GridPane alignment="CENTER" prefHeight="700.0" prefWidth="1250.0">
         <columnConstraints>
@@ -27,6 +27,7 @@
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -42,7 +43,7 @@
                         <Insets bottom="50.0" />
                      </padding>
                      <GridPane.margin>
-                        <Insets left="50.0" top="10.0" />
+                        <Insets left="30.0" top="10.0" />
                      </GridPane.margin>
                   </KataminoButton>
                   <KataminoButton fx:id="blockButton" onMouseClicked="#blockButtonClicked" GridPane.columnIndex="2">
@@ -50,15 +51,23 @@
                         <Insets bottom="50.0" />
                      </padding>
                      <GridPane.margin>
-                        <Insets left="50.0" top="10.0" />
+                        <Insets left="30.0" top="10.0" />
                      </GridPane.margin>
                   </KataminoButton>
                   <KataminoButton fx:id="newKataminoButton" onMouseClicked="#nextKataminoClicked" GridPane.columnIndex="3">
                      <padding>
-                        <Insets bottom="50.0" />
+                        <Insets bottom="40.0" />
                      </padding>
                      <GridPane.margin>
-                        <Insets left="50.0" top="10.0" />
+                        <Insets left="30.0" top="10.0" />
+                     </GridPane.margin>
+                  </KataminoButton>
+                  <KataminoButton fx:id="undoButton" onMouseClicked="#undoClicked" GridPane.columnIndex="4">
+                     <padding>
+                        <Insets bottom="40.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets left="30.0" top="10.0" />
                      </GridPane.margin>
                   </KataminoButton>
                </children>
