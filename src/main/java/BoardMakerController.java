@@ -68,7 +68,7 @@ public class BoardMakerController extends GameController implements Initializabl
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        newKataminoButton.setButtonName("Next Katamino");
+        newKataminoButton.setButtonName("Next");
         confirmButton.setButtonName("Confirm");
         blockButton.setButtonName("Block");
         currentPentominoID = 0;
@@ -141,15 +141,17 @@ public class BoardMakerController extends GameController implements Initializabl
         System.out.println( "blocked: " + blocked);
         System.out.println( "newKatamino: " + newKatamino);
         if(!disconnected) {
-            if(blocked) {
+            if(newKatamino) {
+                nextKataminoClicked();
+            }
+            if(!blocked) {
+                currentBoard[count / 22][count % 22] = currentPentominoID;
+            }
+            else {
                 cell.setBlocked(true);
                 currentBoard[count/22][count%22] = -2;
             }
-            else if(newKatamino) {
-                nextKataminoClicked();
-            }
 
-            currentBoard[count / 22][count % 22] = currentPentominoID;
             cell.setCellColor(currentColor);
 
             System.out.println("----------------------------");
