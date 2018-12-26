@@ -147,18 +147,18 @@ public class BoardMakerController extends GameController implements Initializabl
         System.out.println( "blocked: " + blocked);
         System.out.println( "newKatamino: " + newKatamino);
         if(!disconnected) {
-            if(newKatamino) {
+            if(!blocked && newKatamino) {
                 nextKataminoClicked();
             }
-            if(!blocked) {
+            if(!blocked)
                 currentBoard[count / 22][count % 22] = currentPentominoID;
-            }
             else {
                 cell.setBlocked(true);
                 currentBoard[count/22][count%22] = -2;
             }
 
             cell.setCellColor(currentColor);
+
 
             System.out.println("----------------------------");
             for (int i = 0; i < 11; i++) {

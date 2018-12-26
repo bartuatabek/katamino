@@ -679,7 +679,7 @@ private  ArrayList<Node> helperGroupFinder(KataminoDragCell cell){
         gridStack.setOnMouseReleased(eventHandler);
 
     }
-    Timeline turnChecker = new Timeline(new KeyFrame(Duration.seconds(15), event2 -> {
+    Timeline turnChecker = new Timeline(new KeyFrame(Duration.seconds(25), event2 -> {
         game.setStopwatch(new Stopwatch());
         game.startStopWatch();
 

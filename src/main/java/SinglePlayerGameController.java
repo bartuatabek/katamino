@@ -80,7 +80,7 @@ public class SinglePlayerGameController extends GameController{
                 });
             }
         }
-        tutorial6.setVisible(false);
+            tutorial6.setVisible(false);
         tutorial6.setDisable(true);
         animate(false, false);
     }
@@ -256,7 +256,6 @@ public class SinglePlayerGameController extends GameController{
                 }
             }
         });
-
         gameTilePane.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -345,7 +344,6 @@ public class SinglePlayerGameController extends GameController{
     @FXML
     public void exitButtonClicked(MouseEvent event) throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
-    //    ( ( (SinglePlayerGame)game).getPlayer()).setLatestBoard(((SinglePlayerGame)game).getGameBoard().getBoard(),game.getElapsedSeconds());
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
          ( (SinglePlayerGame)game).savePlayerBoard();
         stage.setWidth(750);
