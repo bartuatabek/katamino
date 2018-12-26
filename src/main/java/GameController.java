@@ -33,16 +33,16 @@ public abstract class GameController implements Initializable {
     protected ArrayList<Color> colorList = new ArrayList<Color>() {{
         add(Color.web("FF3B30"));
         add(Color.web("FF9500"));
-        add(Color.web("FFCC00"));
+        add(Color.web("FFF700"));
         add(Color.web("4CD964"));
-        add(Color.web("5AFAFA"));
+        add(Color.web("2D7D7D"));
         add(Color.web("007AFF"));
         add(Color.web("5856D6"));
-        add(Color.web("FF2D55"));
+        add(Color.web("9856D6"));
         add(Color.web("8B572A"));
         add(Color.web("B8E986"));
         add(Color.web("BD10E0"));
-        add(Color.web("FF5700"));
+        add(Color.web("FFBB99"));
     }};
 
     KataminoDragCell kataminoDragCell;
