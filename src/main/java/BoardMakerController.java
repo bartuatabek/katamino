@@ -198,7 +198,7 @@ public class BoardMakerController extends GameController implements Initializabl
         System.out.println("CONFIRM");
 
         FileManager fm = new FileManager();
-        fm.saveCustomBoard(currentBoard, "board1");
+        fm.saveCustomBoard(currentBoard);
     }
 
     @FXML

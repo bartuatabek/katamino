@@ -8,10 +8,13 @@ import org.omg.CORBA.INTERNAL;
 
 import java.io.FileNotFoundException;
 import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class FileManager {
     private Gson gson;
@@ -32,8 +35,8 @@ public class FileManager {
         return  solutions[levelNo-1];
     }
 
-    boolean saveCustomBoard(int[][] board, String boardName) throws IOException {
-        /*String dir = System.getProperty("user.dir") + "/src/CustomBoards" ;
+    boolean saveCustomBoard(int[][] board) throws IOException {
+        String dir = System.getProperty("user.dir") + "/src/CustomBoards" ;
         File file = new File(dir);
         if (!file.exists()) {
             if (file.mkdir()) {
@@ -43,6 +46,12 @@ public class FileManager {
             }
         }
         try {
+            long count;
+            try (Stream<Path> files = Files.list(Paths.get(dir))) {
+                count = files.count();
+            }
+            count++;
+            String boardName = "board_" + count;
             String filename = dir+"/"+boardName+".json";
             FileWriter fw = new FileWriter(filename);
             System.out.println(filename);
@@ -54,7 +63,7 @@ public class FileManager {
             e.printStackTrace();
             return false;
         }
-*/
+        /*
 
         int latest=0;
         try {
@@ -80,7 +89,7 @@ public class FileManager {
         }
        return  false;
 
-
+    */
     }
 
     public Player loadPlayer(String name) {
