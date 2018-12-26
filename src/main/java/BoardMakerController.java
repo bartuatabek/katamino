@@ -203,7 +203,7 @@ public class BoardMakerController extends GameController implements Initializabl
 
     @FXML
     public void backButtonClicked(MouseEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("modeSelectionMenu.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("customMenu.fxml"));
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 
         stage.setWidth(750);

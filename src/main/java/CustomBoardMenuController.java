@@ -23,12 +23,35 @@ public class CustomBoardMenuController implements Initializable {
 
     @FXML
     private GridPane gridPane;
-
+int start=6;
     @FXML
     private AnchorPane root;
 
     public void initialize(URL location, ResourceBundle resources) {
-        for (int i = 0; i < gridPane.getChildren().size();i++) {
+        FileManager fm=new FileManager();
+        try {
+            for (int k = 0; k < (fm.levelNum()-start); k++) {
+
+                    ((KataminoBoardButton)gridPane.getChildren().get(k)).setBoardButton(k);
+                    gridPane.getChildren().get(k).setOnMouseClicked( new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            try {
+                                boardButtonClicked(event);
+                            } catch (Exception e) {
+                                System.out.println(e);
+                            }
+                        }
+                    });
+
+            }
+            for(int f= fm.levelNum()-start;f<gridPane.getChildren().size();f++)
+            {
+                (gridPane.getChildren().get(f)).setDisable(true);
+                (gridPane.getChildren().get(f)).setVisible(false);
+            }
+        }catch (IOException T){}
+      /*  for (int i = 0; i < gridPane.getChildren().size();i++) {
             ((KataminoBoardButton)gridPane.getChildren().get(i)).setBoardButton(i);
             gridPane.getChildren().get(i).setOnMouseClicked( new EventHandler<MouseEvent>() {
                 @Override
@@ -40,7 +63,7 @@ public class CustomBoardMenuController implements Initializable {
                     }
                 }
             });
-        }
+        }*/
 
     }
 
@@ -52,12 +75,12 @@ public class CustomBoardMenuController implements Initializable {
 
     @FXML
     public void boardButtonClicked(MouseEvent event) throws IOException {
-        FXMLLoader customGameLoader = new FXMLLoader(getClass().getResource("singlePlayerGame.fxml"));
+        FXMLLoader customGameLoader = new FXMLLoader(getClass().getResource("customSingleGame.fxml"));
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         AnchorPane pane = customGameLoader.load();
         SinglePlayerGameController gameController = customGameLoader.getController();
         int boardNo=  ((KataminoBoardButton)(event.getSource())).getButtonId();
-        gameController.gameSetup(boardNo+1,null);
+        gameController.gameSetup(boardNo+start,null);
         System.out.println((((KataminoBoardButton)event.getSource()).getId()));
         stage.setWidth(1250);
         stage.setHeight(750);
