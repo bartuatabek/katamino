@@ -442,8 +442,10 @@ public abstract class GameController implements Initializable {
         @Override
         public void handle(KeyEvent event) {
             preview.setPentomino(pentominoTransform(event));
-            if(game instanceof SinglePlayerGame){
+            if(game instanceof SinglePlayerGame &&((SinglePlayerGame) game).getGameScore() >= 10 && event.getCode() == KeyCode.H){
+                ((SinglePlayerGame) game).getPlayer().setHighScore(((SinglePlayerGame) game).getPlayer().getHighScore() - 10);
                 generateHint(event);
+                playerLabel.setText(((SinglePlayerGame) game).getPlayer().getPlayerName() + " " + ((SinglePlayerGame) game).getPlayer().getHighScore());
             }
             event.consume();
         }

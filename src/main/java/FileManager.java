@@ -87,7 +87,12 @@ ArrayList<ArrayList< Integer> > allInfo= new ArrayList<>();
                         boolean couldNotCheck5=false;
                         boolean movable8=true;
                         boolean couldNotCheck8=false;
-
+                        boolean movable7=true;
+                        boolean couldNotCheck7=false;
+                        boolean movable9=true;
+                        boolean couldNotCheck9=false;
+                        boolean movable10=true;
+                        boolean couldNotCheck10=false;
                         for(ArrayList<Integer> all:friends)
                         {
                             System.out.println(all);
@@ -140,6 +145,30 @@ ArrayList<ArrayList< Integer> > allInfo= new ArrayList<>();
                             }
                             else
                                 couldNotCheck8=true;
+
+
+
+                            if(((all.get(1)+2)>11)&&((all.get(2)+2)>22)){
+                                if(board[all.get(1)+2][all.get(2)+2]!=-1)
+                                    movable7=false;
+                            }
+                            else
+                                couldNotCheck7=true;
+
+                            if(((all.get(1)-1)>11)&&((all.get(2)-1)>22)){
+                                if(board[all.get(1)-1][all.get(2)-1]!=-1)
+                                    movable9=false;
+                            }
+                            else
+                                couldNotCheck9=true;
+                            if(((all.get(1)+1)>11)&&((all.get(2)+1)>22)){
+                                if(board[all.get(1)+1][all.get(2)+1]!=-1)
+                                    movable10=false;
+                            }
+                            else
+                                couldNotCheck10=true;
+
+
                         }
                         System.out.println("CurrentId:" +currentID);
                         for(ArrayList<Integer> all:friends) {
@@ -168,6 +197,18 @@ ArrayList<ArrayList< Integer> > allInfo= new ArrayList<>();
                             else if(movable8&&(!couldNotCheck8))
                             {
                                 board[all.get(1)-2][all.get(2)-2]=currentID;
+                            }
+                            else if(movable7&&(!couldNotCheck7))
+                            {
+                                board[all.get(1)+2][all.get(2)+2]=currentID;
+                            }
+                            else if(movable9&&(!couldNotCheck9))
+                            {
+                                board[all.get(1)-1][all.get(2)-1]=currentID;
+                            }
+                            else if(movable10&&(!couldNotCheck10))
+                            {
+                                board[all.get(1)+1][all.get(2)+1]=currentID;
                             }
                             else
                                 System.out.println("OLMADI");
