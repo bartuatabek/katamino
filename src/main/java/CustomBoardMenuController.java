@@ -23,15 +23,16 @@ public class CustomBoardMenuController implements Initializable {
 
     @FXML
     private GridPane gridPane;
-int start=6;
+
+int customStart=4;
     @FXML
     private AnchorPane root;
 
     public void initialize(URL location, ResourceBundle resources) {
         FileManager fm=new FileManager();
         try {
-            for (int k = 0; k < (fm.levelNum()-start); k++) {
-
+       //     customStart=(fm.levelNum()-start);
+            for (int k = 0; k < fm.levelNum()-customStart +1; k++) {
                     ((KataminoBoardButton)gridPane.getChildren().get(k)).setBoardButton(k);
                     gridPane.getChildren().get(k).setOnMouseClicked( new EventHandler<MouseEvent>() {
                         @Override
@@ -45,26 +46,12 @@ int start=6;
                     });
 
             }
-            for(int f= fm.levelNum()-start;f<gridPane.getChildren().size();f++)
+            for(int f= fm.levelNum()-customStart+1; f< gridPane.getChildren().size();f++)
             {
                 (gridPane.getChildren().get(f)).setDisable(true);
                 (gridPane.getChildren().get(f)).setVisible(false);
             }
         }catch (IOException T){}
-      /*  for (int i = 0; i < gridPane.getChildren().size();i++) {
-            ((KataminoBoardButton)gridPane.getChildren().get(i)).setBoardButton(i);
-            gridPane.getChildren().get(i).setOnMouseClicked( new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    try {
-                        boardButtonClicked(event);
-                    } catch (Exception e) {
-                        System.out.println(e);
-                    }
-                }
-            });
-        }*/
-
     }
 
     @FXML
@@ -80,7 +67,7 @@ int start=6;
         AnchorPane pane = customGameLoader.load();
         SinglePlayerGameController gameController = customGameLoader.getController();
         int boardNo=  ((KataminoBoardButton)(event.getSource())).getButtonId();
-        gameController.gameSetup(boardNo+start,null);
+        gameController.gameSetup(customStart+boardNo,null);
         System.out.println((((KataminoBoardButton)event.getSource()).getId()));
         stage.setWidth(1250);
         stage.setHeight(750);
