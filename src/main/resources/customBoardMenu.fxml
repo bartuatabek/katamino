@@ -11,7 +11,7 @@
 
 
 <?import kataminoBoardButton.KataminoBoardButton?>
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BoardMenuController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CustomBoardMenuController">
     <children>
         <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="750.0" style="-fx-background-color: #262626;">
             <columnConstraints>
@@ -49,10 +49,15 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <KataminoBoardButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" scaleX="1.0" scaleY="1.0" scaleZ="1.0" GridPane.rowIndex="1" />
-                        <KataminoBoardButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" scaleX="1" scaleY="1.0" scaleZ="1.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <KataminoBoardButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" scaleX="1" scaleY="1" scaleZ="1.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-
+                        <KataminoBoardButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" scaleX="0.4" scaleY="0.4" scaleZ="0.4" GridPane.rowIndex="1" />
+                        <KataminoBoardButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" scaleX="0.4" scaleY="0.4" scaleZ="0.4" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <KataminoBoardButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" scaleX="0.4" scaleY="0.4" scaleZ="0.4" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <KataminoBoardButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" scaleX="0.4" scaleY="0.4" scaleZ="0.4" />
+                        <KataminoBoardButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" scaleX="0.4" scaleY="0.4" scaleZ="0.4" GridPane.columnIndex="2" />
+                        <KataminoBoardButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" scaleX="0.4" scaleY="0.4" scaleZ="0.4" GridPane.rowIndex="1" />
+                        <KataminoBoardButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" scaleX="0.4" scaleY="0.4" scaleZ="0.4" GridPane.rowIndex="2" />
+                        <KataminoBoardButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" scaleX="0.4" scaleY="0.4" scaleZ="0.4" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <KataminoBoardButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" scaleX="0.4" scaleY="0.4" scaleZ="0.4" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                     </children>
                 </GridPane>
             </children>

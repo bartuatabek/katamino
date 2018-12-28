@@ -66,10 +66,13 @@ public class PlayerSelectionController implements Initializable {
         players = FXCollections.observableArrayList();
         savedPlayers = fm.loadPlayerNames();
         players.addAll(savedPlayers);
-        if(!players.isEmpty())
+        if (!players.isEmpty())
          continueButton.setButtonName(players.get(0));
-        else
+        else {
             continueButton.setButtonName("");
+            continueButton.setDisable(true);
+        }
+
     }
 
     public void leftButtonClicked(MouseEvent e) {
@@ -191,6 +194,7 @@ public class PlayerSelectionController implements Initializable {
 
     @FXML
     public void createButtonClicked() {
+        continueButton.setDisable(false);
         continueButton.setEditing(true);
         root.getScene().setOnKeyPressed(keyPressed);
     }

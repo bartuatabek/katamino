@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+
 public class Level {
     private Integer[][] board;
     private Integer[][] solution;
@@ -11,7 +13,6 @@ public class Level {
         catch(Exception e)
         {}
     }
-
     public Integer[][] getSolution() {
         return solution;
     }

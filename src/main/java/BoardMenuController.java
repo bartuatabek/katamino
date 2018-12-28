@@ -30,14 +30,11 @@ public class BoardMenuController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         for (int i = 0; i < gridPane.getChildren().size();i++) {
             ((KataminoBoardButton)gridPane.getChildren().get(i)).setBoardButton(i);
-            gridPane.getChildren().get(i).setOnMouseClicked( new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    try {
-                        boardButtonClicked(event);
-                    } catch (Exception e) {
-                        System.out.println(e);
-                    }
+            gridPane.getChildren().get(i).setOnMouseClicked(event -> {
+                try {
+                    boardButtonClicked(event);
+                } catch (Exception e) {
+                    System.out.println(e);
                 }
             });
         }
@@ -61,13 +58,13 @@ public class BoardMenuController implements Initializable {
 
         //for later use Integer.parseInt(((KataminoBoardButton)event.getSource()).getId())
         int boardNo=  ((KataminoBoardButton)(event.getSource())).getButtonId();
-        gameController.setBoardId(boardNo);
+        gameController.setBoardId(boardNo+4);
 
         gameController.startMulti();
        System.out.println((((KataminoBoardButton)event.getSource()).getId()));
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setWidth(1250);
-        stage.setHeight(850);
+        stage.setHeight(720);
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);

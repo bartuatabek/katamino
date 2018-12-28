@@ -85,7 +85,7 @@ public class LevelMenuController implements Initializable {
             int accessibleLevelLimit = player.getAccessibleLevel();
 
             for (int i = 0; i < gridPane.getChildren().size();i++) {
-                if (i >= accessibleLevelLimit) {
+                if (i > accessibleLevelLimit) {
                     ((KataminoLevelButton)gridPane.getChildren().get(i)).setOpacity(0.5);
                     ((KataminoLevelButton)gridPane.getChildren().get(i)).setDisable(true);
                 } else {

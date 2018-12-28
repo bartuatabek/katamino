@@ -3,17 +3,15 @@
  * @version 1.0
  */
 
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 import javafx.animation.*;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Point3D;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 
@@ -24,7 +22,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
-import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import kataminoDragBlock.KataminoDragBlock;
 import kataminoDragCell.KataminoDragCell;
@@ -36,16 +33,16 @@ public abstract class GameController implements Initializable {
     protected ArrayList<Color> colorList = new ArrayList<Color>() {{
         add(Color.web("FF3B30"));
         add(Color.web("FF9500"));
-        add(Color.web("FFCC00"));
+        add(Color.web("FFF700"));
         add(Color.web("4CD964"));
-        add(Color.web("5AFAFA"));
+        add(Color.web("2D7D7D"));
         add(Color.web("007AFF"));
         add(Color.web("5856D6"));
-        add(Color.web("FF2D55"));
+        add(Color.web("9856D6"));
         add(Color.web("8B572A"));
         add(Color.web("B8E986"));
         add(Color.web("BD10E0"));
-        add(Color.web("FF5700"));
+        add(Color.web("FFBB99"));
     }};
 
     KataminoDragCell kataminoDragCell;
@@ -71,8 +68,7 @@ public abstract class GameController implements Initializable {
     protected AnchorPane gridStack;
 
     protected KataminoDragBlock preview;
-    Integer mouseRow = -1;
-    Integer mouseCol = -1;
+    private FileManager fm;
 
     public boolean isFull() {
         ObservableList<Node> cells = gameTilePane.getChildren();
@@ -123,7 +119,7 @@ public abstract class GameController implements Initializable {
 
     public Integer[] findLocationTilePane(Node node, TilePane tilePane){
         for (int i = 0; i < tilePane.getPrefRows(); i++) {
-            for(int j = 0;j< tilePane.getPrefColumns(); j++) {
+            for(int j = 0; j < tilePane.getPrefColumns(); j++) {
                 if(node == tilePane.getChildren().get((i * 22) + j)) {
                     Integer[] location = new Integer[2];
                     location[0] = i;
@@ -135,13 +131,30 @@ public abstract class GameController implements Initializable {
         return null;
     }
     public void generateHint(KeyEvent event){
+        Integer [][] solution;
+        ArrayList<ArrayList<Integer>> hintCoords = new ArrayList<>();
+        fm = new FileManager();
+        try {
+            solution = fm.loadSolution(((SinglePlayerGame)game).getCurrentLevel());
+            if (event.getCode() == KeyCode.H) {
+                for (int i = 0; i < solution.length; i++) {
+                    for (int j = 0; j < solution[0].length; j++) {
+                        ArrayList<Integer> coord = new ArrayList<>();
+                        if (solution[i][j] == currentPentominoId) {
+                            coord.add(i);
+                            coord.add(j);
+                            hintCoords.add(coord);
+                        }
+                    }
+                }
+            }
+            displayHint(hintCoords);
 
-        if (event.getCode() == KeyCode.H) {
-            displayHint(game.getHintCoords(currentPentominoId));
+        } catch (FileNotFoundException e) {
+            System.out.println("No solution for level");
+    }
 
         }
-
-    }
     public void displayHint(ArrayList<ArrayList<Integer>> coords) {
         Color[] prevColors = new Color[coords.size()];
         ObservableList<Node> cells = gameTilePane.getChildren();
@@ -152,6 +165,7 @@ public abstract class GameController implements Initializable {
             ind[0]++;
             currentPentomino.setCellColor(hintIndicationColor);
         }
+
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
                     @Override
@@ -159,7 +173,10 @@ public abstract class GameController implements Initializable {
                         ind[0] = 0;
                         for (ArrayList<Integer> coord : coords){
                             KataminoDragCell currentPentomino = (KataminoDragCell) gameTilePane.getChildren().get((coord.get(0) * 22) + coord.get(1));
-                            currentPentomino.setCellColor(prevColors[ind[0]]);
+                            if(currentPentomino.getPentominoInstanceID() == 0)
+                            {
+                                currentPentomino.setCellColor(prevColors[ind[0]]);
+                            }
                             ind[0]++;
                         }
                     }
@@ -169,7 +186,7 @@ public abstract class GameController implements Initializable {
     }
 
 
-    public void generatePreview(MouseEvent e) {
+    public void generatePreview(MouseEvent e){
         if (((KataminoDragCell) e.getSource()).getPentominoInstanceID() > 0 && !gridStack.isVisible()) {
             try {
                 preview.relocate(0, 0);
@@ -187,10 +204,12 @@ public abstract class GameController implements Initializable {
                         }
                     }
                 }
+
                 preview.setPentomino(children);
                 preview.setOpacity(0.5);
                 preview.setLayoutY(preview.getLayoutY() + timerPane.getHeight());
                 gridStack.setVisible(true);
+                System.out.println(coordinateArr);
                 gridStack.getScene().setOnKeyPressed(keyPressed);
             } catch (Exception exp) {
                 System.out.println(exp);
@@ -223,6 +242,7 @@ public abstract class GameController implements Initializable {
     }
 
     public int[][] pentominoTransform(KeyEvent e) {
+
         boolean crossesBorder = false;
         ArrayList<ArrayList<Integer>> temp = new ArrayList<>();
         for(ArrayList<Integer> coord : coordinateArr){
@@ -231,6 +251,7 @@ public abstract class GameController implements Initializable {
             t_coord.add(coord.get(1));
             temp.add(t_coord);
         }
+        System.out.println(temp);
 
         int grid[][] = new int[11][22];
         int smllsRow = 1000;
@@ -273,28 +294,50 @@ public abstract class GameController implements Initializable {
                 break;
             }
         }
-
-        Integer dif_row = mouseRow - temp.get(0).get(0);
-        Integer dif_col = mouseCol - temp.get(0).get(1);
+        // find smallest column and row that is negative
+        int smNegRow = 0;
+        int smNegCol = 0;
         for (ArrayList<Integer> cell_coord : temp) {
-            if(cell_coord.get(0) + dif_row < 0 || cell_coord.get(1) + dif_col <0 || cell_coord.get(1) + dif_col >20 || cell_coord.get(0) + dif_row >10 ){
-                crossesBorder = true;
+            if (cell_coord.get(0) < smNegRow){
+                smNegRow = cell_coord.get(0);
             }
-            cell_coord.set(0, cell_coord.get(0) + dif_row);
-            cell_coord.set(1, cell_coord.get(1) + dif_col);
+            if(cell_coord.get(1) < smNegCol){
+                smNegCol = cell_coord.get(1);
+            }
         }
 
-        if(!crossesBorder){
-            int ind = 0;
-            for(ArrayList<Integer> coord : temp){
-                ArrayList<Integer> t_coord = new ArrayList<>();
-                t_coord.add(coord.get(0));
-                t_coord.add(coord.get(1));
-                coordinateArr.set(ind, t_coord);
-                ind++;
+        System.out.println("smallest Negative Col: " + smNegCol);
+        System.out.println("smallest Negative Row: " + smNegRow);
+
+        int bigCrossingRow = 10;
+        int bigCrossingCol = 21;
+        for (ArrayList<Integer> cell_coord : temp) {
+            if (cell_coord.get(0) > bigCrossingRow){
+                bigCrossingRow = cell_coord.get(0);
+            }
+            if(cell_coord.get(1) > bigCrossingCol){
+                bigCrossingCol = cell_coord.get(1);
             }
         }
-        System.out.println(coordinateArr);
+
+        System.out.println("bigCrossing Col: " + bigCrossingCol);
+        System.out.println("sbigCrossingRow: " + bigCrossingRow);
+
+        for (ArrayList<Integer> cell_coord : temp) {
+            cell_coord.set(0,  cell_coord.get(0) - (bigCrossingRow - 10)  - smNegRow);
+            cell_coord.set(1,  cell_coord.get(1) - (bigCrossingCol - 21)  -  smNegCol) ;
+        }
+
+
+        System.out.println(temp);
+        int ind = 0;
+        for(ArrayList<Integer> coord : temp){
+            ArrayList<Integer> t_coord = new ArrayList<>();
+            t_coord.add(coord.get(0));
+            t_coord.add(coord.get(1));
+            coordinateArr.set(ind, t_coord);
+            ind++;
+        }
         for (ArrayList<Integer> coord : coordinateArr) {
             grid[coord.get(0)][coord.get(1)] = currentPentominoId;
         }
@@ -331,31 +374,6 @@ public abstract class GameController implements Initializable {
             coord.set(0, nrow);
             coord.set(1, ncol);
         }
-    }
-    public void getMousePos(MouseEvent event){
-        try {
-            int rowNode = 0;
-            int colNode = 0;
-            for (Node node : gameTilePane.getChildren()) {
-                if (node instanceof KataminoDragCell) {
-                    if (node.getBoundsInParent().contains(event.getSceneX(), event.getSceneY())) {
-                        Integer[] location = findLocationTilePane(node, gameTilePane);
-                        if (location[0] != null) {
-                            rowNode = location[0] - 1;
-                        }
-                        if (location[1] != null) {
-                            colNode = location[1];
-                        }
-                    }
-                }
-            }
-            this.mouseRow = rowNode;
-            this.mouseCol = colNode;
-        }
-        catch (Exception e) {
-                System.out.println(e);
-            }
-            event.consume();
     }
 
     public void flipVertically(int width, int height, int smllsRow, int smllsCol, ArrayList<ArrayList<Integer>> tempCoords) {
@@ -424,7 +442,11 @@ public abstract class GameController implements Initializable {
         @Override
         public void handle(KeyEvent event) {
             preview.setPentomino(pentominoTransform(event));
-            generateHint(event);
+            if(game instanceof SinglePlayerGame &&((SinglePlayerGame) game).getGameScore() >= 10 && event.getCode() == KeyCode.H){
+                ((SinglePlayerGame) game).getPlayer().setHighScore(((SinglePlayerGame) game).getPlayer().getHighScore() - 10);
+                generateHint(event);
+                playerLabel.setText(((SinglePlayerGame) game).getPlayer().getPlayerName() + " " + ((SinglePlayerGame) game).getPlayer().getHighScore());
+            }
             event.consume();
         }
     };
@@ -451,7 +473,15 @@ public abstract class GameController implements Initializable {
             ArrayList<Integer> arrayList = new ArrayList<Integer>();
             arrayList.add(rowIndex);
             arrayList.add(colIndex);
-            coordinateArr.add(arrayList);
+            boolean has = false;
+            for (ArrayList <Integer> coord: coordinateArr){
+                if(arrayList.get(0).equals(coord.get(0)) && arrayList.get(1).equals(coord.get(1))){
+                    has =true;
+                }
+            }
+            if(!has){
+                coordinateArr.add(arrayList);
+            }
             oldNodes.add(currentSearch.pop());
             if (colIndex + 1 <= 21) {
                 currentPentomino = (KataminoDragCell) cells.get(rowIndex * 22 + colIndex + 1);

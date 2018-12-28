@@ -80,7 +80,7 @@ public class SinglePlayerGameController extends GameController{
                 });
             }
         }
-        tutorial6.setVisible(false);
+            tutorial6.setVisible(false);
         tutorial6.setDisable(true);
         animate(false, false);
     }
@@ -101,7 +101,9 @@ public class SinglePlayerGameController extends GameController{
                     currentCell.setBorderColor(Color.WHITE);
             }
         }
-        GameBoard belongToElse= new GameBoard(((SinglePlayerGame)game).getPlayer().getLatestBoard());
+        int levelNo = ((SinglePlayerGame)game).getPlayer().getAccessibleLevel();
+        System.out.println(levelNo);
+        GameBoard belongToElse = new GameBoard(((SinglePlayerGame)game).getPlayer().getLatestBoard(),levelNo);
         game.setGameBoard(belongToElse);
         for (int i= 0; i <belongToElse.getGrid().length; i++) {
             for (int j = 0; j < belongToElse.getGrid()[0].length; j++) {
@@ -254,11 +256,9 @@ public class SinglePlayerGameController extends GameController{
                 }
             }
         });
-
         gameTilePane.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                SinglePlayerGameController.super.getMousePos(event);
                 preview.fireEvent(event);
             }
         });
@@ -266,7 +266,6 @@ public class SinglePlayerGameController extends GameController{
         gameTilePane.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                SinglePlayerGameController.super.getMousePos(event);
                 preview.fireEvent(event);
             }
         });
@@ -288,8 +287,6 @@ public class SinglePlayerGameController extends GameController{
                                 }
                             }
                         }
-                        SinglePlayerGameController.super.mouseCol = colNode;
-                        SinglePlayerGameController.super.mouseRow = rowNode;
                         for (int o = 0; o < 11; o++)
                         {
                             for (int k = 0; k < 22; k++){
@@ -347,7 +344,6 @@ public class SinglePlayerGameController extends GameController{
     @FXML
     public void exitButtonClicked(MouseEvent event) throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
-    //    ( ( (SinglePlayerGame)game).getPlayer()).setLatestBoard(((SinglePlayerGame)game).getGameBoard().getBoard(),game.getElapsedSeconds());
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
          ( (SinglePlayerGame)game).savePlayerBoard();
         stage.setWidth(750);
